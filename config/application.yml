@@ -4,3 +4,5 @@ spring:
     url: jdbc:mysql://localhost/BSDN
     username: root
     password: 137100
+server:
+  port: 8080
