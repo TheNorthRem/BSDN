@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/BSDN
-    username: root
-    password: 137100
+    url: jdbc:mysql://bj-cynosdbmysql-grp-p55yr6pq.sql.tencentcdb.com:29754/test?useSSL=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: syc
+    password: syc123456!
 server:
   port: 8081
