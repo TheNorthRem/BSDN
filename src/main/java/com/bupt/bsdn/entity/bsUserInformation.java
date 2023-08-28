@@ -15,7 +15,7 @@ import java.util.Date;
 public class bsUserInformation {
     @TableId(type = IdType.AUTO)
     @Schema(description = "用户的主键")
-    private int userId;
+    private Integer userId;
 
     @TableField("QQ")
     @Schema(description = "QQ号")

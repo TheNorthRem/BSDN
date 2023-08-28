@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bsUser")
 @Slf4j
-@Tag(name = "用户相关操作")
+@Tag(name = "用户")
 public class bsUserController {
     private final bsUserService bsUserService;
 
@@ -26,12 +26,6 @@ public class bsUserController {
     @Operation(summary = "查询全部用户")
     public List<bsUser> list() {
         return bsUserService.list();
-    }
-
-    @GetMapping("/searchID")
-    @Operation(summary = "根据ID查询")
-    public bsUser searchID(@RequestParam(name = "id") Integer id) {
-        return bsUserService.getById(id);
     }
 
     @PostMapping("/add")
@@ -53,8 +47,14 @@ public class bsUserController {
         return bsUserService.removeById(id);
     }
 
+    @GetMapping("/getById")
+    @Operation(summary = "根据ID查询")
+    public bsUser getById(@RequestParam(name = "id") Integer id) {
+        return bsUserService.getById(id);
+    }
+
     @GetMapping("/selectFive")
-    @Operation(summary = "选前5本书")
+    @Operation(summary = "选前5个用户(目前仅用于测试mybatis-plus)")
     public List<bsUser> selectFive() {
         return bsUserService.selectFive();
     }

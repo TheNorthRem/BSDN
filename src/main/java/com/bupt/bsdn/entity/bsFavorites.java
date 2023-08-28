@@ -17,5 +17,4 @@ public class bsFavorites {
     @TableField("userToId")
     @Schema(description = "被关注着的ID")
     private Integer userToId;
-
 }

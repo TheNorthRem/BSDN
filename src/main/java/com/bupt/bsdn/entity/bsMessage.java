@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 public class bsMessage {
     @TableId(type = IdType.AUTO)
     @Schema(description = "消息的主键")
-    private int messageId;
+    private Integer messageId;
 
     @TableField("userFromId")
     @Schema(description = "发出消息者的Id")

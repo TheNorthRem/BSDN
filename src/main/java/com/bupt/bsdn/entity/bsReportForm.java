@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class bsReportForm {
     @TableId(type = IdType.AUTO)
     @Schema(description = "举报表的主键")
-    private int reportId;
+    private Integer reportId;
 
     @TableField("reportUserId")
     @Schema(description = "举报者的Id")
