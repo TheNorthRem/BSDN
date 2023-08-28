@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Timestamp;
+
 @Data
 @TableName("bs_history")
 @Schema(name = "浏览历史")
@@ -23,5 +25,5 @@ public class bsHistory {
     @Schema(description = "浏览时间 如果 该用户在该文章中存在浏览记录 则更新访问时间 否则 插入")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Integer time;
+    private Timestamp time;
 }

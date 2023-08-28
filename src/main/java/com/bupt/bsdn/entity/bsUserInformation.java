@@ -16,21 +16,27 @@ public class bsUserInformation {
     @TableId(type = IdType.AUTO)
     @Schema(description = "用户的主键")
     private int userId;
+
     @TableField("QQ")
     @Schema(description = "QQ号")
     private String QQ;
+
     @TableField("birthday")
     @Schema(description = "生日")
     private Date birthday;
+
     @TableField("intro")
     @Schema(description = "留言")
     private String intro;
+
     @TableField("articleCount")
     @Schema(description = "发表文章数量")
     private Integer articleCount;
+
     @TableField("favoriteCount")
     @Schema(description = "关注数")
     private Integer favoriteCount;
+
     @TableField("clickCounts")
     @Schema(description = "点击数")
     private Integer clickCounts;

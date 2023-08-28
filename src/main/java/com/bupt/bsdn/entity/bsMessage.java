@@ -18,15 +18,19 @@ public class bsMessage {
     @TableId(type = IdType.AUTO)
     @Schema(description = "消息的主键")
     private int messageId;
+
     @TableField("userFromId")
     @Schema(description = "发出消息者的Id")
     private Integer userFromId;
+
     @TableField("userToId")
     @Schema(description = "接受消息者的Id")
     private Integer userToId;
+
     @TableField("content")
     @Schema(description = "消息内容")
     private String content;
+
     @TableField("time")
     @Schema(description = "消息发送时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
