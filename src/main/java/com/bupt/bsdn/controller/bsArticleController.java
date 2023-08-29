@@ -32,7 +32,6 @@ public class bsArticleController {
 
     @PostMapping("/add")
     @Operation(summary = "增加文章")
-
     public JSONObject add(@RequestBody bsArticle bsArticle) {
         bsArticle.setArticleId(null);
         return Result.ok(bsArticleService.save(bsArticle));
