@@ -30,11 +30,12 @@
           <div :class="$style.div" />
         </div>
         <div :class="$style.divjsx4212776476">
-          <div :class="$style.listSubmenu1">注册</div>
+          <button :class="$style.listSubmenu1">注册</button>
           <div :class="$style.divjsx42127764761" />
-          <div :class="$style.itemLink1">登录</div>
+          <button :class="$style.itemLink1" @click="showLogin = !showLogin">登录</button>
+          <Login v-if="showLogin"/>
           <div :class="$style.itemLink2">
-            <div :class="$style.div1">发布</div>
+            <button :class="$style.div1">发布</button>
           </div>
           <div :class="$style.buttonDownload1">个人主页</div>
         </div>
@@ -130,12 +131,22 @@
       </div>
     </div>
   </div>
+  
 </template>
 <script>
   import { defineComponent, ref } from "vue";
-
+  import Login from "./Login.vue";
   export default defineComponent({
     name: "Home",
+    components:{
+      Login
+    },
+    data() {
+      return {
+        showLogin: false
+      };
+    }
+    
   });
 </script>
 <style module>
@@ -290,6 +301,19 @@
     justify-content: space-between;
   }
   .listSubmenu1 {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #050505;
+    text-align: center;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 31px; /* 206.667% */
     position: absolute;
     top: -1px;
     left: 6px;
@@ -306,6 +330,18 @@
     height: 20px;
   }
   .itemLink1 {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #050505;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 31px; /* 206.667% */
     position: absolute;
     top: -2px;
     left: 85px;
@@ -313,6 +349,18 @@
     font-weight: 500;
   }
   .div1 {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #FFF;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 19px;
     position: relative;
     letter-spacing: 0.05px;
     line-height: 19px;

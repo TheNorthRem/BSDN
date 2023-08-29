@@ -139,7 +139,7 @@
     background-color: var(--color-white);
     border: 1px solid var(--color-darkgray);
     box-sizing: border-box;
-    width: 100%;
+    width: 500px;
     height: 523px;
     overflow: hidden;
     text-align: left;

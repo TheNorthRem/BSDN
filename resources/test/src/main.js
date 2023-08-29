@@ -19,11 +19,16 @@ import "./global.css";
 const routes = [
   {
     path: "/",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/login",
     name: "Login",
     component: Login,
   },
   {
-    path: "/",
+    path: "/person",
     name: "Person",
     component: Person,
   },
@@ -34,8 +39,8 @@ const routes = [
   },
   
   {
-    path: "/ccategorization",
-    name: "Ccategorization",
+    path: "/categorization",
+    name: "Categorization",
     component: Ccategorization,
   },
   {
@@ -43,11 +48,7 @@ const routes = [
     name: "Article",
     component: Article,
   },
-  {
-    path: "/home",
-    name: "Home",
-    component: Home,
-  },
+  
   {
     path: "/",
     name: "Frame",
