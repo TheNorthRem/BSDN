@@ -4,15 +4,13 @@ package com.bupt.bsdn.controller;
 import com.alibaba.fastjson2.JSONObject;
 import com.bupt.bsdn.config.Result;
 import com.bupt.bsdn.entity.bsArticle;
+import com.bupt.bsdn.service.bsArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.bupt.bsdn.service.bsArticleService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/bsArticle")
@@ -43,20 +41,20 @@ public class bsArticleController {
     @PostMapping("/edit")
     @Operation(summary = "修改文章")
     public JSONObject edit(@RequestBody bsArticle bsArticle) {
-        return  Result.ok(bsArticleService.updateById(bsArticle));
+        return Result.ok(bsArticleService.updateById(bsArticle));
     }
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除文章")
-    @Parameter(name="id",description = "文章Id")
+    @Parameter(name = "id", description = "文章Id")
     public JSONObject delete(@RequestParam(name = "id") Integer id) {
         return Result.ok(bsArticleService.removeById(id));
     }
 
     @GetMapping("/getById")
     @Operation(summary = "根据id查询")
-    @Parameter(name="id",description = "文章Id")
+    @Parameter(name = "id", description = "文章Id")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
-        return  Result.ok(bsArticleService.getById(id));
+        return Result.ok(bsArticleService.getById(id));
     }
 }
