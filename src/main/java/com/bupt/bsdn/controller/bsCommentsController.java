@@ -4,14 +4,12 @@ package com.bupt.bsdn.controller;
 import com.alibaba.fastjson2.JSONObject;
 import com.bupt.bsdn.config.Result;
 import com.bupt.bsdn.entity.bsComments;
+import com.bupt.bsdn.service.bsCommentsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.bupt.bsdn.service.bsCommentsService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/bsComments")
