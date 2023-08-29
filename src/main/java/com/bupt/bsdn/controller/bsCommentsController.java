@@ -32,7 +32,7 @@ public class bsCommentsController {
     @PostMapping("/add")
     @Operation(summary = "添加评论")
     public Boolean add(@RequestBody bsComments bsComments) {
-        bsComments.setCommentsID(null);
+        bsComments.setCommentsId(null);
         return bsCommentsService.save(bsComments);
     }
 

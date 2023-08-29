@@ -17,7 +17,7 @@ import java.util.Date;
 public class bsComments {
     @TableId(type = IdType.AUTO)
     @Schema(description = "主键")
-    private Integer commentsID;
+    private Integer commentsId;
 
     @TableField("articleID")
     @Schema(description = "回复文章的ID")

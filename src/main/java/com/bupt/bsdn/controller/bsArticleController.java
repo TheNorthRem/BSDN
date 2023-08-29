@@ -3,6 +3,7 @@ package com.bupt.bsdn.controller;
 
 import com.bupt.bsdn.entity.bsArticle;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class bsArticleController {
 
     @PostMapping("/add")
     @Operation(summary = "增加文章")
+
     public Boolean add(@RequestBody bsArticle bsArticle) {
         bsArticle.setArticleId(null);
         return bsArticleService.save(bsArticle);
@@ -44,12 +46,14 @@ public class bsArticleController {
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除文章")
+    @Parameter(name="id",description = "文章Id")
     public Boolean delete(@RequestParam(name = "id") Integer id) {
         return bsArticleService.removeById(id);
     }
 
     @GetMapping("/getById")
     @Operation(summary = "根据id查询")
+    @Parameter(name="id",description = "文章Id")
     public bsArticle getById(@RequestParam(name = "id") Integer id) {
         return bsArticleService.getById(id);
     }
