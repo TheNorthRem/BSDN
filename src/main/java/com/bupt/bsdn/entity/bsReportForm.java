@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Timestamp;
+
 @Data
 @TableName("bs_reportform")
 @Schema(description = "举报表")
@@ -37,5 +39,5 @@ public class bsReportForm {
     @Schema(description = "举报的时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Integer userFromId;
+    private Timestamp userFromId;
 }

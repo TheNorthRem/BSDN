@@ -14,6 +14,10 @@ import java.util.Date;
 @Schema(description = "用户信息")
 public class bsUserInformation {
     @TableId(type = IdType.AUTO)
+    @Schema(description = "用户信息的主键")
+    private Integer informationId;
+
+    @TableField("userId")
     @Schema(description = "用户的主键")
     private Integer userId;
 

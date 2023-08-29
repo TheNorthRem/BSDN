@@ -31,7 +31,7 @@ public class bsUserInformationController {
     @PostMapping("/add")
     @Operation(summary = "增加用户信息")
     public Boolean add(@RequestBody bsUserInformation bsUserInformation) {
-        bsUserInformation.setUserId(null);
+        bsUserInformation.setInformationId(null);
         return bsUserInformationService.save(bsUserInformation);
     }
 
