@@ -1,0 +1,23 @@
+{
+  "name": "test",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "vite",
+    "start": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "vite": "^4.3.2",
+    "@vitejs/plugin-vue": "^4.1.0"
+  },
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
+}
