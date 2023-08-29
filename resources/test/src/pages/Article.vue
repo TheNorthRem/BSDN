@@ -1,4 +1,5 @@
 <template>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <div :class="$style.article">
     <div :class="$style.header">
       <div :class="$style.divjsx4286260157">
@@ -20,11 +21,11 @@
         <div :class="$style.navPrimaryNavigation">
           <div :class="$style.listSubmenu">
             <div :class="$style.item">
-              <div :class="$style.buttonProduct">首页</div>
+              <v-btn  @click="openHome()" class="$style.buttonProduct">首页</v-btn>
               <img :class="$style.pseudoIcon" alt="" src="/pseudo.svg" />
             </div>
             <div :class="$style.item1">
-              <div :class="$style.buttonDownload">文章分类</div>
+              <v-btn @click="openCategory()" class="$style.buttonDownload">文章分类</v-btn>
               <img :class="$style.pseudoIcon1" alt="" src="/pseudo6.svg" />
             </div>
             <div :class="$style.item2">
@@ -77,6 +78,8 @@
 
   export default defineComponent({
     name: "Article",
+
+  
   });
 </script>
 <style module>
