@@ -2,8 +2,8 @@ package com.bupt.bsdn.service.impl;
 
 import com.bupt.bsdn.service.bsRedisCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,14 +12,13 @@ import java.util.concurrent.TimeUnit;
  * @author: syc
  * @date: 2023年08月29日 17:25
  */
+@Service
 public class bsRedisCacheServiceImpl implements bsRedisCacheService {
     private final RedisTemplate<String, String> redisTemplate;
-    private final int expirationTime; //过期时间(秒)
 
     @Autowired
-    public bsRedisCacheServiceImpl(RedisTemplate<String, String> redisTemplate, @Value("${expirationTime}") int expirationTime) {
+    public bsRedisCacheServiceImpl(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.expirationTime = expirationTime;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class bsRedisCacheServiceImpl implements bsRedisCacheService {
     }
 
     @Override
-    public void setToken(String userId, String token) {
+    public void setToken(String userId, String token, long expirationTime) {
         redisTemplate.opsForValue().set(userId, token, expirationTime, TimeUnit.SECONDS);
     }
 

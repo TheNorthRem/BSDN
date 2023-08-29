@@ -1,0 +1,21 @@
+spring:
+  datasource: #mysql 配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://bj-cynosdbmysql-grp-p55yr6pq.sql.tencentcdb.com:29754/test?useSSL=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: syc
+    password: syc123456!
+  data: # redis配置
+    redis:
+      database: 0
+      host: 127.0.0.1
+      lettuce:
+        pool:
+          max-active: -1 #最大连接数据库连接数,设 -1 为没有限制
+          max-idle: 0    #最大等待连接中的数量,设 0 为没有限制
+          max-wait: -1ms #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制
+          min-idle: 0    #最小等待连接中的数量,设 0 为没有限制
+        shutdown-timeout: 100ms
+      password: ''
+      port: 6379
+server: # 端口设置
+  port: 8081
