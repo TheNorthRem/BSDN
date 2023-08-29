@@ -123,11 +123,9 @@
         alt=""
         src="/8b239a6dc48354511d2e42d8aa6f439removebgpreview-1-1@2x.png"
       />
-      <div :class="$style.linkNotionHomeSvgWrapper">
-        <div :class="$style.linkNotionHomeSvg">
-          <div :class="$style.frame">
-            <div :class="$style.buttonSolutions1">BSDN</div>
-          </div>
+      <div :class="$style.linkNotionHomeSvg">
+        <div :class="$style.frame">
+          <div :class="$style.buttonSolutions1">BSDN</div>
         </div>
       </div>
     </div>
@@ -711,18 +709,11 @@
   }
   .linkNotionHomeSvg {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 112px;
-    height: 35px;
-    overflow: hidden;
-  }
-  .linkNotionHomeSvgWrapper {
-    position: absolute;
     top: 12px;
     left: 12px;
     width: 112px;
     height: 35px;
+    overflow: hidden;
   }
   .b239a6dc48354511d2e42d8aa6f439Parent {
     position: absolute;

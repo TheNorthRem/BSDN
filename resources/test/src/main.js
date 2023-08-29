@@ -1,10 +1,9 @@
 import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
-
+import Login from "./pages/Login.vue";
 import Person from "./pages/Person.vue";
 import Register from "./pages/Register.vue";
-import Login from "./pages/Login.vue";
 import Ccategorization from "./pages/Ccategorization.vue";
 import Article from "./pages/Article.vue";
 import Home from "./pages/Home.vue";
@@ -20,6 +19,11 @@ import "./global.css";
 const routes = [
   {
     path: "/",
+    name: "Login",
+    component: Login,
+  },
+  {
+    path: "/",
     name: "Person",
     component: Person,
   },
@@ -28,11 +32,7 @@ const routes = [
     name: "Register",
     component: Register,
   },
-  {
-    path: "/login",
-    name: "Login",
-    component: Login,
-  },
+  
   {
     path: "/ccategorization",
     name: "Ccategorization",

@@ -144,13 +144,13 @@
           alt=""
           src="/8b239a6dc48354511d2e42d8aa6f439removebgpreview-1-1@2x.png"
         />
-        <div :class="$style.linkNotionHomeSvgWrapper">
+        <button :class="$style.linkNotionHomeSvgWrapper">
           <div :class="$style.linkNotionHomeSvg">
             <div :class="$style.frame">
               <div :class="$style.buttonSolutions1">BSDN</div>
             </div>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   </div>
@@ -159,7 +159,7 @@
   import { defineComponent, ref } from "vue";
 
   export default defineComponent({
-    name: "Categorization",
+    name: "Ccategorization",
   });
 </script>
 <style module>
@@ -632,8 +632,12 @@
     width: 100.22%;
     top: 6.25%;
     left: 10.78%;
+    font-size: var(--font-size-13xl);
     line-height: 31px;
     font-weight: 900;
+    font-family: var(--font-inter);
+    color: var(--color-black);
+    text-align: left;
     display: flex;
     align-items: center;
     -webkit-text-stroke: 1px #fff;
@@ -654,6 +658,10 @@
     overflow: hidden;
   }
   .linkNotionHomeSvgWrapper {
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: transparent;
     position: absolute;
     top: 12px;
     left: 12px;
@@ -666,8 +674,6 @@
     left: 0px;
     width: 124px;
     height: 75px;
-    font-size: var(--font-size-13xl);
-    color: var(--color-black);
   }
   .header {
     position: absolute;
