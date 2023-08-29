@@ -1,5 +1,4 @@
 <template>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <div :class="$style.article">
     <div :class="$style.header">
       <div :class="$style.divjsx4286260157">
@@ -21,11 +20,11 @@
         <div :class="$style.navPrimaryNavigation">
           <div :class="$style.listSubmenu">
             <div :class="$style.item">
-              <v-btn  @click="openHome()" class="$style.buttonProduct">首页</v-btn>
+              <div :class="$style.buttonProduct">首页</div>
               <img :class="$style.pseudoIcon" alt="" src="/pseudo.svg" />
             </div>
             <div :class="$style.item1">
-              <v-btn @click="openCategory()" class="$style.buttonDownload">文章分类</v-btn>
+              <div :class="$style.buttonDownload">文章分类</div>
               <img :class="$style.pseudoIcon1" alt="" src="/pseudo6.svg" />
             </div>
             <div :class="$style.item2">
@@ -62,11 +61,9 @@
           alt=""
           src="/8b239a6dc48354511d2e42d8aa6f439removebgpreview-1-1@2x.png"
         />
-        <div :class="$style.linkNotionHomeSvgWrapper">
-          <div :class="$style.linkNotionHomeSvg">
-            <div :class="$style.frame">
-              <div :class="$style.buttonSolutions1">BSDN</div>
-            </div>
+        <div :class="$style.linkNotionHomeSvg">
+          <div :class="$style.frame">
+            <div :class="$style.buttonSolutions1">BSDN</div>
           </div>
         </div>
       </div>
@@ -78,8 +75,6 @@
 
   export default defineComponent({
     name: "Article",
-
-  
   });
 </script>
 <style module>
@@ -429,18 +424,11 @@
   }
   .linkNotionHomeSvg {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 112px;
-    height: 35px;
-    overflow: hidden;
-  }
-  .linkNotionHomeSvgWrapper {
-    position: absolute;
     top: 12px;
     left: 12px;
     width: 112px;
     height: 35px;
+    overflow: hidden;
   }
   .b239a6dc48354511d2e42d8aa6f439Parent {
     position: absolute;
