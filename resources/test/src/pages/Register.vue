@@ -1,18 +1,18 @@
 <template>
   <div :class="$style.register">
     <div :class="$style.header">
-      <b :class="$style.heading2">登录</b>
-      <b :class="$style.heading21">注册</b>
+      <button :class="$style.heading2" type="button" @click="toLogin">登录</button>
+      <div :class="$style.heading21">注册</div>
       <div :class="$style.headerChild" />
     </div>
     <div :class="$style.divblockbasicWrapperChaxw">
-      <div :class="$style.heading22">密码</div>
+      <input :class="$style.heading22" placeholder="密码">
     </div>
     <div :class="$style.divblockbasicWrapperChaxw1">
-      <div :class="$style.heading22">账号</div>
-    </div>
+      <input :class="$style.heading22" placeholder="账号">
+      </div>
     <div :class="$style.divblockbasicWrapperChaxw2">
-      <div :class="$style.heading24">注册</div>
+      <button :class="$style.heading24" type="button" @click="register">注册</button>
     </div>
     <img
       :class="$style.notionParadepngIcon"
@@ -23,13 +23,56 @@
 </template>
 <script>
   import { defineComponent, ref } from "vue";
-
+  //import axios from 'axios';
   export default defineComponent({
     name: "Register",
+
+    data() {
+      return {
+        username: '',
+        password: '',
+      };
+    },
+    methods: {
+      async register() {
+        try {
+          const response = await axios.post('/api/register', {
+            username: this.username,
+            password: this.password,
+          });
+          // 注册成功后j自动进入首页
+          this.$router.push('/home');
+        } catch (error) {
+          console.error('Registration failed', error);
+        }
+      },
+    },
+
+    methods:{
+      toHome:function(){
+        this.$router.push('/home');
+      },
+      toLogin:function(){
+        this.$router.push('/login');
+      },
+    }
   });
 </script>
 <style module>
   .heading2 {
+    /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #000;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 100% */
+    letter-spacing: -0.13px;
     position: absolute;
     top: 33px;
     left: 98px;
@@ -62,6 +105,19 @@
     color: var(--color-black);
   }
   .heading22 {
+    /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #A7A7A6;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 100% */
+    letter-spacing: -0.13px;
     position: absolute;
     top: 20px;
     left: 31px;
@@ -102,12 +158,24 @@
     overflow: hidden;
   }
   .heading24 {
+    /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #E94457;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    line-height: 24px; /* 100% */
+    letter-spacing: -0.13px;
     position: absolute;
     top: 20px;
     left: 185px;
     letter-spacing: -0.13px;
     line-height: 24px;
-    font-weight: 500;
+    font-weight: 800;
     -webkit-text-stroke: 1px #fff;
   }
   .divblockbasicWrapperChaxw2 {

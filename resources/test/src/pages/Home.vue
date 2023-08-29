@@ -8,7 +8,7 @@
             <img :class="$style.pseudoIcon" alt="" src="/pseudo4.svg" />
           </div>
           <div :class="$style.item1">
-            <div :class="$style.buttonDownload">文章分类</div>
+            <button :class="$style.buttonDownload" @click="toCategorization">文章分类</button>
             <img :class="$style.pseudoIcon1" alt="" src="/pseudo11.svg" />
           </div>
           <div :class="$style.item2">
@@ -30,14 +30,15 @@
           <div :class="$style.div" />
         </div>
         <div :class="$style.divjsx4212776476">
-          <button :class="$style.listSubmenu1">注册</button>
+          <button :class="$style.listSubmenu1" @click="showRegister = !showRegister">注册</button>
+          <Register v-if="showRegister"/>
           <div :class="$style.divjsx42127764761" />
           <button :class="$style.itemLink1" @click="showLogin = !showLogin">登录</button>
           <Login v-if="showLogin"/>
           <div :class="$style.itemLink2">
             <button :class="$style.div1">发布</button>
           </div>
-          <div :class="$style.buttonDownload1">个人主页</div>
+          <button :class="$style.buttonDownload1" type="button" @click="toPerson">个人主页</button>
         </div>
       </div>
     </div>
@@ -136,15 +137,26 @@
 <script>
   import { defineComponent, ref } from "vue";
   import Login from "./Login.vue";
+  import Register from "./Register.vue";
   export default defineComponent({
     name: "Home",
     components:{
-      Login
+      Login,
+      Register
     },
     data() {
       return {
-        showLogin: false
+        showLogin: false,
+        showRegister: false
       };
+    },
+    methods:{
+      toPerson:function(){
+        this.$router.push('/person'); // 使用路由跳转到根路径'/'
+      },
+      toCategorization:function(){
+        this.$router.push('/categorization'); // 使用路由跳转到根路径'/'
+      },
     }
     
   });
@@ -181,6 +193,18 @@
     text-align: center;
   }
   .buttonDownload {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #050505;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 31px; /* 206.667% */
     position: relative;
     line-height: 31px;
     z-index: 0;
@@ -387,6 +411,18 @@
     color: var(--color-white);
   }
   .buttonDownload1 {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #050505;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 31px; /* 206.667% */
     position: absolute;
     top: -2px;
     left: 139px;
