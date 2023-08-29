@@ -1,7 +1,7 @@
 package com.bupt.bsdn.config;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.Data;
 
 import java.io.Serial;
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 接口返回数据格式
  */
 @Data
-public class Result<T> implements Serializable {
+public class Result implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -34,7 +34,7 @@ public class Result<T> implements Serializable {
     /**
      * 返回数据对象 data
      */
-    private T result;
+    private JSONObject result;
 
     /**
      * 时间戳
@@ -52,77 +52,58 @@ public class Result<T> implements Serializable {
         this.message = message;
     }
 
-    public Result<T> success(String message) {
+
+    /**
+     * 直接返回消息和状态码
+     * 用于返回修改操作的执行结果
+     * */
+    public Result success(String message) {
         this.message = message;
         this.code = 200;
         this.success = true;
         return this;
     }
 
-    public static <T> Result<T> ok() {
-        Result<T> r = new Result<>();
-        r.setSuccess(true);
-        r.setCode(200);
-        return r;
-    }
-
-    public static <T> Result<T> ok(String msg) {
-        Result<T> r = new Result<>();
-        r.setSuccess(true);
-        r.setCode(200);
-        //Result OK(String msg)方法会造成兼容性问题 issues/I4IP3D
-        r.setResult((T) msg);
-        r.setMessage(msg);
-        return r;
-    }
-
-    public static <T> Result<T> ok(T data) {
-        Result<T> r = new Result<>();
-        r.setSuccess(true);
-        r.setCode(200);
-        r.setResult(data);
-        return r;
-    }
-
-    public static <T> Result<T> OK() {
-        Result<T> r = new Result<>();
+    /**
+     * 直接返回状态码 不返回消息
+     * */
+    public static Result Resultok() {
+        Result r = new Result();
         r.setSuccess(true);
         r.setCode(200);
         return r;
     }
 
     /**
-     * 此方法是为了兼容升级所创建
+     * 返回结果 + 状态码
+     *
      */
-    public static <T> Result<T> OK(String msg) {
-        Result<T> r = new Result<>();
+
+    public static  Result ok(String msg) {
+        Result r = new Result();
         r.setSuccess(true);
         r.setCode(200);
         r.setMessage(msg);
-        //Result OK(String msg)方法会造成兼容性问题 issues/I4IP3D
-        r.setResult((T) msg);
         return r;
     }
+    /**
+     * 返回执行结果内容+状态码
+     */
 
-    public static <T> Result<T> OK(T data) {
-        Result<T> r = new Result<>();
+    public static  Result ok(JSONObject data) {
+        Result r = new Result();
         r.setSuccess(true);
         r.setCode(200);
         r.setResult(data);
         return r;
     }
 
-    public static <T> Result<T> OK(String msg, T data) {
-        Result<T> r = new Result<>();
-        r.setSuccess(true);
-        r.setCode(200);
-        r.setMessage(msg);
-        r.setResult(data);
-        return r;
-    }
+    /**
+     * 返回错误结果和错误信息内容
+     * */
 
-    public static <T> Result<T> error(String msg, T data) {
-        Result<T> r = new Result<>();
+    public static  Result error(String msg,JSONObject data) {
+        Result r = new Result();
         r.setSuccess(false);
         r.setCode(500);
         r.setMessage(msg);
@@ -130,32 +111,27 @@ public class Result<T> implements Serializable {
         return r;
     }
 
-    public static <T> Result<T> error(String msg) {
-        return error(500, msg);
-    }
-
-    public static <T> Result<T> error(int code, String msg) {
-        Result<T> r = new Result<>();
-        r.setCode(code);
-        r.setMessage(msg);
+    /**
+     *
+     * 返回错误结果和错误信息
+     */
+    public static  Result error(String msg) {
+        Result r = new Result();
         r.setSuccess(false);
+        r.setCode(500);
+        r.setMessage(msg);;
         return r;
-    }
-
-    public Result<T> error500(String message) {
-        this.message = message;
-        this.code = 500;
-        this.success = false;
-        return this;
     }
 
     /**
      * 无权限访问返回结果
      */
-    public static <T> Result<T> noauth(String msg) {
-        return error(403, msg);
+    public static Result noauth(String msg) {
+        Result r = new Result();
+        r.setSuccess(false);
+        r.setCode(403);
+        r.setMessage(msg);;
+        return r;
     }
 
-    @JsonIgnore
-    private String onlTable;
 }
