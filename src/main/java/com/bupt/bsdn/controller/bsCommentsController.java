@@ -1,6 +1,8 @@
 package com.bupt.bsdn.controller;
 
 
+import com.alibaba.fastjson2.JSONObject;
+import com.bupt.bsdn.config.Result;
 import com.bupt.bsdn.entity.bsComments;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,32 +27,33 @@ public class bsCommentsController {
 
     @GetMapping("/list")
     @Operation(summary = "获取全部评论")
-    public List<bsComments> list() {
-        return bsCommentsService.list();
+    public JSONObject list() {
+        return Result.ok(bsCommentsService.list());
+
     }
 
     @PostMapping("/add")
     @Operation(summary = "添加评论")
-    public Boolean add(@RequestBody bsComments bsComments) {
+    public JSONObject add(@RequestBody bsComments bsComments) {
         bsComments.setCommentsId(null);
-        return bsCommentsService.save(bsComments);
+        return Result.ok(bsCommentsService.save(bsComments));
     }
 
     @PostMapping("/edit")
     @Operation(summary = "修改评论")
-    public Boolean edit(@RequestBody bsComments bsComments) {
-        return bsCommentsService.updateById(bsComments);
+    public JSONObject edit(@RequestBody bsComments bsComments) {
+        return Result.ok(bsCommentsService.updateById(bsComments));
     }
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除评论")
-    public Boolean delete(@RequestParam(name = "id") Integer id) {
-        return bsCommentsService.removeById(id);
+    public JSONObject delete(@RequestParam(name = "id") Integer id) {
+        return Result.ok(bsCommentsService.removeById(id));
     }
 
     @GetMapping("/getById")
     @Operation(summary = "根据id查询评论信息")
-    public bsComments getById(@RequestParam(name = "id") Integer id) {
-        return bsCommentsService.getById(id);
+    public JSONObject getById(@RequestParam(name = "id") Integer id) {
+        return Result.ok(bsCommentsService.getById(id));
     }
 }
