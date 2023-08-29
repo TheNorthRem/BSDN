@@ -1,5 +1,7 @@
 package com.bupt.bsdn.controller;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.bupt.bsdn.config.Result;
 import com.bupt.bsdn.entity.bsMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,32 +26,32 @@ public class bsMessageController {
 
     @GetMapping("/list")
     @Operation(summary = "获取全部消息")
-    public List<bsMessage> list() {
-        return bsMessageService.list();
+    public JSONObject list() {
+        return Result.ok(bsMessageService.list()) ;
     }
 
     @PostMapping("/add")
     @Operation(summary = "增加消息")
-    public Boolean add(@RequestBody bsMessage bsMessage) {
+    public JSONObject add(@RequestBody bsMessage bsMessage) {
         bsMessage.setMessageId(null);
-        return bsMessageService.save(bsMessage);
+        return Result.ok(bsMessageService.save(bsMessage))  ;
     }
 
     @PostMapping("/edit")
     @Operation(summary = "修改消息")
-    public Boolean edit(@RequestBody bsMessage bsMessage) {
-        return bsMessageService.updateById(bsMessage);
+    public JSONObject edit(@RequestBody bsMessage bsMessage) {
+        return Result.ok(bsMessageService.updateById(bsMessage)) ;
     }
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除消息")
-    public Boolean delete(@RequestParam(name = "id") Integer id) {
-        return bsMessageService.removeById(id);
+    public JSONObject delete(@RequestParam(name = "id") Integer id) {
+        return Result.ok(bsMessageService.removeById(id)) ;
     }
 
     @GetMapping("/getById")
     @Operation(summary = "根据id查找消息")
-    public bsMessage getById(@RequestParam(name = "id") Integer id) {
-        return bsMessageService.getById(id);
+    public JSONObject getById(@RequestParam(name = "id") Integer id) {
+        return Result.ok(bsMessageService.getById(id)) ;
     }
 }
