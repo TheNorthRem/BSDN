@@ -1,6 +1,8 @@
 package com.bupt.bsdn.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -10,6 +12,10 @@ import lombok.Data;
 @Schema(name = "收藏")
 
 public class bsFavorites {
+    @TableId(type = IdType.AUTO)
+    @Schema(description = "主键")
+    private Integer favoriteId;
+
     @TableField("userFromId")
     @Schema(description = "关注者的ID")
     private Integer userFromId;

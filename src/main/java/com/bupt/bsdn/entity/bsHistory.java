@@ -1,6 +1,8 @@
 package com.bupt.bsdn.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,6 +15,10 @@ import java.sql.Timestamp;
 @TableName("bs_history")
 @Schema(name = "浏览历史")
 public class bsHistory {
+    @TableId(type = IdType.AUTO)
+    @Schema(description = "主键")
+    private Integer historyId;
+
     @TableField("userId")
     @Schema(description = "浏览者的Id")
     private Integer userId;
