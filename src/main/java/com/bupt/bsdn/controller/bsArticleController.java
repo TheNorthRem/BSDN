@@ -1,6 +1,8 @@
 package com.bupt.bsdn.controller;
 
 
+import com.alibaba.fastjson2.JSONObject;
+import com.bupt.bsdn.config.Result;
 import com.bupt.bsdn.entity.bsArticle;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -26,16 +28,16 @@ public class bsArticleController {
 
     @GetMapping("/list")
     @Operation(summary = "查询全部文章")
-    public List<bsArticle> list() {
-        return bsArticleService.list();
+    public Result list() {
+        return Result.ok((JSONObject) bsArticleService.list());
     }
 
     @PostMapping("/add")
     @Operation(summary = "增加文章")
 
-    public Boolean add(@RequestBody bsArticle bsArticle) {
+    public Result add(@RequestBody bsArticle bsArticle) {
         bsArticle.setArticleId(null);
-        return bsArticleService.save(bsArticle);
+        return Result.ok(String.valueOf(bsArticleService.save(bsArticle)));
     }
 
     @PostMapping("/edit")

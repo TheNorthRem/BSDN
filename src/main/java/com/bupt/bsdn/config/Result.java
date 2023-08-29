@@ -56,7 +56,7 @@ public class Result implements Serializable {
     /**
      * 直接返回消息和状态码
      * 用于返回修改操作的执行结果
-     * */
+     */
     public Result success(String message) {
         this.message = message;
         this.code = 200;
@@ -66,7 +66,7 @@ public class Result implements Serializable {
 
     /**
      * 直接返回状态码 不返回消息
-     * */
+     */
     public static Result Resultok() {
         Result r = new Result();
         r.setSuccess(true);
@@ -76,21 +76,21 @@ public class Result implements Serializable {
 
     /**
      * 返回结果 + 状态码
-     *
      */
 
-    public static  Result ok(String msg) {
+    public static Result ok(String msg) {
         Result r = new Result();
         r.setSuccess(true);
         r.setCode(200);
         r.setMessage(msg);
         return r;
     }
+
     /**
      * 返回执行结果内容+状态码
      */
 
-    public static  Result ok(JSONObject data) {
+    public static Result ok(JSONObject data) {
         Result r = new Result();
         r.setSuccess(true);
         r.setCode(200);
@@ -100,9 +100,9 @@ public class Result implements Serializable {
 
     /**
      * 返回错误结果和错误信息内容
-     * */
+     */
 
-    public static  Result error(String msg,JSONObject data) {
+    public static Result error(String msg, JSONObject data) {
         Result r = new Result();
         r.setSuccess(false);
         r.setCode(500);
@@ -112,14 +112,14 @@ public class Result implements Serializable {
     }
 
     /**
-     *
      * 返回错误结果和错误信息
      */
-    public static  Result error(String msg) {
+    public static Result error(String msg) {
         Result r = new Result();
         r.setSuccess(false);
         r.setCode(500);
-        r.setMessage(msg);;
+        r.setMessage(msg);
+        ;
         return r;
     }
 
@@ -130,7 +130,8 @@ public class Result implements Serializable {
         Result r = new Result();
         r.setSuccess(false);
         r.setCode(403);
-        r.setMessage(msg);;
+        r.setMessage(msg);
+        ;
         return r;
     }
 
