@@ -6,37 +6,64 @@
       <div :class="$style.headerChild" />
     </div>
     <div :class="$style.divblockbasicWrapperChaxw">
-      <input :class="$style.heading22" type="text" @input="handleInput" @keyup.enter="handleEnterKey" placeholder="密码">
+      <input :class="$style.heading22"  v-model="username" type="password" placeholder="密码">
     </div>
     <div :class="$style.divblockbasicWrapperChaxw1">
-      <input :class="$style.heading22" type="text" @input="handleInput" @keyup.enter="handleEnterKey" placeholder="账号">
+      <input :class="$style.heading22"  v-model="password" placeholder="账号">
     </div>
     <div :class="$style.divblockbasicWrapperChaxw2">
-      <button :class="$style.heading24"  type="button" @click="toHome">登录</button>
+      <button :class="$style.heading24"  type="button" @click="login">登录</button>
     </div>
     <img :class="$style.homeHeropngIcon" alt="" src="/homeheropng@2x.png" />
   </div>
 </template>
 <script>
   import { defineComponent, ref } from "vue";
+  //import axios from 'axios';
 
   export default defineComponent({
     name: "Login",
 
+    data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await axios.post('/api/login', {
+          username: this.username,
+          password: this.password,
+        });
+        // 根据后端返回的数据进行处理
+      } catch (error) {
+        console.error('Login failed', error);
+      }
+    },
+  },
+  
     methods:{
-      toHome:function(){
-        this.$router.push('/home'); // 使用路由跳转到根路径'/'
-      },
+      // toHome:function(){
+      //   this.$router.push('/home'); 
+      // },
       toRegister:function(){
-        this.$router.push('/register'); // 使用路由跳转到根路径'/'
+        this.$router.push('/register'); 
       },
-      handleInput(event) {
-        // 处理输入事件
-        this.inputValue = event.target.value;
+      accountInput(event) {
+        this.account = event.target.value;
+      },
+      keyInput(event) {
+        this.key = event.target.value;
       },
       handleEnterKey() {
         // 处理按下回车键事件
         console.log('Enter key pressed');
+      },
+      handleEnterAccount() {
+        // 处理按下回车键事件
+        console.log('Enter Account');
       }
     }
   });
