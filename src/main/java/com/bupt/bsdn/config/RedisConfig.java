@@ -63,12 +63,15 @@ public class RedisConfig {
 
     @Bean
     public RedisTemplate<Object, Object> redisTemplate(JedisConnectionFactory connectionFactory) {
-        log.info("------ Redis init ------");
+        log.info("Redis init");
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(connectionFactory);
         //初始化参数和初始化工作
         redisTemplate.afterPropertiesSet();
-        log.info("------ Redis init success ------");
+        log.info("Redis init success");
+        log.info("Redis information: \n" +
+                "host: " + Utils.getParamSettings("spring.data.redis.host") + "\n" +
+                "port: " + Utils.getParamSettings("spring.data.redis.port"));
         return redisTemplate;
     }
 }
