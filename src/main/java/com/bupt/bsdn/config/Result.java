@@ -78,10 +78,10 @@ public class Result implements Serializable {
     /**
      * 返回错误结果和错误信息
      */
-    public static Result error(String msg) {
+    public static JSONObject error(String msg) {
         Result r = new Result();
         r.Put(false, 500, msg);
-        return r;
+        return r.getResult();
     }
 
     /**

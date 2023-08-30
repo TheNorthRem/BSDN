@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface bsUserService extends IService<bsUser> {
     List<bsUser> selectFive();
+    bsUser getUserByUsername(String username);
 }
