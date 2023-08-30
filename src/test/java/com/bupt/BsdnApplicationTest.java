@@ -34,4 +34,12 @@ public class BsdnApplicationTest {
         Thread.sleep(6000);
         System.out.println(bsRedisCacheService.getToken("1"));
     }
+
+    @Test
+    void TestToken() {
+        System.out.println(bsRedisCacheService.makeToken());
+        System.out.println(bsRedisCacheService.makeToken());
+        System.out.println(bsRedisCacheService.makeToken());
+        System.out.println(bsRedisCacheService.makeToken());
+    }
 }

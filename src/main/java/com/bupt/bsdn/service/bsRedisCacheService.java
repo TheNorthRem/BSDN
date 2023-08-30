@@ -27,4 +27,9 @@ public interface bsRedisCacheService {
      * 若没有或者已经失效则返回null
      */
     String getToken(String userId);
+
+    /**
+     * 产生token(通过随机数)
+     */
+    String makeToken();
 }
