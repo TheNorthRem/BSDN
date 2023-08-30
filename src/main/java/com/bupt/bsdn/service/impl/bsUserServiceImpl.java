@@ -19,11 +19,6 @@ public class bsUserServiceImpl extends ServiceImpl<bsUserMapper, bsUser> impleme
     }
 
     @Override
-    public List<bsUser> selectFive() {
-        return bsUserMapper.selectFive();
-    }
-
-    @Override
     public bsUser getUserByUsername(String username) {
         return bsUserMapper.getUserByUsername(username);
     }

@@ -9,8 +9,10 @@ import java.util.List;
 
 
 public interface bsUserMapper extends BaseMapper<bsUser> {
-    @Select("select * from bs_user limit 5")
-    List<bsUser> selectFive();
+
+    /**
+     * 通过用户名获取到用户对象
+     */
 
     @Select("select * from bs_user where userName=#{username}")
     bsUser getUserByUsername(String username);

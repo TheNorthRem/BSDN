@@ -6,6 +6,11 @@ import com.bupt.bsdn.entity.bsUser;
 import java.util.List;
 
 public interface bsUserService extends IService<bsUser> {
-    List<bsUser> selectFive();
+    /**
+     *
+     * 通过用户名获取用户对象
+     *
+     */
+
     bsUser getUserByUsername(String username);
 }

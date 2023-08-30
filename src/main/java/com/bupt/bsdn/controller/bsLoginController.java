@@ -68,10 +68,13 @@ public class bsLoginController {
         String username = data.getString("username");
         String password = data.getString("password");
 
+        //检查密码是否合规
+
         if(!Utils.check(username,password)){
             return Result.error("用户名或密码不合要求！");
         }
 
+        //用户名注册判重
         if(bsuserService.getUserByUsername(username)!=null){
             return Result.error("用户名已被注册！");
         }
@@ -82,6 +85,7 @@ public class bsLoginController {
         user.setPassword(password);
         user.setPrivilege(0);
 
+        //将用户存入后端数据库中
         boolean save = bsuserService.save(user);
 
         return Result.ok(save);

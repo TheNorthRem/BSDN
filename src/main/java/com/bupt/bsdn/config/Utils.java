@@ -23,6 +23,12 @@ public class Utils {
         return environment.getProperty(key);
     }
 
+
+    /**
+     * 检查帐号长度是否在6-16之间
+     * 检查密码长度是否在6-18之间
+     * 检查帐号密码是否都不为空
+     * */
     public static boolean check(String username,String password){
         if(username==null||password==null) return false;
         return username.length()>=6 && username.length()<=16 && password.length()>=6 && password.length()<=18;
