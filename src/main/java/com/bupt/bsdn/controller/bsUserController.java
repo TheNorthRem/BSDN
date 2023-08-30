@@ -53,10 +53,5 @@ public class bsUserController {
         return Result.ok(bsUserService.getById(id));
     }
 
-    @GetMapping("/selectFive")
-    @Operation(summary = "选前5个用户(目前仅用于测试mybatis-plus)")
-    public JSONObject selectFive() {
-        return Result.ok(bsUserService.selectFive());
-    }
 
 }
