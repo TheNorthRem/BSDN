@@ -1,5 +1,6 @@
 package com.bupt.bsdn.service.impl;
 
+import com.bupt.bsdn.config.Utils;
 import com.bupt.bsdn.service.bsRedisCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -17,14 +18,10 @@ import java.util.concurrent.TimeUnit;
 public class bsRedisCacheServiceImpl implements bsRedisCacheService {
     private final RedisTemplate<String, String> redisTemplate;
 
-    private static Environment environment;
-
 
     @Autowired
-    public bsRedisCacheServiceImpl(RedisTemplate<String, String> redisTemplate,Environment environment) {
+    public bsRedisCacheServiceImpl(RedisTemplate<String, String> redisTemplate, Environment environment) {
         this.redisTemplate = redisTemplate;
-        bsRedisCacheServiceImpl.environment=environment;
-
     }
 
     @Override
@@ -38,8 +35,8 @@ public class bsRedisCacheServiceImpl implements bsRedisCacheService {
     }
 
     @Override
-    public void setToken(String userId, String token, long expirationTime) {
-        redisTemplate.opsForValue().set(userId, token, expirationTime, TimeUnit.SECONDS);
+    public void setToken(String userId, String token) {
+        redisTemplate.opsForValue().set(userId, token, Long.parseLong(Utils.getParamSettings("expirationTime")), TimeUnit.SECONDS);
     }
 
     @Override

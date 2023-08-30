@@ -17,8 +17,9 @@ spring:
         shutdown-timeout: 100ms
       password: ''
       port: 6379
-      expirationTime: 10  # redis缓存过期时间(秒)
 server: # 端口设置
   port: 8081
+
+expirationTime: 10  # redis缓存过期时间(秒)
 
 

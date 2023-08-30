@@ -22,7 +22,7 @@ public interface bsRedisCacheService {
     /**
      * 存储userID-token
      */
-    void setToken(String userId, String token, long expirationTime);
+    void setToken(String userId, String token);
 
     /**
      * 根据userId获取token
