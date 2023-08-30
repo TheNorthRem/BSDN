@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
@@ -19,7 +20,9 @@ import java.lang.reflect.Method;
  * 登录拦截器
  */
 @Slf4j
+@Component
 public class bsLoginInterceptor implements HandlerInterceptor {
+
     @Autowired
     private bsRedisCacheService bsRedisCacheService;
 
@@ -29,7 +32,7 @@ public class bsLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) throws IOException {
         String ip = request.getRemoteAddr(); //获取ip
-
+        System.out.println("------------过滤器-------------------");
         if (handler instanceof ResourceHttpRequestHandler) { //静态资源请求
             log.info("A static resource request was made, ip:" + ip);
         } else if (handler instanceof HandlerMethod handlerMethod) { //业务逻辑请求

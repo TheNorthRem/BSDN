@@ -5,7 +5,6 @@ import com.bupt.bsdn.config.Result;
 import com.bupt.bsdn.config.Utils;
 import com.bupt.bsdn.entity.bsUser;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
