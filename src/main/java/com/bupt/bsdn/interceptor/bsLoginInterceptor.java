@@ -1,6 +1,7 @@
 package com.bupt.bsdn.interceptor;
 
 
+import com.bupt.bsdn.config.Utils;
 import com.bupt.bsdn.service.bsRedisCacheService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,18 +45,18 @@ public class bsLoginInterceptor implements HandlerInterceptor {
 
         if (userId == null) { //用户id为空
             log.error("Interceptor request, but userId is null, ip:" + ip);
-            response.sendRedirect("/login");
+            response.sendRedirect(Utils.getParamSettings("logicIndexPath"));
             return false;
         }
 
         if (bsRedisCacheService.getToken(userId) == null) { //token过期
             log.error("Interceptor request, but token is expired, ip:" + ip);
-            response.sendRedirect("/login");
+            response.sendRedirect(Utils.getParamSettings("logicIndexPath"));
             return false;
         }
         if (!bsRedisCacheService.getToken(userId).equals(token)) { //token不等
             log.error("Interceptor request, but token is wrong, ip:" + ip + "send token is " + token + ", redis token is" + bsRedisCacheService.getToken(userId));
-            response.sendRedirect("/login");
+            response.sendRedirect(Utils.getParamSettings("logicIndexPath"));
             return false;
         }
         return true;

@@ -23,4 +23,4 @@ server: # 端口设置
 expirationTime: 10  # redis缓存过期时间(秒)
 imagePath: "D://JUNGLE//JavaEE//" # 存储图片路径
 tokenLength: 10 #token长度
-
+logicIndexPath: "/image/index.html" #登录页面
