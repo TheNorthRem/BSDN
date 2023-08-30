@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.div">
+  <div :class="$style.ccategorization">
     <div :class="$style.header">
       <div :class="$style.divhomeendlesswaysTemplatesg">
         <div :class="$style.section">
@@ -9,7 +9,7 @@
               <b :class="$style.heading2">Company wiki</b>
               <div :class="$style.link">
                 <div :class="$style.getTemplate">Get template</div>
-                <div :class="$style.div1"> →</div>
+                <div :class="$style.div"> →</div>
               </div>
             </div>
             <div :class="$style.picture">
@@ -32,7 +32,7 @@
                 <b :class="$style.heading2">Product roadmap</b>
                 <div :class="$style.link">
                   <div :class="$style.getTemplate">Get template</div>
-                  <div :class="$style.div1"> →</div>
+                  <div :class="$style.div"> →</div>
                 </div>
               </div>
             </div>
@@ -40,11 +40,11 @@
           <div :class="$style.section2">
             <div :class="$style.divblockbasicWrapperChaxw">
               <div :class="$style.header2">
-                <img :class="$style.svgIcon1" alt="" src="/svg31.svg" />
+                <img :class="$style.svgIcon1" alt="" src="/svg3.svg" />
                 <b :class="$style.heading2">OKRs</b>
                 <div :class="$style.link">
                   <div :class="$style.getTemplate">Get template</div>
-                  <div :class="$style.div1"> →</div>
+                  <div :class="$style.div"> →</div>
                 </div>
               </div>
             </div>
@@ -52,11 +52,11 @@
           <div :class="$style.section3">
             <div :class="$style.divblockbasicWrapperChaxw">
               <div :class="$style.header2">
-                <img :class="$style.svgIcon1" alt="" src="/svg41.svg" />
+                <img :class="$style.svgIcon1" alt="" src="/svg4.svg" />
                 <b :class="$style.heading2">Meeting notes</b>
                 <div :class="$style.link">
                   <div :class="$style.getTemplate">Get template</div>
-                  <div :class="$style.div1"> →</div>
+                  <div :class="$style.div"> →</div>
                 </div>
               </div>
             </div>
@@ -64,11 +64,11 @@
           <div :class="$style.section4">
             <div :class="$style.divblockbasicWrapperChaxw">
               <div :class="$style.header2">
-                <img :class="$style.svgIcon1" alt="" src="/svg51.svg" />
+                <img :class="$style.svgIcon1" alt="" src="/svg5.svg" />
                 <b :class="$style.heading2">Vacation planner</b>
                 <div :class="$style.link">
                   <div :class="$style.getTemplate">Get template</div>
-                  <div :class="$style.div1"> →</div>
+                  <div :class="$style.div"> →</div>
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@
                 <b :class="$style.heading2">Editorial calendar</b>
                 <div :class="$style.link">
                   <div :class="$style.getTemplate">Get template</div>
-                  <div :class="$style.div1"> →</div>
+                  <div :class="$style.div"> →</div>
                 </div>
               </div>
             </div>
@@ -88,11 +88,11 @@
           <div :class="$style.section6">
             <div :class="$style.divblockbasicWrapperChaxw6">
               <div :class="$style.header2">
-                <img :class="$style.svgIcon1" alt="" src="/svg71.svg" />
+                <img :class="$style.svgIcon1" alt="" src="/svg7.svg" />
                 <b :class="$style.heading2">Habit tracker</b>
                 <div :class="$style.link">
                   <div :class="$style.getTemplate">Get template</div>
-                  <div :class="$style.div1"> →</div>
+                  <div :class="$style.div"> →</div>
                 </div>
               </div>
             </div>
@@ -100,28 +100,22 @@
         </div>
       </div>
       <div :class="$style.divjsx1098867672">
-        <div :class="$style.linkNotionHomeSvg">
-          <div :class="$style.frame">
-            <div :class="$style.buttonSolutions">BSDN</div>
-            <img :class="$style.logo1Icon" alt="" src="/logo-1@2x.png" />
-          </div>
-        </div>
         <div :class="$style.navPrimaryNavigation">
           <div :class="$style.listSubmenu">
             <div :class="$style.item">
               <div :class="$style.buttonProduct">首页</div>
-              <img :class="$style.pseudoIcon" alt="" src="/pseudo4.svg" />
+              <!-- <img :class="$style.pseudoIcon" alt="" src="/pseudo2.svg" /> -->
             </div>
             <div :class="$style.item1">
               <div :class="$style.buttonDownload">文章分类</div>
-              <img :class="$style.pseudoIcon1" alt="" src="/pseudo11.svg" />
+              <img :class="$style.pseudoIcon1" alt="" src="/pseudo3.svg" />
             </div>
             <div :class="$style.item2">
-              <div :class="$style.buttonResources">Solutions</div>
-              <img :class="$style.pseudoIcon2" alt="" src="/pseudo5.svg" />
+              <div :class="$style.buttonSolutions">Solutions</div>
+              <img :class="$style.pseudoIcon2" alt="" src="/pseudo21.svg" />
             </div>
             <div :class="$style.item3">
-              <div :class="$style.buttonResources">Resources</div>
+              <div :class="$style.buttonSolutions">Resources</div>
               <img :class="$style.pseudoIcon3" alt="" src="/pseudo31.svg" />
             </div>
             <div :class="$style.itemLink">Pricing</div>
@@ -132,26 +126,62 @@
                 <img :class="$style.icon" alt="" src="/-2@2x.png" />
               </div>
             </div>
-            <div :class="$style.div8" />
+            <div :class="$style.div7" />
           </div>
           <div :class="$style.divjsx4212776476">
-            <div :class="$style.listSubmenu1">注册</div>
+            <button :class="$style.listSubmenu1" @click="showRegister = !showRegister">注册</button>
+          <Register v-if="showRegister"/>
             <div :class="$style.divjsx42127764761" />
-            <div :class="$style.itemLink1">登录</div>
+            <button :class="$style.itemLink1" @click="showLogin = !showLogin">登录</button>
+            <Login v-if="showLogin"/>
             <div :class="$style.itemLink2">
-              <div :class="$style.div9">发布</div>
+              <div :class="$style.div8">发布</div>
             </div>
           </div>
         </div>
+      </div>
+      <div :class="$style.b239a6dc48354511d2e42d8aa6f439Parent">
+        <img
+          :class="$style.b239a6dc48354511d2e42d8aa6f439Icon"
+          alt=""
+          src="/8b239a6dc48354511d2e42d8aa6f439removebgpreview-1-1@2x.png"
+        />
+        <button :class="$style.linkNotionHomeSvgWrapper">
+          <div :class="$style.linkNotionHomeSvg">
+            <div :class="$style.frame">
+              <div :class="$style.buttonSolutions1">BSDN</div>
+            </div>
+          </div>
+        </button>
       </div>
     </div>
   </div>
 </template>
 <script>
   import { defineComponent, ref } from "vue";
+  import Login from "./Login.vue";
+  import Register from "./Register.vue";
 
   export default defineComponent({
-    name: "Frame3",
+    name: "Ccategorization",
+    components:{
+      Login,
+      Register
+    },
+    data() {
+      return {
+        showLogin: false,
+        showRegister: false
+      };
+    },
+    methods:{
+      toPerson:function(){
+        this.$router.push('/person'); // 使用路由跳转到根路径'/'
+      },
+      toCategorization:function(){
+        this.$router.push('/categorization'); // 使用路由跳转到根路径'/'
+      },
+    }
   });
 </script>
 <style module>
@@ -178,7 +208,7 @@
     position: relative;
     line-height: 24px;
   }
-  .div1 {
+  .div {
     position: relative;
     line-height: 24px;
     margin-left: -0.58px;
@@ -388,45 +418,6 @@
     width: 1024px;
     height: 523.13px;
   }
-  .buttonSolutions {
-    position: absolute;
-    height: 100%;
-    width: 57.11%;
-    top: 0%;
-    left: 46.34%;
-    line-height: 31px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-  }
-  .logo1Icon {
-    position: absolute;
-    height: 93.75%;
-    width: 32.33%;
-    top: 0%;
-    right: 62.82%;
-    bottom: 6.25%;
-    left: 4.85%;
-    max-width: 100%;
-    overflow: hidden;
-    max-height: 100%;
-    object-fit: cover;
-  }
-  .frame {
-    position: absolute;
-    top: 0px;
-    left: calc(50% - 46px);
-    width: 92.8px;
-    height: 32px;
-  }
-  .linkNotionHomeSvg {
-    position: absolute;
-    top: 15px;
-    left: 13px;
-    width: 112px;
-    height: 35px;
-    overflow: hidden;
-  }
   .buttonProduct {
     position: relative;
     line-height: 31px;
@@ -480,7 +471,12 @@
     padding: 0px 22.980003356933594px 0px var(--padding-3xs);
     align-items: flex-start;
     justify-content: flex-start;
-    color: var(--color-darkgray);
+  }
+  .buttonSolutions {
+    position: relative;
+    line-height: 31px;
+    font-weight: 500;
+    z-index: 0;
   }
   .pseudoIcon2 {
     position: absolute;
@@ -500,12 +496,6 @@
     padding: 0px 22.779998779296875px 0px var(--padding-3xs);
     align-items: flex-start;
     justify-content: flex-start;
-  }
-  .buttonResources {
-    position: relative;
-    line-height: 31px;
-    font-weight: 500;
-    z-index: 0;
   }
   .pseudoIcon3 {
     position: absolute;
@@ -556,7 +546,7 @@
     overflow: hidden;
     flex-shrink: 0;
   }
-  .div8 {
+  .div7 {
     position: relative;
     width: 45px;
     height: 45px;
@@ -574,6 +564,19 @@
     justify-content: space-between;
   }
   .listSubmenu1 {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #050505;
+    text-align: center;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 31px; /* 206.667% */
     position: absolute;
     top: -1px;
     left: 93.5px;
@@ -590,13 +593,37 @@
     height: 20px;
   }
   .itemLink1 {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    color: #050505;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 31px; /* 206.667% */
     position: absolute;
     top: 0px;
     left: 168.5px;
     line-height: 31px;
     font-weight: 500;
   }
-  .div9 {
+  .div8 {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
+    white-space:nowrap;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 600;
     position: relative;
     letter-spacing: 0.05px;
     line-height: 19px;
@@ -639,7 +666,6 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    font-size: var(--font-size-mini);
   }
   .divjsx1098867672 {
     position: absolute;
@@ -648,6 +674,65 @@
     background-color: var(--color-gray-100);
     width: 1438px;
     height: 62px;
+    font-size: var(--font-size-mini);
+  }
+  .b239a6dc48354511d2e42d8aa6f439Icon {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+  .buttonSolutions1 {
+    position: absolute;
+    height: 115.63%;
+    width: 100.22%;
+    top: 6.25%;
+    left: 10.78%;
+    font-size: var(--font-size-13xl);
+    line-height: 31px;
+    font-weight: 900;
+    font-family: var(--font-inter);
+    color: var(--color-black);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    -webkit-text-stroke: 1px #fff;
+  }
+  .frame {
+    position: absolute;
+    top: 0px;
+    left: calc(50% - 46px);
+    width: 92.8px;
+    height: 32px;
+  }
+  .linkNotionHomeSvg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 112px;
+    height: 35px;
+    overflow: hidden;
+  }
+  .linkNotionHomeSvgWrapper {
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 112px;
+    height: 35px;
+  }
+  .b239a6dc48354511d2e42d8aa6f439Parent {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 124px;
+    height: 75px;
   }
   .header {
     position: absolute;
@@ -657,7 +742,7 @@
     width: 1440px;
     height: 804px;
   }
-  .div {
+  .ccategorization {
     position: relative;
     width: 100%;
     height: 904px;

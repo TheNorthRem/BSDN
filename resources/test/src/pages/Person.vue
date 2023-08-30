@@ -36,7 +36,7 @@
         <div :class="$style.navPrimaryNavigation">
           <div :class="$style.listSubmenu">
             <div :class="$style.item">
-              <button :class="$style.buttonProduct" @click="openHome">首页</button>
+              <button :class="$style.buttonProduct" @click="toHome">首页</button>
               <img :class="$style.pseudoIcon" alt="" src="/pseudo.svg" />
             </div>
             <div :class="$style.item1">
@@ -94,9 +94,9 @@
   export default defineComponent({
     name: "Person",
     methods:{
-      openHome:function(){
-        alert("test");
-      }
+      toHome:function(){
+        this.$router.push('/home'); 
+      },
     }
   });
 </script>

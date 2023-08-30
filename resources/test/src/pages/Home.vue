@@ -5,7 +5,7 @@
         <div :class="$style.listSubmenu">
           <div :class="$style.item">
             <div :class="$style.buttonProduct">首页</div>
-            <img :class="$style.pseudoIcon" alt="" src="/pseudo4.svg" />
+            <!-- <img :class="$style.pseudoIcon" alt="" src="/pseudo4.svg" /> -->
           </div>
           <div :class="$style.item1">
             <button :class="$style.buttonDownload" @click="toCategorization">文章分类</button>
@@ -43,7 +43,7 @@
       </div>
     </div>
     <div :class="$style.section1">
-      <div :class="$style.div2">热搜</div>
+      <input :class="$style.div2" placeholder="热搜">
       <div :class="$style.figure">
         <div :class="$style.figure1">
           <div :class="$style.blockquote">
@@ -70,6 +70,24 @@
     <div :class="$style.section2">
       <div :class="$style.figcaption1">
         <div :class="$style.divtweetUsernamewrap0yv691">
+          
+          <div class="SwiperBox" ref="SwiperBox" @mouseenter="MouseFun('移入')" @mouseleave="MouseFun('移出')">
+				<!-- 图片 -->
+				<div class="imgBox" :style="{left:`-${leftVal}px`,transition:`${ition}s`}">
+					<img :src="item.imgUrl" v-for="(item,index) in imgList" :key="index" />
+					<!-- 复制第一张放到最后,以实现无缝无线循环滚动效果 -->
+					<img :src="imgList[0].imgUrl" alt="">
+				</div>
+				<!-- 下方指示点容器 -->
+				<div class="instBox">
+					<div @click="instFun(index)" v-for="(item,index) in imgList.length" :key="index"
+						:class="['inst',index==imgShow?'instActv':'']">
+					</div>
+				</div>
+			</div>
+
+
+
           <b :class="$style.andrBlackman">轮播图</b>
         </div>
       </div>
@@ -147,7 +165,13 @@
     data() {
       return {
         showLogin: false,
-        showRegister: false
+        showRegister: false,
+        imgList: [
+        {imgUrl: "https://img14.360buyimg.com/pop/s590x470_jfs/t1/107362/20/24177/90602/6233decdE5627d944/b7194e538e3c8c7a.jpg"},
+					    {imgUrl: "https://img12.360buyimg.com/pop/s590x470_jfs/t1/204028/36/25480/101429/62f507a7Ec62b0cd3/db5984ae24ce0212.jpg"},
+					    {imgUrl: "https://imgcps.jd.com/ling4/100022552927/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5f3a47329785549f6bc7a6e6/075268d0/cr/s/q.jpg"},
+					    {imgUrl: "https://imgcps.jd.com/ling4/100026667910/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5f3a47329785549f6bc7a6e3/d7b3695b/cr/s/q.jpg"},
+        ]
       };
     },
     methods:{
@@ -287,7 +311,7 @@
   .icon {
     position: absolute;
     top: -21px;
-    left: -26px;
+    left: 65%;
     width: 26px;
     height: 26px;
     object-fit: cover;
@@ -379,6 +403,7 @@
     /*清除默认背景 */
     background-color: transparent;
 
+    white-space:nowrap;
     color: #FFF;
     font-family: Inter;
     font-size: 13.5px;
@@ -457,9 +482,15 @@
     height: 62px;
   }
   .div2 {
+     /* 清除默认边框 */
+	  border:0;
+	  outline:none;
+    /*清除默认背景 */
+    background-color: transparent;
+
     position: absolute;
     top: -680px;
-    left: 588.96px;
+    left: 66%;
     line-height: 31px;
     font-weight: 500;
     display: flex;
