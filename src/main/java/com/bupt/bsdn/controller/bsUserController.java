@@ -58,4 +58,5 @@ public class bsUserController {
     public JSONObject selectFive() {
         return Result.ok(bsUserService.selectFive());
     }
+
 }
