@@ -22,4 +22,9 @@ public class Utils {
     public static String getParamSettings(String key) {
         return environment.getProperty(key);
     }
+
+    public static boolean check(String username,String password){
+        if(username==null||password==null) return false;
+        return username.length()>=6 && username.length()<=16 && password.length()>=6 && password.length()<=18;
+    }
 }
