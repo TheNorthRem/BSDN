@@ -2,6 +2,7 @@ package com.bupt.bsdn.service.impl;
 
 import com.bupt.bsdn.service.bsRedisCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,14 @@ import java.util.concurrent.TimeUnit;
 public class bsRedisCacheServiceImpl implements bsRedisCacheService {
     private final RedisTemplate<String, String> redisTemplate;
 
+    private static Environment environment;
+
+
     @Autowired
-    public bsRedisCacheServiceImpl(RedisTemplate<String, String> redisTemplate) {
+    public bsRedisCacheServiceImpl(RedisTemplate<String, String> redisTemplate,Environment environment) {
         this.redisTemplate = redisTemplate;
+        bsRedisCacheServiceImpl.environment=environment;
+
     }
 
     @Override

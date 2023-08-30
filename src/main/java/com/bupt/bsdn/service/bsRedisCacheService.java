@@ -1,11 +1,14 @@
 package com.bupt.bsdn.service;
 
+import org.springframework.core.env.Environment;
+
 /**
  * @Description: Redis缓存层，用来存储token令牌
  * @author: syc
  * @date: 2023年08月29日 17:25
  */
 public interface bsRedisCacheService {
+
     /**
      * 判断是否存在key
      */
