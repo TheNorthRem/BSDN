@@ -109,4 +109,6 @@ public class bsArticleController {
     public JSONObject search(@RequestParam(name = "content") String content) {
         return Result.ok(bsArticleService.search(content));
     }
+
+
 }
