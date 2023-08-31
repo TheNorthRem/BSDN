@@ -4,12 +4,17 @@ import com.alibaba.fastjson2.JSONObject;
 import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsUser;
 import com.bupt.bsdn.service.bsUserService;
+import com.bupt.bsdn.util.Utils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/bsUser")
@@ -60,4 +65,31 @@ public class bsUserController {
     public JSONObject search(@RequestParam(name = "userName", defaultValue = "") String userName) {
         return Result.ok(bsUserService.search(userName));
     }
+
+    @PostMapping("/uploadAvatar")
+    @Operation(summary = "上传头像")
+    public JSONObject uploadAvatar(@RequestParam(value = "image",required = true)MultipartFile file,@RequestParam(value = "id",required = true) Integer id){
+        String name=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        bsUser user=bsUserService.getById(id);
+        name=id+name;
+
+        if(user==null){
+            return  Result.error("user is null");
+        }
+
+        File image=new File(Utils.getParamSettings("avatarPath")+name);
+        try{
+            file.transferTo(image);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        user.setAvatar(name);
+
+        bsUserService.save(user);
+
+        return Result.ok("success");
+    }
+
+
 }

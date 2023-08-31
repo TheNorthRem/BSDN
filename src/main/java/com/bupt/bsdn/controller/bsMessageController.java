@@ -50,6 +50,7 @@ public class bsMessageController {
     @GetMapping("/getById")
     @Operation(summary = "根据id查找消息")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
+
         return Result.ok(bsMessageService.getById(id)) ;
     }
 }
