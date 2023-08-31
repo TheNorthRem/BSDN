@@ -7,6 +7,8 @@ import com.bupt.bsdn.service.bsArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class bsArticleServiceImpl extends ServiceImpl<bsArticleMapper, bsArticle> implements bsArticleService {
     private final bsArticleMapper bsArticleMapper;
@@ -14,5 +16,10 @@ public class bsArticleServiceImpl extends ServiceImpl<bsArticleMapper, bsArticle
     @Autowired
     public bsArticleServiceImpl(bsArticleMapper bsArticleMapper) {
         this.bsArticleMapper = bsArticleMapper;
+    }
+
+    @Override
+    public List<bsArticle> search(String content) {
+        return bsArticleMapper.search(content);
     }
 }
