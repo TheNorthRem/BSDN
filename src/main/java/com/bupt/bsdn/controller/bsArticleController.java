@@ -2,7 +2,7 @@ package com.bupt.bsdn.controller;
 
 
 import com.alibaba.fastjson2.JSONObject;
-import com.bupt.bsdn.config.Result;
+import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.service.bsArticleService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/bsArticle")
