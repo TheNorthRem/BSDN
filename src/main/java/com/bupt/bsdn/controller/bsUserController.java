@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/bsUser")
@@ -69,7 +70,7 @@ public class bsUserController {
     @PostMapping("/uploadAvatar")
     @Operation(summary = "上传头像")
     public JSONObject uploadAvatar(@RequestParam(value = "image",required = true)MultipartFile file,@RequestParam(value = "id",required = true) Integer id){
-        String name=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String name= Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
         bsUser user=bsUserService.getById(id);
         name=id+name;
 

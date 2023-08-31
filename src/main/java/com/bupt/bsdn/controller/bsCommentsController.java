@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.bupt.bsdn.service.bsUserService;
+import com.bupt.bsdn.service.bsArticleService;
 
 @RestController
 @RequestMapping("/bsComments")
@@ -17,10 +19,13 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "评论")
 public class bsCommentsController {
     private final bsCommentsService bsCommentsService;
-
+    private final bsUserService bsuserService;
+    private final bsArticleService bsarticleService;
     @Autowired
-    public bsCommentsController(bsCommentsService bsCommentsService) {
+    public bsCommentsController(bsCommentsService bsCommentsService,bsUserService bsuserService,bsArticleService bsarticleService) {
         this.bsCommentsService = bsCommentsService;
+        this.bsuserService=bsuserService;
+        this.bsarticleService=bsarticleService;
     }
 
     @GetMapping("/list")
@@ -54,4 +59,35 @@ public class bsCommentsController {
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
         return Result.ok(bsCommentsService.getById(id));
     }
+
+    @PostMapping("/uploadComment")
+    @Operation(summary = "上传评论")
+    public JSONObject uploadComment(@RequestBody JSONObject data){
+
+        Integer id = data.getInteger("id");
+        Integer article_id = data.getInteger("articleId");
+        String content =data.getString("content");
+        Integer father_comment_id=data.getInteger("fatherCommentId");
+
+        bsComments comments=new bsComments();
+
+        if(content.trim().equals("")){
+            return Result.error("fail");
+        }
+
+        if(bsuserService.getById(id)==null||bsarticleService.getById(article_id)==null){
+            Result.error("fail");
+        }
+
+        comments.setUserID(id);
+        comments.setContent(content);
+        comments.setArticleID(article_id);
+
+        if(father_comment_id!=null)   comments.setFatherCommentID(father_comment_id);
+
+        bsCommentsService.save(comments);
+
+        return Result.ok("success");
+    }
+
 }

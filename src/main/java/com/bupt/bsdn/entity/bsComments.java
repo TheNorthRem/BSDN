@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -40,4 +41,9 @@ public class bsComments {
     @TableField("fatherCommentID")
     @Schema(description = "回复的父评论ID,若是直接对文章进行回复,则父评论ID可为空或占位符")
     private Integer fatherCommentID;
+
+    public bsComments(){
+        this.setTime(Timestamp.valueOf(LocalDateTime.now()));
+        this.setFatherCommentID(-1);
+    }
 }
