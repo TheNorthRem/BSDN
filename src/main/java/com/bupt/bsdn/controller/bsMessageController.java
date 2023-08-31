@@ -5,6 +5,7 @@ import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsMessage;
 import com.bupt.bsdn.service.bsMessageService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,12 @@ public class bsMessageController {
     @Operation(summary = "根据id查找消息")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
         return Result.ok(bsMessageService.getById(id)) ;
+    }
+
+    @GetMapping("/searchSendUser")
+    @Operation(summary = "查询给当前用户发送过消息的用户")
+    @Parameter(name = "userId", description = "当前用户id")
+    public JSONObject searchSendUser(@RequestParam(name = "userId") Integer userId) {
+        return Result.ok(bsMessageService.searchSendUser(userId));
     }
 }
