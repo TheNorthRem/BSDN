@@ -7,7 +7,7 @@
         <!-- 个人简介 -->
         <el-aside width="78%">
         <div class="topBox">
-          <img src="./assets/toppeekipng.png" class="toppeeking">
+          <img src="../../assets/toppeekipng.png" class="toppeeking">
           <el-carousel :interval="5000" arrow="always" :style="{ height:'40%',width:'83.5%'}">
               <el-carousel-item v-for="item in 4" :key="item">
                 <h3>{{ item }}</h3>
