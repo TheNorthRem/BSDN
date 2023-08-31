@@ -5,6 +5,7 @@ import com.bupt.bsdn.config.Result;
 import com.bupt.bsdn.entity.bsUser;
 import com.bupt.bsdn.service.bsUserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,10 @@ public class bsUserController {
         return Result.ok(bsUserService.getById(id));
     }
 
-
+    @GetMapping("/search")
+    @Operation(summary = "根据用户名查找用户信息")
+    @Parameter(name = "userName", description = "用户名")
+    public JSONObject search(@RequestParam(name = "userName", defaultValue = "") String userName) {
+        return Result.ok(bsUserService.search(userName));
+    }
 }

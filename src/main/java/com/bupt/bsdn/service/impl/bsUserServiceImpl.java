@@ -22,4 +22,9 @@ public class bsUserServiceImpl extends ServiceImpl<bsUserMapper, bsUser> impleme
     public bsUser getUserByUsername(String username) {
         return bsUserMapper.getUserByUsername(username);
     }
+
+    @Override
+    public List<bsUser> search(String userName) {
+        return bsUserMapper.search(userName);
+    }
 }

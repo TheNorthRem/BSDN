@@ -7,6 +7,8 @@ import com.bupt.bsdn.service.bsUserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class bsUserInformationServiceImpl extends ServiceImpl<bsUserInformationMapper, bsUserInformation> implements bsUserInformationService {
     private final bsUserInformationMapper bsUserInformationMapper;
@@ -14,5 +16,10 @@ public class bsUserInformationServiceImpl extends ServiceImpl<bsUserInformationM
     @Autowired
     public bsUserInformationServiceImpl(bsUserInformationMapper bsUserInformationMapper) {
         this.bsUserInformationMapper = bsUserInformationMapper;
+    }
+
+    @Override
+    public List<bsUserInformation> search(Integer userId) {
+        return bsUserInformationMapper.search(userId);
     }
 }

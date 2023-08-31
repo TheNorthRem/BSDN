@@ -15,8 +15,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         log.info("bsLoginInterceptor init");
-        registry.addInterceptor(new bsLoginInterceptor()).
-                addPathPatterns().excludePathPatterns("/", "/login", "/swagger-ui/**", "/v3/**", Utils.getParamSettings("logicIndexPath"));
+        /*registry.addInterceptor(new bsLoginInterceptor()).
+                addPathPatterns().excludePathPatterns("/", "/login", "/swagger-ui/**", "/v3/**", Utils.getParamSettings("logicIndexPath"));*/
         log.info("bsLoginInterceptor init success");
     }
 }

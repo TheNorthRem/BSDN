@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface bsArticleMapper extends BaseMapper<bsArticle> {
-    @Select("select articleId, title, clickCount, favoriteCount, state, updateTime, brief, updateTime from bs_article order by bs_article.updateTime desc ")
+    @Select("select articleId, title, clickCount, favoriteCount, state, updateTime, brief, updateTime " +
+            "from bs_article " +
+            "where bs_article.title like concat('%', concat(#{content}, '%')) " +
+            "order by bs_article.updateTime desc ")
     List<bsArticle> search(String content);
 }

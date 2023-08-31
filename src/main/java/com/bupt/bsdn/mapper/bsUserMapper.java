@@ -2,7 +2,6 @@ package com.bupt.bsdn.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bupt.bsdn.entity.bsUser;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -16,4 +15,15 @@ public interface bsUserMapper extends BaseMapper<bsUser> {
 
     @Select("select * from bs_user where userName=#{username}")
     bsUser getUserByUsername(String username);
+
+    @Select("select bs_user.user_id as user_id, " +
+            "bs_user.userName as userName, " +
+            "bs_user.nickName as nickName, " +
+            "bs_user.privilege as privilege, " +
+            "bs_user.avatar as avatar, " +
+            "bs_user.openId as openId " +
+            "from bs_user " +
+            "where bs_user.userName like concat('%', concat(#{userName}, '%')) " +
+            "order by bs_user.privilege")
+    List<bsUser> search(String userName);
 }

@@ -13,4 +13,6 @@ public interface bsUserService extends IService<bsUser> {
      */
 
     bsUser getUserByUsername(String username);
+
+    List<bsUser> search(String userName);
 }
