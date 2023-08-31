@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/bsArticle")
 @Slf4j
@@ -55,5 +57,12 @@ public class bsArticleController {
     @Parameter(name = "id", description = "文章Id")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
         return Result.ok(bsArticleService.getById(id));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "搜索文章(模糊查询+时间戳倒叙)")
+    @Parameter(name = "content", description = "内容")
+    public JSONObject search(@RequestParam(name = "content") String content) {
+        return Result.ok(bsArticleService.search(content));
     }
 }
