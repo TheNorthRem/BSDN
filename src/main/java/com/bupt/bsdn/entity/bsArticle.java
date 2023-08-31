@@ -10,6 +10,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @TableName("bs_article")
@@ -62,4 +63,13 @@ public class bsArticle {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp updateTime;
+
+    public bsArticle(){
+        this.setState(0);
+        this.setClickCount(0);
+        this.setFavoriteCount(0);
+        this.setUploadTime(Timestamp.valueOf(LocalDateTime.now()));
+        this.setCheckMessage("unchecked");
+        this.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
+    }
 }

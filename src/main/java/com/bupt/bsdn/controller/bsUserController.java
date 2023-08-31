@@ -1,7 +1,7 @@
 package com.bupt.bsdn.controller;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.bupt.bsdn.config.Result;
+import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsUser;
 import com.bupt.bsdn.service.bsUserService;
 import io.swagger.v3.oas.annotations.Operation;

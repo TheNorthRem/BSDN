@@ -2,7 +2,7 @@ package com.bupt.bsdn.controller;
 
 
 import com.alibaba.fastjson2.JSONObject;
-import com.bupt.bsdn.config.Result;
+import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.service.bsArticleService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/bsArticle")
@@ -35,6 +36,48 @@ public class bsArticleController {
     public JSONObject add(@RequestBody bsArticle bsArticle) {
         bsArticle.setArticleId(null);
         return Result.ok(bsArticleService.save(bsArticle));
+    }
+
+    @PostMapping("/upload")
+    @Operation(summary = "上传文章")
+
+    public JSONObject upload(@RequestBody JSONObject article){
+
+        bsArticle bs_article=new bsArticle();
+
+        bs_article.setArticleId(null);
+
+        String title=article.getString("title");
+        String content=article.getString("content");
+        String brief=article.getString("brief");
+        Integer uploaderId=article.getInteger("id");
+
+        if(uploaderId==null){
+            return  Result.error("id is null!");
+        }
+
+        if(title==null||title.length()>25||title.trim().equals("")){
+            return Result.error("标题不合规");
+        }
+
+        if(brief==null||brief.length()>50||brief.trim().equals("")){
+            return Result.error("简介不合规");
+        }
+
+        bs_article.setUploaderId(uploaderId);
+        bs_article.setTitle(title);
+        bs_article.setContent(content);
+        bs_article.setBrief(brief);
+
+        if(bsArticleService.save(bs_article)){
+            log.info(bs_article.getArticleId()+"上传成功-----"+bs_article.getUploadTime());
+            return Result.ok("success");
+        }
+
+        log.info("上传失败-----"+bs_article.getUploadTime());
+
+
+        return Result.error("上传失败");
     }
 
     @PostMapping("/edit")

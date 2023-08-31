@@ -14,9 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        log.info("bsLoginInterceptor init");
-        registry.addInterceptor(new bsLoginInterceptor()).
-                addPathPatterns().excludePathPatterns("/", "/login", "/swagger-ui/**", "/v3/**", Utils.getParamSettings("logicIndexPath"));
-        log.info("bsLoginInterceptor init success");
+//        log.info("bsLoginInterceptor init");
+//        registry.addInterceptor(new bsLoginInterceptor()).
+//                addPathPatterns().excludePathPatterns("/", "/login", "/swagger-ui/**", "/v3/**", Utils.getParamSettings("logicIndexPath"));
+//        log.info("bsLoginInterceptor init success");
     }
 }
