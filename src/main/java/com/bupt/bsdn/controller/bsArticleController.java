@@ -2,7 +2,7 @@ package com.bupt.bsdn.controller;
 
 
 import com.alibaba.fastjson2.JSONObject;
-import com.bupt.bsdn.config.Result;
+import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.service.bsArticleService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b6294ba2bd416f181e62a3e591570318b100f069
 
 @RestController
 @RequestMapping("/bsArticle")
@@ -40,6 +44,48 @@ public class bsArticleController {
         return Result.ok(bsArticleService.save(bsArticle));
     }
 
+    @PostMapping("/upload")
+    @Operation(summary = "上传文章")
+
+    public JSONObject upload(@RequestBody JSONObject article){
+
+        bsArticle bs_article=new bsArticle();
+
+        bs_article.setArticleId(null);
+
+        String title=article.getString("title");
+        String content=article.getString("content");
+        String brief=article.getString("brief");
+        Integer uploaderId=article.getInteger("id");
+
+        if(uploaderId==null){
+            return  Result.error("id is null!");
+        }
+
+        if(title==null||title.length()>25||title.trim().equals("")){
+            return Result.error("标题不合规");
+        }
+
+        if(brief==null||brief.length()>50||brief.trim().equals("")){
+            return Result.error("简介不合规");
+        }
+
+        bs_article.setUploaderId(uploaderId);
+        bs_article.setTitle(title);
+        bs_article.setContent(content);
+        bs_article.setBrief(brief);
+
+        if(bsArticleService.save(bs_article)){
+            log.info(bs_article.getArticleId()+"上传成功-----"+bs_article.getUploadTime());
+            return Result.ok("success");
+        }
+
+        log.info("上传失败-----"+bs_article.getUploadTime());
+
+
+        return Result.error("上传失败");
+    }
+
     @PostMapping("/edit")
     @Operation(summary = "修改文章")
     public JSONObject edit(@RequestBody bsArticle bsArticle) {
@@ -56,7 +102,7 @@ public class bsArticleController {
 
     @GetMapping("/getById")
     @Operation(summary = "根据id查询")
-    @Parameter(name = "id", description = "文章id")
+    @Parameter(name = "id", description = "文章Id")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
         return Result.ok(bsArticleService.getById(id));
     }

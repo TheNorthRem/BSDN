@@ -1,6 +1,6 @@
 package com.bupt.bsdn.service.impl;
 
-import com.bupt.bsdn.config.Utils;
+import com.bupt.bsdn.util.Utils;
 import com.bupt.bsdn.service.bsRedisCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

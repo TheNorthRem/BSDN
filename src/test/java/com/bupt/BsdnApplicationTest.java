@@ -1,11 +1,12 @@
 package com.bupt;
 
 import com.bupt.bsdn.BsdnApplication;
-import com.bupt.bsdn.config.Utils;
+import com.bupt.bsdn.util.Utils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.bupt.bsdn.service.bsRedisCacheService;
+import com.bupt.bsdn.entity.bsArticle;
 
 @SpringBootTest(classes = BsdnApplication.class)
 public class BsdnApplicationTest {
@@ -41,5 +42,11 @@ public class BsdnApplicationTest {
         System.out.println(bsRedisCacheService.makeToken());
         System.out.println(bsRedisCacheService.makeToken());
         System.out.println(bsRedisCacheService.makeToken());
+    }
+
+    @Test
+    void TestArticle(){
+        bsArticle article=new bsArticle();
+        System.out.println(article.getUploadTime());
     }
 }

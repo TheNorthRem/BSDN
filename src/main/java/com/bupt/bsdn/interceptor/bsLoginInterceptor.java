@@ -1,7 +1,7 @@
 package com.bupt.bsdn.interceptor;
 
 
-import com.bupt.bsdn.config.Utils;
+import com.bupt.bsdn.util.Utils;
 import com.bupt.bsdn.service.bsRedisCacheService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;

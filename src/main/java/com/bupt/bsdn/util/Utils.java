@@ -1,4 +1,4 @@
-package com.bupt.bsdn.config;
+package com.bupt.bsdn.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
