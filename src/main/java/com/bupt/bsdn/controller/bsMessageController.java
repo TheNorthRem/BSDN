@@ -64,7 +64,7 @@ public class bsMessageController {
     }
 
     @GetMapping("/searchMessage")
-    @Operation(summary = "查询两个用户之间发送的消息")
+    @Operation(summary = "查询两个用户之间发送的消息(时间戳正序)")
     @Parameters({@Parameter(name = "userFromId", description = "发送消息的用户"), @Parameter(name = "userToId", description = "接收消息的用户")})
     public JSONObject searchMessage(@RequestParam(name = "userFromId") Integer userFromId, @RequestParam(name = "userToId") Integer userToId) {
         return Result.ok(bsMessageService.searchMessage(userFromId, userToId));

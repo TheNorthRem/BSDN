@@ -21,6 +21,7 @@ public interface bsMessageMapper extends BaseMapper<bsMessage> {
     @Select("select * " +
             "from bs_message " +
             "where bs_message.userFromId = #{userFromId} " +
-            "&& bs_message.userToId = #{userToId}")
+            "&& bs_message.userToId = #{userToId} " +
+            "order by bs_message.time")
     List<bsMessage> searchMessage(Integer userFromId, Integer userToId);
 }
