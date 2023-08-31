@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
-<<<<<<< HEAD
-=======
-
->>>>>>> b6294ba2bd416f181e62a3e591570318b100f069
 
 @RestController
 @RequestMapping("/bsArticle")
