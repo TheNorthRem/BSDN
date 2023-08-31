@@ -6,6 +6,7 @@ import com.bupt.bsdn.entity.bsMessage;
 import com.bupt.bsdn.service.bsMessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,33 +27,33 @@ public class bsMessageController {
     @GetMapping("/list")
     @Operation(summary = "获取全部消息")
     public JSONObject list() {
-        return Result.ok(bsMessageService.list()) ;
+        return Result.ok(bsMessageService.list());
     }
 
     @PostMapping("/add")
     @Operation(summary = "增加消息")
     public JSONObject add(@RequestBody bsMessage bsMessage) {
         bsMessage.setMessageId(null);
-        return Result.ok(bsMessageService.save(bsMessage))  ;
+        return Result.ok(bsMessageService.save(bsMessage));
     }
 
     @PostMapping("/edit")
     @Operation(summary = "修改消息")
     public JSONObject edit(@RequestBody bsMessage bsMessage) {
-        return Result.ok(bsMessageService.updateById(bsMessage)) ;
+        return Result.ok(bsMessageService.updateById(bsMessage));
     }
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除消息")
     public JSONObject delete(@RequestParam(name = "id") Integer id) {
-        return Result.ok(bsMessageService.removeById(id)) ;
+        return Result.ok(bsMessageService.removeById(id));
     }
 
     @GetMapping("/getById")
     @Operation(summary = "根据id查找消息")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
 
-        return Result.ok(bsMessageService.getById(id)) ;
+        return Result.ok(bsMessageService.getById(id));
     }
 
     @GetMapping("/searchSendUser")
@@ -60,5 +61,12 @@ public class bsMessageController {
     @Parameter(name = "userId", description = "当前用户id")
     public JSONObject searchSendUser(@RequestParam(name = "userId") Integer userId) {
         return Result.ok(bsMessageService.searchSendUser(userId));
+    }
+
+    @GetMapping("/searchMessage")
+    @Operation(summary = "查询两个用户之间发送的消息")
+    @Parameters({@Parameter(name = "userFromId", description = "发送消息的用户"), @Parameter(name = "userToId", description = "接收消息的用户")})
+    public JSONObject searchMessage(@RequestParam(name = "userFromId") Integer userFromId, @RequestParam(name = "userToId") Integer userToId) {
+        return Result.ok(bsMessageService.searchMessage(userFromId, userToId));
     }
 }

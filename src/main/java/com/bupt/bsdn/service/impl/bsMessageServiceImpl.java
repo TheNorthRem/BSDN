@@ -23,4 +23,9 @@ public class bsMessageServiceImpl extends ServiceImpl<bsMessageMapper, bsMessage
     public List<bsUser> searchSendUser(Integer userId) {
         return bsMessageMapper.searchSendUser(userId);
     }
+
+    @Override
+    public List<bsMessage> searchMessage(Integer userFromId, Integer userToId) {
+        return bsMessageMapper.searchMessage(userFromId, userToId);
+    }
 }

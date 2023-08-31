@@ -8,4 +8,6 @@ import com.bupt.bsdn.entity.bsUser;
 
 public interface bsMessageService extends IService<bsMessage> {
     List<bsUser> searchSendUser(Integer userId);
+
+    List<bsMessage> searchMessage(Integer userFromId, Integer userToId);
 }

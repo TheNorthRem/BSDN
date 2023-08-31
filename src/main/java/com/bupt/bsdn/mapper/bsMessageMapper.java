@@ -17,4 +17,10 @@ public interface bsMessageMapper extends BaseMapper<bsMessage> {
             "from bs_message join bs_user on bs_message.userFromId = bs_user.user_id " +
             "where bs_message.userToId = #{userId}")
     List<bsUser> searchSendUser(Integer userId);
+
+    @Select("select * " +
+            "from bs_message " +
+            "where bs_message.userFromId = #{userFromId} " +
+            "&& bs_message.userToId = #{userToId}")
+    List<bsMessage> searchMessage(Integer userFromId, Integer userToId);
 }
