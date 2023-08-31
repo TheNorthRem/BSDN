@@ -2,7 +2,7 @@
     <div >
       <el-container>
         <!-- 导航栏 -->
-        <el-header>Header</el-header>
+        <el-header><headers></headers></el-header>
       <el-container>
         <!-- 个人简介 -->
         <el-aside width="78%">
@@ -46,10 +46,12 @@
     </div>
   
   </template>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script>
-  
+  import headers from "@/components/head/headers.vue"
   export default {
+    components:{
+      headers,
+    },
     data(){
       return{
         profile:'个人简介',
