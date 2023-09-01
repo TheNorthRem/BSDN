@@ -42,7 +42,13 @@ public class bsArticleController {
 
     @PostMapping("/upload")
     @Operation(summary = "上传文章")
-
+    /**
+     * 前端需要传入
+     * title 标题
+     * content 内容
+     * brief 简介
+     * id 用户ID
+     * */
     public JSONObject upload(@RequestBody JSONObject article){
 
         bsArticle bs_article=new bsArticle();
