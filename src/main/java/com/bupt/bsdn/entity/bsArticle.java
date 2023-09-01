@@ -64,7 +64,11 @@ public class bsArticle {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp updateTime;
 
-    public bsArticle(){
+    @TableField("category")
+    @Schema(description = "文章类别(目前[前端,后端,生活,数据库,编程语言])")
+    private String category;
+
+    public bsArticle() {
         this.setState(0);
         this.setClickCount(0);
         this.setFavoriteCount(0);

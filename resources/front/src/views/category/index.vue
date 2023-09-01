@@ -6,15 +6,24 @@
       <el-container>
         <!-- 个人简介 -->
         <el-aside width="45%">
+<<<<<<< HEAD:resources/front/src/views/category/index.vue
           <div class="ele1">
             <div class="eleTitle">分类1</div>
             <div>
               xxxxx
+=======
+            <div class="ele1">
+                <div class="eleTitle">{{categoryTitle[0]}}</div>
+                <div>
+                    xxxxx
+                </div>
+>>>>>>> 3b71dd105e04812a0bbf21b033418cfc2b6a9fbb:resources/front/src/views/category/category.vue
             </div>
           </div>
         </el-aside>
         <el-main>
           <el-row :gutter="20" :style="{ height:'23%'}">
+<<<<<<< HEAD:resources/front/src/views/category/index.vue
             <el-col :span="7"><div class="grid-content">
               <div class="eleTitle">分类2</div>
             </div></el-col>
@@ -53,6 +62,63 @@ export default {
 
 }
 </script>
+=======
+              <el-col :span="7"><div class="grid-content">
+                <div class="eleTitle">{{categoryTitle[1]}}</div>
+              </div></el-col>
+              <el-col :span="7"><div class="grid-content">
+                <div class="eleTitle">{{categoryTitle[2]}}</div>
+              </div></el-col>
+          </el-row>
+        <el-row :gutter="20" :style="{ height:'23%'}">
+          <el-col :span="7"><div class="grid-content">
+            <div class="eleTitle">{{categoryTitle[3]}}</div>
+          </div></el-col>
+          <el-col :span="7"><div class="grid-content">
+            <div class="eleTitle">{{categoryTitle[4]}}</div>
+          </div></el-col>
+        </el-row>
+        <el-row :gutter="20" :style="{ height:'23%'}">
+          <el-col :span="7"><div class="grid-content">
+            <div class="eleTitle">{{categoryTitle[5]}}</div>
+          </div></el-col>
+          <el-col :span="7"><div class="grid-content">
+            <div class="eleTitle">{{categoryTitle[6]}}</div>
+          </div></el-col>
+        </el-row>
+        
+        </el-main>
+      </el-container>
+    </el-container>
+    </div>
+  
+  </template>
+  
+  <script>
+  
+  export default {
+    name: "App",
+    data(){
+    return{
+      categoryTitle:['分类1','分类2','分类','分类','分类','分类','分类','分类','分类']
+    }
+  },
+    create(){
+      this.fetchData();
+    },
+    async fetchData(){
+      try{
+      const response = await axios.get('',{
+        })
+        this.data=response.fetchData;
+      }catch(error){
+          console.error('更新页面信息失败',error);
+      }
+    }
+    
+  }
+  </script>
+>>>>>>> 3b71dd105e04812a0bbf21b033418cfc2b6a9fbb:resources/front/src/views/category/category.vue
   <style>
   .main-container {
     display: flex;

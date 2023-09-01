@@ -1,7 +1,12 @@
+/* eslint-disable */
 <template>
+<<<<<<< HEAD
   <div>
     <home />
   </div>
+=======
+  
+>>>>>>> 3b71dd105e04812a0bbf21b033418cfc2b6a9fbb
 </template>
 
 <script>

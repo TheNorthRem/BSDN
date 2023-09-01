@@ -51,6 +51,18 @@ export default {
       passageTitle:['title1','title2','title3','title4']
     }
   },
+  create(){
+      this.fetchData();
+  },
+  async fetchData(){
+      try{
+      const response = await axios.get('',{
+        })
+        this.data=response.fetchData;
+      }catch(error){
+          console.error('更新页面信息失败',error);
+      }
+  }
   
 }
 </script>
