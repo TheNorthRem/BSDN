@@ -38,5 +38,5 @@ public class bsUser {
 
     @TableField("openId")
     @Schema(description = "用户绑定的微信的openId")
-    private Integer openId;
+    private String openId;
 }
