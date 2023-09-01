@@ -81,7 +81,7 @@ public class bsUserController {
         try{
             file.transferTo(image);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         user.setAvatar(name);
