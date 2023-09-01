@@ -1,21 +1,21 @@
 <template>
-    <div>
-      <home></home>
-    </div>
+  <div>
+    <home />
+  </div>
 </template>
 
 <script>
 
-import headers from '@/components/head/headers';
-import home from "../home/home"
+// import headers from '@/components/head/headers'
+import home from '../home/index.vue'
 
-export default{
+export default {
   components: {
-    headers,
+    // headers,
     home
   },
-  data(){
-    return{
+  data() {
+    return {
 
     }
   }

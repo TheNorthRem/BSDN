@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/layout'
+// import Layout from '@/layout'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -31,16 +31,23 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
+
   {
-    path: '/#',
-    component: () => import('@/views/home/home'),
+    path: '/',
+    component: () => import('@/views/home/index'),
     hidden: true
   },
   {
     path: '/login',
     component: () => import('@/views/login/index'),
-    hidden: true,
+    hidden: true
   },
+  {
+    path: '/category',
+    component: () => import('@/views/category/index'),
+    hidden: true
+  },
+
   {
     path: '/404',
     component: () => import('@/views/404'),

@@ -2,58 +2,72 @@
   <div v-if="showLogin">
     <el-row v-if="success">
       <el-col :sm="12" :lg="6">
-        <el-result icon="success" title="成功提示" subTitle="请根据提示进行操作">
+        <el-result icon="success" title="成功提示" sub-title="请根据提示进行操作">
           <template slot="extra">
             <el-button type="primary" size="medium">返回</el-button>
           </template>
         </el-result>
       </el-col>
     </el-row>
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <!-- <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="pass">
-        <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.username" type="text" autocomplete="off" />
       </el-form-item>
       <el-form-item label="密码" prop="checkPass">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.password" type="password" autocomplete="off" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
       </el-form-item>
-    </el-form>
+    </el-form> -->
+    <el-dialog title="" :visible.sync="showLogin">
+      <el-form :model="form">
+        <el-form-item label="用户名" :label-width="formLabelWidth">
+          <el-input v-model="form.name" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="密码" :label-width="formLabelWidth">
+          <el-input v-model="form.name" autocomplete="off" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">登 录</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { login } from '@/api/Login/login';
+import { login } from '@/api/Login/login'
 
 export default {
   data() {
     var username = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入用户名'));
+        callback(new Error('请输入用户名'))
       } else {
         if (this.ruleForm.checkPass >= 6 && this.ruleForm.checkPass <= 10) {
-          this.$refs.ruleForm.validateField('checkPass');
+          this.$refs.ruleForm.validateField('checkPass')
         }
-        callback();
+        callback()
       }
-    };
+    }
     var password = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'));
+        callback(new Error('请输入密码'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     return {
       showLogin: true,
       success: false,
       ruleForm: {
         username: '',
-        password: '',
+        password: ''
       },
       token: {
-        data: '',
+        data: ''
       },
       rules: {
         pass: [
@@ -61,9 +75,9 @@ export default {
         ],
         checkPass: [
           { validator: password, trigger: 'blur' }
-        ],
+        ]
       }
-    };
+    }
   },
   methods: {
     submitForm(formName) {
@@ -72,21 +86,21 @@ export default {
           login(this.ruleForm).then(res => {
             localStorage.setItem('token', res.data.token)
             console.log(res.data.token)
-            this.showLogin = false;
+            this.showLogin = false
             this.$message({
               type: 'success',
-              message: '登陆成功',
-            });
+              message: '登陆成功'
+            })
           }
           )
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     }
   }
 }
@@ -99,7 +113,7 @@ export default {
   background-color: #fff;
   width: 50%;
   height: 50%;
-  position: absolute;
+  position: relative;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

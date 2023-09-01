@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="topBar">
-      <div>
-        <el-button class="leftButton" type="text" style="margin-left:200px;">首页</el-button>
-        <el-button class="leftButton" type="text">文章分类</el-button>
+      <div style="margin-left:100px;">
+        <el-button class="leftButton" type="text" @click="head">首页</el-button>
+        <el-button class="leftButton" type="text" @click="category">文章分类</el-button>
         <el-button class="leftButton" type="text">button1</el-button>
         <el-button class="leftButton" type="text">button2</el-button>
       </div>
@@ -17,7 +17,7 @@
       </div>
       <div style="margin-right: 20px;">
         <el-button type="text" class="register" @click="changeRegister">注册</el-button>
-          <el-button type="text" class="login" @click="changeLogin">登录</el-button>
+        <el-button type="text" class="login" @click="changeLogin">登录</el-button>
         <el-button plain size="mini" class="post">发布</el-button>
       </div>
     </div>
@@ -25,37 +25,41 @@
       <img src="../../assets/logo.png" style="height:80px;width:80px;">
     </div>
     <div class="textBox">BSDN</div>
-    <login v-if="loginFlag"></login>
-    <register v-if="registerFlag"></register>
+    <login v-if="loginFlag" />
+    <register v-if="registerFlag" />
   </div>
 </template>
 
 <script>
-import login from '@/components/login/login';
-import register from '@/components/login/register';
-export default{
+import login from '@/components/login/login'
+import register from '@/components/login/register'
+export default {
+  name: 'Headers',
   components: {
     login,
     register
   },
-  data(){
+  data() {
     return {
-      loginFlag:false,
-      registerFlag:false,
-      input2: "",
-      input21: "",
-      input22: "",
-      input23: "",
+      loginFlag: false,
+      registerFlag: false,
+      input1: ''
     }
   },
-  methods:{
-    changeLogin(){
-      this.loginFlag = !this.loginFlag;
-      this.registerFlag = false;
+  methods: {
+    head() {
+      this.$router.push({ path: '/' })
     },
-    changeRegister(){
-      this.registerFlag = !this.registerFlag;
-      this.loginFlag = false;
+    category() {
+      this.$router.push({ path: '/category' })
+    },
+    changeLogin() {
+      this.loginFlag = !this.loginFlag
+      this.registerFlag = false
+    },
+    changeRegister() {
+      this.registerFlag = !this.registerFlag
+      this.loginFlag = false
     }
   }
 }
@@ -72,6 +76,7 @@ export default{
     justify-content: space-between;
     /* padding: 50px 10px; */
     line-height: 48px;
+    padding: 16px 60px 16px 124px;
     gap: 50px;
     /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); */
 }
@@ -81,7 +86,7 @@ export default{
   height:80px;
   width:80px;
   top: 5%; /* 将图像垂直居中 */
-  left: 3%; /* 将图像水平居中 */
+  left: 2.7%; /* 将图像水平居中 */
   transform: translate(-50%, -50%); /* 调整图像的位置 */
 }
 .textBox{
@@ -93,7 +98,7 @@ export default{
   font-style: normal;
   font-weight: 900;
   line-height: 31px; /* 96.875% */
-  top: 5%; /* 将图像垂直居中 */
+  top: 5%;
   left: 6%;
   transform: translate(-50%, -50%);
   /* -webkit-text-stroke: 1px rgb(255, 255, 255); */

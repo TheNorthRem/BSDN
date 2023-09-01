@@ -27,7 +27,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  lintOnSave: false,
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -35,7 +35,7 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    },
+    }
     // before: require('./mock/mock-server.js')
   },
   configureWebpack: {

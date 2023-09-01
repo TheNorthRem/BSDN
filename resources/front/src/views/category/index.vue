@@ -1,71 +1,71 @@
 <template>
-    <div >
-      <el-container>
-        <!-- 导航栏 -->
-        <el-header>Header</el-header>
+  <div>
+    <el-container>
+      <!-- 导航栏 -->
+      <el-header>Header</el-header>
       <el-container>
         <!-- 个人简介 -->
         <el-aside width="45%">
-            <div class="ele1">
-                <div class="eleTitle">分类1</div>
-                <div>
-                    xxxxx
-                </div>
+          <div class="ele1">
+            <div class="eleTitle">分类1</div>
+            <div>
+              xxxxx
             </div>
+          </div>
         </el-aside>
         <el-main>
           <el-row :gutter="20" :style="{ height:'23%'}">
-              <el-col :span="7"><div class="grid-content">
-                <div class="eleTitle">分类2</div>
-              </div></el-col>
-              <el-col :span="7"><div class="grid-content">
-                <div class="eleTitle">分类3</div>
-              </div></el-col>
+            <el-col :span="7"><div class="grid-content">
+              <div class="eleTitle">分类2</div>
+            </div></el-col>
+            <el-col :span="7"><div class="grid-content">
+              <div class="eleTitle">分类3</div>
+            </div></el-col>
           </el-row>
-        <el-row :gutter="20" :style="{ height:'23%'}">
-          <el-col :span="7"><div class="grid-content">
-            <div class="eleTitle">分类4</div>
-          </div></el-col>
-          <el-col :span="7"><div class="grid-content">
-            <div class="eleTitle">分类5</div>
-          </div></el-col>
-        </el-row>
-        <el-row :gutter="20" :style="{ height:'23%'}">
-          <el-col :span="7"><div class="grid-content">
-            <div class="eleTitle">分类6</div>
-          </div></el-col>
-          <el-col :span="7"><div class="grid-content">
-            <div class="eleTitle">分类7</div>
-          </div></el-col>
-        </el-row>
-        
+          <el-row :gutter="20" :style="{ height:'23%'}">
+            <el-col :span="7"><div class="grid-content">
+              <div class="eleTitle">分类4</div>
+            </div></el-col>
+            <el-col :span="7"><div class="grid-content">
+              <div class="eleTitle">分类5</div>
+            </div></el-col>
+          </el-row>
+          <el-row :gutter="20" :style="{ height:'23%'}">
+            <el-col :span="7"><div class="grid-content">
+              <div class="eleTitle">分类6</div>
+            </div></el-col>
+            <el-col :span="7"><div class="grid-content">
+              <div class="eleTitle">分类7</div>
+            </div></el-col>
+          </el-row>
+
         </el-main>
       </el-container>
     </el-container>
-    </div>
-  
-  </template>
-  
-  <script>
-  
-  export default {
-    name: "App",
-    
-  }
-  </script>
+  </div>
+
+</template>
+
+<script>
+
+export default {
+  name: 'Category'
+
+}
+</script>
   <style>
   .main-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
   }
-  
+
   .el-container {
     display: flex;
     flex-direction: column;
     height: 100vh; /* 让容器占满视口高度 */
   }
-  
+
   .el-aside {
     padding-left:17%;
     margin-top:6%;
@@ -101,7 +101,7 @@
       display: flex;
       justify-content: center;
     }
-  
+
     .el-row {
       margin-bottom:3%;
       display: flex;
@@ -111,11 +111,11 @@
       margin-left:3%;
       border-radius: 12px;
       flex-direction: column;
-      display: flex; 
+      display: flex;
       height:100%;
     }
     .grid-content {
-      align-items: center; 
+      align-items: center;
       border: 2px solid #F6F5F4;
       background: #FBFBFA;
       border-radius: 12px;
@@ -131,7 +131,7 @@
       font-weight: 700;
       line-height: 24px; /* 133.333% */
       letter-spacing: -0.13px;
-      
+
     }
-  
+
   </style>
