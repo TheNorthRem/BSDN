@@ -7,7 +7,7 @@
         <!-- 个人简介 -->
         <el-aside width="45%">
             <div class="ele1">
-                <div class="eleTitle">分类1</div>
+                <div class="eleTitle">{{categoryTitle[0]}}</div>
                 <div>
                     xxxxx
                 </div>
@@ -16,26 +16,26 @@
         <el-main>
           <el-row :gutter="20" :style="{ height:'23%'}">
               <el-col :span="7"><div class="grid-content">
-                <div class="eleTitle">分类2</div>
+                <div class="eleTitle">{{categoryTitle[1]}}</div>
               </div></el-col>
               <el-col :span="7"><div class="grid-content">
-                <div class="eleTitle">分类3</div>
+                <div class="eleTitle">{{categoryTitle[2]}}</div>
               </div></el-col>
           </el-row>
         <el-row :gutter="20" :style="{ height:'23%'}">
           <el-col :span="7"><div class="grid-content">
-            <div class="eleTitle">分类4</div>
+            <div class="eleTitle">{{categoryTitle[3]}}</div>
           </div></el-col>
           <el-col :span="7"><div class="grid-content">
-            <div class="eleTitle">分类5</div>
+            <div class="eleTitle">{{categoryTitle[4]}}</div>
           </div></el-col>
         </el-row>
         <el-row :gutter="20" :style="{ height:'23%'}">
           <el-col :span="7"><div class="grid-content">
-            <div class="eleTitle">分类6</div>
+            <div class="eleTitle">{{categoryTitle[5]}}</div>
           </div></el-col>
           <el-col :span="7"><div class="grid-content">
-            <div class="eleTitle">分类7</div>
+            <div class="eleTitle">{{categoryTitle[6]}}</div>
           </div></el-col>
         </el-row>
         
@@ -50,6 +50,23 @@
   
   export default {
     name: "App",
+    data(){
+    return{
+      categoryTitle:['分类1','分类2','分类','分类','分类','分类','分类','分类','分类']
+    }
+  },
+    create(){
+      this.fetchData();
+    },
+    async fetchData(){
+      try{
+      const response = await axios.get('',{
+        })
+        this.data=response.fetchData;
+      }catch(error){
+          console.error('更新页面信息失败',error);
+      }
+    }
     
   }
   </script>

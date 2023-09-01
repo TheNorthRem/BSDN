@@ -1,7 +1,6 @@
+/* eslint-disable */
 <template>
-    <div>
-      <home></home>
-    </div>
+  
 </template>
 
 <script>

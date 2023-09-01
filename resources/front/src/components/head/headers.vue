@@ -3,7 +3,7 @@
     <div class="topBar">
       <div>
         <el-button class="leftButton" type="text" style="margin-left:200px;">首页</el-button>
-        <el-button class="leftButton" type="text">文章分类</el-button>
+        <el-button class="leftButton" type="text" @click="toCategory">文章分类</el-button>
         <el-button class="leftButton" type="text">button1</el-button>
         <el-button class="leftButton" type="text">button2</el-button>
       </div>
@@ -33,6 +33,7 @@
 <script>
 import login from '@/components/login/login';
 import register from '@/components/login/register';
+
 export default{
   components: {
     login,
@@ -52,11 +53,37 @@ export default{
     changeLogin(){
       this.loginFlag = !this.loginFlag;
       this.registerFlag = false;
+      try{
+        const response = axios.post('',{
+          username: this.username,
+          password: this.password
+        });
+        if(response.data.success){
+          console.log("respone login data success");
+        }else{
+          console.log("respone login data fail");
+        }
+      }catch(error){
+          console.error('登录请求失败',error);
+      }
     },
     changeRegister(){
       this.registerFlag = !this.registerFlag;
       this.loginFlag = false;
-    }
+      try{
+        const response = axios.post('',{
+          username: this.username,
+          password: this.password
+        });
+        if(response.data.success){
+          console.log("respone register data success");
+        }else{
+          console.log("respone register data fail");
+        }
+      }catch(error){
+          console.error('注册请求失败',error);
+      }
+    },
   }
 }
 
@@ -93,7 +120,7 @@ export default{
   font-style: normal;
   font-weight: 900;
   line-height: 31px; /* 96.875% */
-  top: 5%; /* 将图像垂直居中 */
+  top: 25px; /* 将图像垂直居中 */
   left: 6%;
   transform: translate(-50%, -50%);
   /* -webkit-text-stroke: 1px rgb(255, 255, 255); */
