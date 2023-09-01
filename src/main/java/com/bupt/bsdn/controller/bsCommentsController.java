@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import com.bupt.bsdn.service.bsUserService;
 import com.bupt.bsdn.service.bsArticleService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/bsComments")
 @Slf4j
@@ -88,6 +91,25 @@ public class bsCommentsController {
         bsCommentsService.save(comments);
 
         return Result.ok("success");
+    }
+
+    @GetMapping("getComments")
+    @Operation(summary = "获取文章的所有评论")
+
+    public JSONObject getComments(@RequestParam(value = "articleId",required = true) Integer article_id){
+
+        List<bsComments> fatherCommentsList=bsCommentsService.getCommentsByArticle(article_id);
+
+        List<JSONObject> result =new ArrayList<>();
+
+        for(bsComments comments : fatherCommentsList){
+            JSONObject obj=new JSONObject();
+            obj.put("comments",comments);
+            obj.put("sonComments",bsCommentsService.getCommentsByFatherId(comments.getCommentsId()));
+            result.add(obj);
+        }
+
+        return Result.ok(result);
     }
 
 }
