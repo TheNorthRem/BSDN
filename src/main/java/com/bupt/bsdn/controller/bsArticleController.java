@@ -42,13 +42,6 @@ public class bsArticleController {
 
     @PostMapping("/upload")
     @Operation(summary = "上传文章")
-    /*
-      前端需要传入
-      title 标题
-      content 内容
-      brief 简介
-      id 用户ID
-      */
     @Parameter(name = "article", description = """
             前端需要传入
                   title 标题
@@ -82,6 +75,7 @@ public class bsArticleController {
         bs_article.setTitle(title);
         bs_article.setContent(content);
         bs_article.setBrief(brief);
+        bs_article.setUploadTime(new Timestamp(new Date().getTime()));
 
         if (bsArticleService.save(bs_article)) {
             log.info(bs_article.getArticleId() + "上传成功-----" + bs_article.getUploadTime());
