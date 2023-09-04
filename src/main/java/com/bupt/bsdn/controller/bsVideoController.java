@@ -1,6 +1,5 @@
 package com.bupt.bsdn.controller;
 
-
 import com.alibaba.fastjson2.JSONObject;
 import com.bupt.bsdn.util.Utils;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,34 +12,35 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/ImageUpload")
+@RequestMapping("/VideoUpload")
 @Slf4j
-@Tag(name = "图片上传")
-public class bsImageController {
+@Tag(name = "视频上传")
+public class bsVideoController {
     @RequestMapping
-    public JSONObject imageUpload(@RequestParam(value = "image") MultipartFile file) throws IOException {
-
-        String path = Utils.getParamSettings("imagePath") + "upload//";
+    public JSONObject videoUpload(@RequestParam(value = "video") MultipartFile file) throws IOException {
+        String path = Utils.getParamSettings("videoPath");
 
         Calendar instance = Calendar.getInstance();
         String month = (instance.get(Calendar.MONTH) + 1) + "月";
-        path = path + month;
+        path += month;
 
         File realPath = new File(path);
-        if (!realPath.exists()) {
+        if (!realPath.exists())
             realPath.mkdirs();
-        }
-        //上传文件地址
-        log.info("上传文件保存地址：" + realPath);
+
+        log.info("上传文件保存地址");
+        String format = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf('.'));
+
         //解决文件名字问题：我们使用uuid;
-        String filename = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
+        String filename = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + format;
         File newfile = new File(realPath, filename);
         file.transferTo(newfile);
+        String uploadPath = "/video/upload/" + month + "/" + filename;
 
-        String uploadPath = "/image/upload/" + month + "/" + filename;
         JSONObject result = new JSONObject();
         result.put("errno", 0);
         JSONObject data = new JSONObject();
@@ -50,5 +50,4 @@ public class bsImageController {
 
         return result;
     }
-
 }
