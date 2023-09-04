@@ -45,7 +45,15 @@ public class bsImageController {
             //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
             file.transferTo(newfile);
 
-            return Result.ok("/upload/"+month+"/"+ filename);
+            String uploadPath="/image/upload/"+month+"/"+ filename;
+
+            JSONObject result=new JSONObject();
+            result.put("errno",0);
+            JSONObject data=new JSONObject();
+            data.put("url",Utils.getParamSettings("BaseUrl")+uploadPath);
+            result.put("data",data);
+
+            return result;
     }
 
 }
