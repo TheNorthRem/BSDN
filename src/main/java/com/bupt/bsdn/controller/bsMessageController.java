@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/bsMessage")
 @Slf4j
@@ -67,6 +70,11 @@ public class bsMessageController {
     @Operation(summary = "查询两个用户之间发送的消息(时间戳正序)")
     @Parameters({@Parameter(name = "userFromId", description = "发送消息的用户"), @Parameter(name = "userToId", description = "接收消息的用户")})
     public JSONObject searchMessage(@RequestParam(name = "userFromId") Integer userFromId, @RequestParam(name = "userToId") Integer userToId) {
-        return Result.ok(bsMessageService.searchMessage(userFromId, userToId));
+        List<bsMessage> messages =new ArrayList<>();
+        messages.addAll(bsMessageService.searchMessage(userFromId, userToId));
+        messages.addAll(bsMessageService.searchMessage(userToId, userFromId));
+        messages.sort((m1,m2)->((m2.getTime().compareTo(m1.getTime()))));
+
+        return Result.ok(messages);
     }
 }
