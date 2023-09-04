@@ -2,10 +2,8 @@ package com.bupt.bsdn.controller;
 
 
 import com.alibaba.fastjson2.JSONObject;
-import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +21,7 @@ import java.util.UUID;
 @Tag(name = "图片上传")
 public class bsImageController {
     @RequestMapping
-    public JSONObject imageUpload(@RequestParam(value = "image", required = true) MultipartFile file) throws IOException {
+    public JSONObject imageUpload(@RequestParam(value = "image") MultipartFile file) throws IOException {
 
             String path = Utils.getParamSettings("imagePath");
 
