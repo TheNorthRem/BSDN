@@ -16,7 +16,8 @@ public interface bsArticleMapper extends BaseMapper<bsArticle> {
     @Select("select article_id, title, clickCount, favoriteCount, state, updateTime, brief, updateTime " +
             "from bs_article " +
             "where bs_article.title like concat('%', concat(#{content}, '%')) " +
-            "or bs_article.content like concat('%', concat(#{content}, '%'))" +
+            "or bs_article.content like concat('%', concat(#{content}, '%')) " +
+            "or bs_article.brief like concat('%',concat(#{content}, '%')) " +
             "order by bs_article.updateTime desc ")
     List<bsArticle> searchContent(String content);
 }
