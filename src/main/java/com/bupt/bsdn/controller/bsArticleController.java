@@ -56,7 +56,6 @@ public class bsArticleController {
 
         String title = article.getString("title");
         String content = article.getString("content");
-        String brief = article.getString("brief");
         Integer uploaderId = article.getInteger("id");
 
         if (uploaderId == null) {
@@ -67,14 +66,11 @@ public class bsArticleController {
             return Result.error("标题不合规");
         }
 
-        if (brief == null || brief.length() > 50 || brief.trim().isEmpty()) {
-            return Result.error("简介不合规");
-        }
+
 
         bs_article.setUploaderId(uploaderId);
         bs_article.setTitle(title);
         bs_article.setContent(content);
-        bs_article.setBrief(brief);
         bs_article.setUploadTime(new Timestamp(new Date().getTime()));
 
         if (bsArticleService.save(bs_article)) {
