@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -32,9 +33,10 @@ public class bsVideoController {
             realPath.mkdirs();
 
         log.info("上传文件保存地址");
+        String format = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf('.'));
 
         //解决文件名字问题：我们使用uuid;
-        String filename = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + ".mp4";
+        String filename = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + format;
         File newfile = new File(realPath, filename);
         file.transferTo(newfile);
         String uploadPath = "/video/upload/" + month + "/" + filename;
