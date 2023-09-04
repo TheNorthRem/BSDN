@@ -7,6 +7,7 @@ import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.service.bsArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,6 @@ public class bsArticleController {
         }
 
 
-
         bs_article.setUploaderId(uploaderId);
         bs_article.setTitle(title);
         bs_article.setContent(content);
@@ -113,17 +113,15 @@ public class bsArticleController {
     }
 
     @GetMapping("/searchContent")
-    @Operation(summary = "搜索文章(模糊查询+时间戳倒叙),只要标题或内容模糊查询匹配即可")
-    @Parameter(name = "content", description = "搜索内容")
-    public JSONObject searchContent(@RequestParam(name = "content") String content) {
-        return Result.ok(bsArticleService.searchContent(content));
+    @Operation(summary = "搜索文章(模糊查询+时间戳倒叙),只要标题或内容模糊查询匹配即可,该接口自带分页功能")
+    @Parameters({@Parameter(name = "content", description = "搜索内容"), @Parameter(name = "page", description = "第几页")})
+    public JSONObject searchContent(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page) {
+        return Result.ok(bsArticleService.searchContent(content, page));
     }
 
     @GetMapping("getTopArticles")
     @Operation(summary = "获取热门文章")
-
-    public JSONObject getTopArticle(){
+    public JSONObject getTopArticle() {
         return Result.ok(bsArticleService.getTopArticle());
     }
-
 }

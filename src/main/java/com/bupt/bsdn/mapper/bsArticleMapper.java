@@ -1,6 +1,7 @@
 package com.bupt.bsdn.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bupt.bsdn.entity.bsArticle;
 import org.apache.ibatis.annotations.Select;
 
@@ -19,7 +20,7 @@ public interface bsArticleMapper extends BaseMapper<bsArticle> {
             "or bs_article.content like concat('%', concat(#{content}, '%')) " +
             "or bs_article.brief like concat('%',concat(#{content}, '%')) " +
             "order by bs_article.updateTime desc ")
-    List<bsArticle> searchContent(String content);
+    Page<bsArticle> searchContent(String content, Page<bsArticle> page);
 
     @Select("select * from bs_article order by favoriteCount desc limit 5")
     List<bsArticle> getTopContent();
