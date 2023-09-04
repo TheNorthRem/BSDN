@@ -1,20 +1,28 @@
 package com.bupt;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bupt.bsdn.BsdnApplication;
+import com.bupt.bsdn.entity.bsArticle;
+import com.bupt.bsdn.mapper.bsArticleMapper;
+import com.bupt.bsdn.service.bsRedisCacheService;
+import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.bupt.bsdn.service.bsRedisCacheService;
-import com.bupt.bsdn.entity.bsArticle;
 
 @SpringBootTest(classes = BsdnApplication.class)
+@Slf4j
 public class BsdnApplicationTest {
     private final bsRedisCacheService bsRedisCacheService;
 
+    private final bsArticleMapper bsArticleMapper;
+
     @Autowired
-    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService) {
+    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper) {
         this.bsRedisCacheService = bsRedisCacheService;
+        this.bsArticleMapper = bsArticleMapper;
     }
 
 
@@ -45,13 +53,20 @@ public class BsdnApplicationTest {
     }
 
     @Test
-    void TestArticle(){
-        bsArticle article=new bsArticle();
+    void TestArticle() {
+        bsArticle article = new bsArticle();
         System.out.println(article.getUploadTime());
     }
 
     @Test
-    void TestImage(){
+    void TestImage() {
 
+    }
+
+    @Test
+    void TestPage() {
+        Page<bsArticle> page = new Page<>(1, 2);
+        Page<bsArticle> bsArticlePage = bsArticleMapper.selectPage(page, null);
+        System.out.println(Result.ok(bsArticlePage));
     }
 }
