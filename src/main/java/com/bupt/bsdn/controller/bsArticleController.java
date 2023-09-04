@@ -42,33 +42,32 @@ public class bsArticleController {
 
     @PostMapping("/upload")
     @Operation(summary = "上传文章")
-    /**
-     * 前端需要传入
-     * title 标题
-     * content 内容
-     * brief 简介
-     * id 用户ID
-     * */
-    public JSONObject upload(@RequestBody JSONObject article){
+    @Parameter(name = "article", description = """
+            前端需要传入
+                  title 标题
+                  content 内容
+                  brief 简介
+                  id 用户ID""")
+    public JSONObject upload(@RequestBody JSONObject article) {
 
-        bsArticle bs_article=new bsArticle();
+        bsArticle bs_article = new bsArticle();
 
         bs_article.setArticleId(null);
 
-        String title=article.getString("title");
-        String content=article.getString("content");
-        String brief=article.getString("brief");
-        Integer uploaderId=article.getInteger("id");
+        String title = article.getString("title");
+        String content = article.getString("content");
+        String brief = article.getString("brief");
+        Integer uploaderId = article.getInteger("id");
 
-        if(uploaderId==null){
-            return  Result.error("id is null!");
+        if (uploaderId == null) {
+            return Result.error("id is null!");
         }
 
-        if(title==null||title.length()>25||title.trim().equals("")){
+        if (title == null || title.length() > 25 || title.trim().isEmpty()) {
             return Result.error("标题不合规");
         }
 
-        if(brief==null||brief.length()>50||brief.trim().equals("")){
+        if (brief == null || brief.length() > 50 || brief.trim().isEmpty()) {
             return Result.error("简介不合规");
         }
 
@@ -76,13 +75,14 @@ public class bsArticleController {
         bs_article.setTitle(title);
         bs_article.setContent(content);
         bs_article.setBrief(brief);
+        bs_article.setUploadTime(new Timestamp(new Date().getTime()));
 
-        if(bsArticleService.save(bs_article)){
-            log.info(bs_article.getArticleId()+"上传成功-----"+bs_article.getUploadTime());
+        if (bsArticleService.save(bs_article)) {
+            log.info(bs_article.getArticleId() + "上传成功-----" + bs_article.getUploadTime());
             return Result.ok("success");
         }
 
-        log.info("上传失败-----"+bs_article.getUploadTime());
+        log.info("上传失败-----" + bs_article.getUploadTime());
 
 
         return Result.error("上传失败");
