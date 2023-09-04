@@ -20,4 +20,8 @@ public interface bsArticleMapper extends BaseMapper<bsArticle> {
             "or bs_article.brief like concat('%',concat(#{content}, '%')) " +
             "order by bs_article.updateTime desc ")
     List<bsArticle> searchContent(String content);
+
+    @Select("select * from bs_article order by favoriteCount desc limit 5")
+    List<bsArticle> getTopContent();
+
 }

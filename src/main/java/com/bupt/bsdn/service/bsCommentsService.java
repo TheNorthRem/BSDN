@@ -8,4 +8,5 @@ public interface bsCommentsService extends IService<bsComments> {
 
     public List<bsComments> getCommentsByFatherId(Integer fatherArticleId);
 
+
 }
