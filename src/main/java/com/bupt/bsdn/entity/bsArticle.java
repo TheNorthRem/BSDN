@@ -75,5 +75,6 @@ public class bsArticle {
         this.setUploadTime(Timestamp.valueOf(LocalDateTime.now()));
         this.setCheckMessage("unchecked");
         this.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
+        this.setBrief("");
     }
 }
