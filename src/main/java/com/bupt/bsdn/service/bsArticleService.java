@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface bsArticleService extends IService<bsArticle> {
     List<bsArticle> search(String content);
+
+    List<bsArticle> searchContent(String content);
 }

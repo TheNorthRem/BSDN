@@ -111,9 +111,16 @@ public class bsArticleController {
 
     @GetMapping("/search")
     @Operation(summary = "搜索文章(模糊查询+时间戳倒叙)")
-    @Parameter(name = "content", description = "内容")
+    @Parameter(name = "content", description = "搜索内容")
     public JSONObject search(@RequestParam(name = "content") String content) {
         return Result.ok(bsArticleService.search(content));
+    }
+
+    @GetMapping("/searchContent")
+    @Operation(summary = "搜索文章(模糊查询+时间戳倒叙),只要标题或内容模糊查询匹配即可")
+    @Parameter(name = "content", description = "搜索内容")
+    public JSONObject searchContent(@RequestParam(name = "content") String content) {
+        return Result.ok(bsArticleService.searchContent(content));
     }
 
 
