@@ -29,4 +29,4 @@ imagePath: "/home/liyehui/Programing/BSDN/image/" # 存储图片路径
 videoPath: "D://JUNGLE//JavaEE//" # 存储视频路径
 tokenLength: 10 #token长度
 logicIndexPath: "/image/index.html" #登录页面
-BaseUrl: http://localhost:8081/
+BaseUrl: http://localhost:8081
