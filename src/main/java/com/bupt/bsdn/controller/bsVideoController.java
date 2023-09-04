@@ -46,6 +46,7 @@ public class bsVideoController {
         JSONObject data = new JSONObject();
         data.put("url", Utils.getParamSettings("BaseUrl") + uploadPath);
         result.put("data", data);
+        log.info("----" + result + "-------");
 
         return result;
     }
