@@ -123,7 +123,6 @@ public class bsArticleController {
     @Operation(summary = "获取热门文章")
 
     public JSONObject getTopArticle(){
-
         return Result.ok(bsArticleService.getTopArticle());
     }
 
