@@ -49,4 +49,9 @@ public class BsdnApplicationTest {
         bsArticle article=new bsArticle();
         System.out.println(article.getUploadTime());
     }
+
+    @Test
+    void TestImage(){
+
+    }
 }

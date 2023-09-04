@@ -17,10 +17,16 @@ spring:
         shutdown-timeout: 100ms
       password: ''
       port: 6379
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 server: # 端口设置
   port: 8081
 
 expirationTime: 10  # redis缓存过期时间(秒)
-imagePath: "D://JUNGLE//JavaEE//" # 存储图片路径
+imagePath: "/home/liyehui/Programing/BSDN/image/" # 存储图片路径
+
 tokenLength: 10 #token长度
 logicIndexPath: "/image/index.html" #登录页面
+BaseUrl: http://localhost:8081/
