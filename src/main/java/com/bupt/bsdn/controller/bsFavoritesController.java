@@ -66,6 +66,17 @@ public class bsFavoritesController {
         return Result.ok("添加成功!");
     }
 
+    @GetMapping("/isFollowing")
+    @Operation(summary = "判断目标用户是否在当前用户的关注列表中")
+    @Parameters({@Parameter(name = "userId", description = "当前用户id"), @Parameter(name = "followingId", description = "目标用户id")})
+    public Boolean isFollowing(@RequestParam(name = "userId") Integer userId, @RequestParam(name = "followingId") Integer followingId) {
+        QueryWrapper<bsFavorites> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userFromId", userId);
+        queryWrapper.eq("userToId", followingId);
+        List<bsFavorites> bsFavoritesList = bsFavoritesService.list(queryWrapper);
+        return !bsFavoritesList.isEmpty();
+    }
+
     @DeleteMapping("/deleteFollowing")
     @Operation(summary = "删除该用户的关注列表成员(用户--关注-->成员)")
     @Parameters({@Parameter(name = "userId", description = "用户id"), @Parameter(name = "followingId", description = "关注的用户的id")})
