@@ -13,11 +13,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.bupt.bsdn.service.bsMessageService;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+import com.bupt.bsdn.service.bsCommentsService;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.bupt.bsdn.entity.bsComments;
 @SpringBootTest(classes = BsdnApplication.class)
 @Slf4j
 public class BsdnApplicationTest {
@@ -25,11 +24,13 @@ public class BsdnApplicationTest {
     private final bsMessageService bsMessageService;
     private final bsArticleMapper bsArticleMapper;
 
+    private final bsCommentsService bsCommentsService;
     @Autowired
-    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper,bsMessageService bsMessageService) {
+    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper,bsMessageService bsMessageService,bsCommentsService bsCommentsService) {
         this.bsRedisCacheService = bsRedisCacheService;
         this.bsArticleMapper = bsArticleMapper;
         this.bsMessageService=bsMessageService;
+        this.bsCommentsService=bsCommentsService;
     }
 
 
