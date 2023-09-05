@@ -88,31 +88,4 @@ public class BsdnApplicationTest {
             System.out.println(m);
         }
     }
-
-
-    @Test
-    void testCommentsPage(){
-        List<bsComments> comments = bsCommentsService.getCommentsByArticle(2);
-        for(bsComments comment:comments){
-
-            System.out.println(comment);
-
-            System.out.println("---->" );
-
-            Page<bsComments> page=bsCommentsService.getCommentsByFatherId(comment.getCommentsId(),1);
-
-            System.out.println(Result.ok(page));
-
-            System.out.println("----->");
-
-            List<bsComments> records = page.getRecords();
-
-
-            for(bsComments com:records){
-                System.out.println(com);
-            }
-
-        }
-
-    }
 }
