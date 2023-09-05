@@ -5,6 +5,7 @@ import com.bupt.bsdn.BsdnApplication;
 import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.entity.bsMessage;
 import com.bupt.bsdn.mapper.bsArticleMapper;
+import com.bupt.bsdn.service.bsMessageService;
 import com.bupt.bsdn.service.bsRedisCacheService;
 import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
@@ -12,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.bupt.bsdn.service.bsMessageService;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,15 +38,15 @@ public class BsdnApplicationTest {
     }
 
     @Test
-    void TestRedis() throws InterruptedException {
+    void TestRedis() {
         bsRedisCacheService.setToken("1", "1");
         bsRedisCacheService.setToken("2", "2");
         bsRedisCacheService.setToken("3", "3");
         bsRedisCacheService.deleteToken("3");
         System.out.println(bsRedisCacheService.getToken("3"));
-        Thread.sleep(5000);
+        //Thread.sleep(5000);
         System.out.println(bsRedisCacheService.getToken("1"));
-        Thread.sleep(6000);
+        //Thread.sleep(6000);
         System.out.println(bsRedisCacheService.getToken("1"));
     }
 
