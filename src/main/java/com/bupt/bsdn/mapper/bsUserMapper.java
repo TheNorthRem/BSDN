@@ -32,8 +32,8 @@ public interface bsUserMapper extends BaseMapper<bsUser> {
             "bs_user.privilege as privilege, " +
             "bs_user.avatar as avatar, " +
             "bs_user.openId as openId, " +
-            "bs_userInformation.intro as intro," +
-            " from bs_user join bs_userInformation on bs_user.user_id=bs_userInformation.userId " +
+            "bs_userInformation.intro as intro " +
+            "from bs_user join bs_userInformation on bs_user.user_id=bs_userInformation.userId " +
             "where user_id=#{id} ")
     bsUser getUserDetailById(Integer Id);
 }
