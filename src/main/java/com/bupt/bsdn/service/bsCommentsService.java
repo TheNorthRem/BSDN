@@ -7,7 +7,7 @@ import java.util.List;
 public interface bsCommentsService extends IService<bsComments> {
     public List<bsComments> getCommentsByArticle(Integer articleId);
 
-    public Page<bsComments> getCommentsByFatherId(Integer fatherId,Integer pageSize);
+    public Page<bsComments> getCommentsByFatherId(Integer fatherId,Integer pages);
 
 
 }

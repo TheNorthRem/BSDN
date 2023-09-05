@@ -6,6 +6,7 @@ import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsComments;
 import com.bupt.bsdn.service.bsCommentsService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.security.SecurityScheme;
@@ -95,9 +96,9 @@ public class bsCommentsController {
         return Result.ok("success");
     }
 
-    @GetMapping("getComments")
+    @GetMapping("/getComments")
     @Operation(summary = "获取文章的所有评论")
-    @Parameters()
+    @Parameters({@Parameter(name = "articleId",description = "文章Id"),@Parameter(name = "page",description = "第几页")})
     public JSONObject getComments(@RequestParam(value = "articleId") Integer article_id, @RequestParam(value="page") Integer page){
 
         List<bsComments> fatherCommentsList=bsCommentsService.getCommentsByArticle(article_id);
@@ -107,11 +108,22 @@ public class bsCommentsController {
         for(bsComments comments : fatherCommentsList){
             JSONObject obj=new JSONObject();
             obj.put("comments",comments);
-            obj.put("sonComments",bsCommentsService.getCommentsByFatherId(comments.getCommentsId(),page));
+            obj.put("sonComments",bsCommentsService.getCommentsByFatherId(comments.getCommentsId(),1));
             result.add(obj);
         }
 
         return Result.ok(result);
+    }
+
+    @GetMapping("/getSonComments")
+    @Operation(summary = "获取文章的所有评论")
+    @Parameters({@Parameter(name = "articleId",description = "文章Id"),@Parameter(name = "page",description = "第几页")})
+    public JSONObject getSonComments(@RequestParam(value = "commentId") Integer commentId, @RequestParam(value="page") Integer page){
+        bsComments comments=bsCommentsService.getById(commentId);
+        JSONObject res=new JSONObject();
+        res.put("comments",comments);
+        res.put("sonComments",bsCommentsService.getCommentsByFatherId(comments.getCommentsId(),page));
+        return Result.ok(res);
     }
 
 }
