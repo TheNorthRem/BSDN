@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -29,6 +30,8 @@ public class bsImageController {
         String month = (instance.get(Calendar.MONTH) + 1) + "月";
         path = path + month;
 
+        String format = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf('.'));
+
         File realPath = new File(path);
         if (!realPath.exists()) {
             realPath.mkdirs();
@@ -36,7 +39,7 @@ public class bsImageController {
         //上传文件地址
         log.info("上传文件保存地址：" + realPath);
         //解决文件名字问题：我们使用uuid;
-        String filename = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
+        String filename = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + format;
         File newfile = new File(realPath, filename);
         file.transferTo(newfile);
 

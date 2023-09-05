@@ -34,6 +34,14 @@ public class bsArticleServiceImpl extends ServiceImpl<bsArticleMapper, bsArticle
         return bsArticleMapper.searchContent(content, bsArticlePage);
     }
 
+
+    @Override
+    public Page<bsArticle> searchByCategory(String category, Integer page) {
+        Page<bsArticle> bsArticlePage = new Page<>(page, Long.parseLong(Utils.getParamSettings("PageSize")));
+        return bsArticleMapper.searchByCategory(category,bsArticlePage);
+    }
+
+
     @Override
     public List<bsArticle> getTopArticle() {
         return bsArticleMapper.getTopContent();

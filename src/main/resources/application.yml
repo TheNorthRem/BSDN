@@ -24,7 +24,7 @@ spring:
 server: # 端口设置
   port: 8081
 
-expirationTime: 10  # redis缓存过期时间(秒)
+expirationTime: 1000  # redis缓存过期时间(秒)
 imagePath: "/home/liyehui/Programing/BSDN/image/" # 存储图片路径
 videoPath: "D://JUNGLE//JavaEE//" # 存储视频路径
 tokenLength: 10 #token长度

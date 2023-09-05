@@ -11,5 +11,6 @@ public interface bsArticleService extends IService<bsArticle> {
 
     Page<bsArticle> searchContent(String content, Integer page);
 
+    Page<bsArticle> searchByCategory(String category, Integer page);
     List<bsArticle> getTopArticle();
 }
