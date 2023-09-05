@@ -30,3 +30,4 @@ videoPath: "D://JUNGLE//JavaEE//" # 存储视频路径
 tokenLength: 10 #token长度
 logicIndexPath: "/image/index.html" #登录页面
 BaseUrl: http://localhost:8081
+PageSize: 5 # 每一页显示的数据量
