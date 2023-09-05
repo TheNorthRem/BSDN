@@ -62,8 +62,10 @@ public class BsdnApplicationTest {
 
     @Test
     void TestArticle() {
-        bsArticle article = new bsArticle();
-        System.out.println(article.getUploadTime());
+        List<bsArticle> search = bsArticleMapper.search("33");
+        for(bsArticle bsArticle:search){
+            System.out.println(bsArticle);
+        }
     }
 
     @Test

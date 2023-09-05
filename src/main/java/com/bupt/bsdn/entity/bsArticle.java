@@ -68,6 +68,14 @@ public class bsArticle {
     @Schema(description = "文章类别(目前[前端,后端,生活,数据库,编程语言])")
     private String category;
 
+    @TableField(exist = false)
+    @Schema(description = "用户昵称")
+    private String nickName;
+
+    @TableField(exist = false)
+    @Schema(description = "头像对应的文件名（头像会上传到对应的文件夹用文件名唯一标识）")
+    private String avatar;
+
     public bsArticle() {
         this.setState(0);
         this.setClickCount(0);

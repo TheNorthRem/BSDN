@@ -2,6 +2,7 @@ package com.bupt.bsdn.controller;
 
 
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.service.bsArticleService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/bsArticle")
@@ -108,13 +110,34 @@ public class bsArticleController {
     @Operation(summary = "搜索文章(模糊查询+时间戳倒叙)")
     @Parameter(name = "content", description = "搜索内容")
     public JSONObject search(@RequestParam(name = "content") String content) {
-        return Result.ok(bsArticleService.search(content));
+        List<bsArticle> search = bsArticleService.search(content);
+
+        for(bsArticle bsArticle:search){
+            String str = bsArticle.getContent();
+            str = str.replaceAll("<.+?>", "");
+            if(str.length()>50){
+                str=str.substring(0,50);
+            }
+            bsArticle.setContent(str);
+        }
+        return Result.ok(search);
     }
 
     @GetMapping("/searchContent")
     @Operation(summary = "搜索文章(模糊查询+时间戳倒叙),只要标题或内容模糊查询匹配即可,该接口自带分页功能")
     @Parameters({@Parameter(name = "content", description = "搜索内容"), @Parameter(name = "page", description = "第几页")})
     public JSONObject searchContent(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page) {
+        List<bsArticle> search = bsArticleService.searchContent(content,new Page<>());
+
+        for(bsArticle bsArticle:search){
+            String str = bsArticle.getContent();
+            str = str.replaceAll("<.+?>", "");
+            if(str.length()>50){
+                str=str.substring(0,50);
+            }
+            bsArticle.setContent(str);
+        }
+
         return Result.ok(bsArticleService.searchContent(content, page));
     }
 

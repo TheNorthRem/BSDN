@@ -22,7 +22,10 @@ public class bsArticleServiceImpl extends ServiceImpl<bsArticleMapper, bsArticle
 
     @Override
     public List<bsArticle> search(String content) {
+
         return bsArticleMapper.search(content);
+
+
     }
 
     @Override
