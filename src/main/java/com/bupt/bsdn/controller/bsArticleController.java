@@ -71,7 +71,6 @@ public class bsArticleController {
         bs_article.setUploaderId(uploaderId);
         bs_article.setTitle(title);
         bs_article.setContent(content);
-        bs_article.setUploadTime(new Timestamp(new Date().getTime()));
         bs_article.setCategory("孙吧风味");
         if (bsArticleService.save(bs_article)) {
             log.info(bs_article.getArticleId() + "上传成功-----" + bs_article.getUploadTime());

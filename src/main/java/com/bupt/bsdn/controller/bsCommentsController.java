@@ -96,7 +96,7 @@ public class bsCommentsController {
     @GetMapping("getComments")
     @Operation(summary = "获取文章的所有评论")
 
-    public JSONObject getComments(@RequestParam(value = "articleId",required = true) Integer article_id){
+    public JSONObject getComments(@RequestParam(value = "articleId") Integer article_id){
 
         List<bsComments> fatherCommentsList=bsCommentsService.getCommentsByArticle(article_id);
 

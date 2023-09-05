@@ -3,6 +3,7 @@ package com.bupt;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bupt.bsdn.BsdnApplication;
 import com.bupt.bsdn.entity.bsArticle;
+import com.bupt.bsdn.entity.bsComments;
 import com.bupt.bsdn.entity.bsMessage;
 import com.bupt.bsdn.mapper.bsArticleMapper;
 import com.bupt.bsdn.service.bsRedisCacheService;
@@ -13,8 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.bupt.bsdn.service.bsMessageService;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+import com.bupt.bsdn.service.bsCommentsService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +24,15 @@ public class BsdnApplicationTest {
     private final bsRedisCacheService bsRedisCacheService;
     private final bsMessageService bsMessageService;
     private final bsArticleMapper bsArticleMapper;
-
+    
+    
+    private final bsCommentsService bsCommentsService;
     @Autowired
-    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper,bsMessageService bsMessageService) {
+    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper,bsMessageService bsMessageService,bsCommentsService bsCommentsService) {
         this.bsRedisCacheService = bsRedisCacheService;
         this.bsArticleMapper = bsArticleMapper;
         this.bsMessageService=bsMessageService;
+        this.bsCommentsService=bsCommentsService;
     }
 
 
@@ -88,5 +91,32 @@ public class BsdnApplicationTest {
         for(bsMessage m:messages){
             System.out.println(m);
         }
+    }
+    
+    
+    @Test
+    void testCommentsPage(){
+        List<bsComments> comments = bsCommentsService.getCommentsByArticle(2);
+        for(bsComments comment:comments){
+
+            System.out.println(comment);
+
+            System.out.println("---->" );
+
+            Page<bsComments> page=bsCommentsService.getCommentsByFatherId(comment.getCommentsId());
+
+            System.out.println(Result.ok(page));
+
+            System.out.println("----->");
+
+            List<bsComments> records = page.getRecords();
+
+
+            for(bsComments com:records){
+                System.out.println(com);
+            }
+
+        }
+
     }
 }

@@ -13,5 +13,4 @@ public interface bsCommentsMapper extends BaseMapper<bsComments> {
     @Select("select * from bs_comments where fatherCommentId = #{fatherCommentId} order by time")
     public List<bsComments> getSonCommentsById(Integer fatherCommentId);
 
-
 }
