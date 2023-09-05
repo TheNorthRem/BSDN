@@ -59,6 +59,7 @@ public class bsArticleController {
         String title = article.getString("title");
         String content = article.getString("content");
         Integer uploaderId = article.getInteger("id");
+        String category=article.getString("tag");
 
         if (uploaderId == null) {
             return Result.error("id is null!");
@@ -72,7 +73,7 @@ public class bsArticleController {
         bs_article.setUploaderId(uploaderId);
         bs_article.setTitle(title);
         bs_article.setContent(content);
-        bs_article.setCategory("孙吧风味");
+        bs_article.setCategory(category);
         String brief = content.replaceAll("<.+?>", "");
         brief = brief.length() < 200 ? brief : brief.substring(0, 200);
         bs_article.setBrief(brief);
