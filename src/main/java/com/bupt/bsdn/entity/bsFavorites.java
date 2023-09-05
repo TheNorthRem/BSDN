@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @TableName("bs_favorites")
-@Schema(name = "收藏")
+@Schema(name = "关注")
 
 public class bsFavorites {
     @TableId(type = IdType.AUTO)
