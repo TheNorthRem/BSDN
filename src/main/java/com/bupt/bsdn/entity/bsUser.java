@@ -39,4 +39,9 @@ public class bsUser {
     @TableField("openId")
     @Schema(description = "用户绑定的微信的openId")
     private String openId;
+
+    @TableField(exist = false)
+    @Schema(description="用户的签名")
+    private String intro;
+
 }

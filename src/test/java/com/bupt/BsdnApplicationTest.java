@@ -60,32 +60,5 @@ public class BsdnApplicationTest {
         System.out.println(bsRedisCacheService.makeToken());
     }
 
-    @Test
-    void TestArticle() {
-    }
 
-    @Test
-    void TestImage() {
-
-    }
-
-    @Test
-    void TestPage() {
-        Page<bsArticle> page = new Page<>(1, 2);
-        Page<bsArticle> bsArticlePage = bsArticleMapper.selectPage(page, null);
-        System.out.println(Result.ok(bsArticlePage));
-    }
-
-    @Test
-    void TestSelect(){
-        List<bsMessage> messages =new ArrayList<>();
-        Integer userFromId=1;
-        Integer userToId=2;
-        messages.addAll(bsMessageService.searchMessage(userFromId, userToId));
-        messages.addAll(bsMessageService.searchMessage(userToId, userFromId));
-        messages.sort((m1,m2)->((m2.getTime().compareTo(m1.getTime()))));
-        for(bsMessage m:messages){
-            System.out.println(m);
-        }
-    }
 }

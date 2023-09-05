@@ -27,4 +27,9 @@ public class bsUserServiceImpl extends ServiceImpl<bsUserMapper, bsUser> impleme
     public List<bsUser> search(String userName) {
         return bsUserMapper.search(userName);
     }
+
+    @Override
+    public bsUser getDetailById(Integer Id) {
+        return bsUserMapper.getUserDetailById(Id);
+    }
 }

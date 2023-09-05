@@ -25,4 +25,15 @@ public interface bsUserMapper extends BaseMapper<bsUser> {
             "where bs_user.userName like concat('%', concat(#{userName}, '%')) " +
             "order by bs_user.privilege")
     List<bsUser> search(String userName);
+
+    @Select("select bs_user.user_id as user_id, " +
+            "bs_user.userName as userName, " +
+            "bs_user.nickName as nickName, " +
+            "bs_user.privilege as privilege, " +
+            "bs_user.avatar as avatar, " +
+            "bs_user.openId as openId, " +
+            "bs_userInformation.intro as intro," +
+            " from bs_user join bs_userInformation on bs_user.user_id=bs_userInformation.userId " +
+            "where user_id=#{id} ")
+    bsUser getUserDetailById(Integer Id);
 }

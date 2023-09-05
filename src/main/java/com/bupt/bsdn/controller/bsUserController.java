@@ -57,7 +57,7 @@ public class bsUserController {
     @GetMapping("/getById")
     @Operation(summary = "根据ID查询")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
-        return Result.ok(bsUserService.getById(id));
+        return Result.ok(bsUserService.getDetailById(id));
     }
 
     @GetMapping("/search")

@@ -16,5 +16,5 @@ public interface bsUserService extends IService<bsUser> {
 
     List<bsUser> search(String userName);
 
-
+    bsUser getDetailById(Integer Id);
 }
