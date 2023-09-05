@@ -3,9 +3,9 @@ package com.bupt.bsdn.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.service.bsArticleService;
+import com.bupt.bsdn.util.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/bsArticle")
@@ -74,7 +73,7 @@ public class bsArticleController {
         bs_article.setTitle(title);
         bs_article.setContent(content);
         bs_article.setCategory("孙吧风味");
-        String brief=content.replaceAll("<.+?>","");
+        String brief = content.replaceAll("<.+?>", "");
         bs_article.setBrief(brief);
 
         if (bsArticleService.save(bs_article)) {
@@ -111,7 +110,7 @@ public class bsArticleController {
 
     @GetMapping("/search")
     @Operation(summary = "搜索文章(模糊查询+时间戳倒叙)")
-    @Parameter(name = "content", description = "搜索内容")
+    @Parameters({@Parameter(name = "content", description = "搜索内容"), @Parameter(name = "page", description = "第几页")})
     public JSONObject search(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page) {
         Page<bsArticle> search = bsArticleService.search(content, page);
         return Result.ok(search);
@@ -121,7 +120,7 @@ public class bsArticleController {
     @Operation(summary = "搜索文章(模糊查询+时间戳倒叙),只要标题或内容模糊查询匹配即可,该接口自带分页功能")
     @Parameters({@Parameter(name = "content", description = "搜索内容"), @Parameter(name = "page", description = "第几页")})
     public JSONObject searchContent(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page) {
-        Page<bsArticle> search = bsArticleService.searchContent(content,page);
+        Page<bsArticle> search = bsArticleService.searchContent(content, page);
         return Result.ok(search);
     }
 
