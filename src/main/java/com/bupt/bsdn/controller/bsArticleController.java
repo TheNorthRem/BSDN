@@ -64,7 +64,7 @@ public class bsArticleController {
             return Result.error("id is null!");
         }
 
-        if (title == null || title.length() > 25 || title.trim().isEmpty()) {
+        if (title == null || title.length() >= 100 || title.trim().isEmpty()) {
             return Result.error("标题不合规");
         }
 
@@ -74,6 +74,7 @@ public class bsArticleController {
         bs_article.setContent(content);
         bs_article.setCategory("孙吧风味");
         String brief = content.replaceAll("<.+?>", "");
+        brief = brief.length() < 200 ? brief : brief.substring(0, 200);
         bs_article.setBrief(brief);
 
         if (bsArticleService.save(bs_article)) {

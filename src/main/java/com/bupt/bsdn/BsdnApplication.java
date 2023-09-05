@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BsdnApplication {
     public static void main(String[] args) {
         String message = """
+                \u001B[33m
                 ////////////////////////////////////////////////////////////////////
                 //                          _ooOoo_                               //
                 //                         o8888888o                              //
@@ -32,7 +33,8 @@ public class BsdnApplication {
                 //                           `=---='                              //
                 //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        //
                 //             佛祖保佑       永不宕机      永无BUG                   //
-                ////////////////////////////////////////////////////////////////////""";
+                ////////////////////////////////////////////////////////////////////\u001B[0m
+                """;
         System.out.println(message);
         SpringApplication.run(BsdnApplication.class, args);
     }
