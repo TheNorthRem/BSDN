@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -111,7 +112,7 @@ public class bsArticleController {
 
     @GetMapping("/search")
     @Operation(summary = "搜索文章(模糊查询+时间戳倒叙)")
-    @Parameter(name = "content", description = "搜索内容")
+    @Parameters({@Parameter(name = "content", description = "搜索内容"), @Parameter(name = "page", description = "分页大小")})
     public JSONObject search(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page) {
         Page<bsArticle> search = bsArticleService.search(content, page);
         return Result.ok(search);

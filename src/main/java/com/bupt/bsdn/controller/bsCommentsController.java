@@ -6,7 +6,9 @@ import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsComments;
 import com.bupt.bsdn.service.bsCommentsService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -95,8 +97,8 @@ public class bsCommentsController {
 
     @GetMapping("getComments")
     @Operation(summary = "获取文章的所有评论")
-
-    public JSONObject getComments(@RequestParam(value = "articleId") Integer article_id){
+    @Parameters()
+    public JSONObject getComments(@RequestParam(value = "articleId") Integer article_id, @RequestParam(value="page") Integer page){
 
         List<bsComments> fatherCommentsList=bsCommentsService.getCommentsByArticle(article_id);
 
@@ -105,7 +107,7 @@ public class bsCommentsController {
         for(bsComments comments : fatherCommentsList){
             JSONObject obj=new JSONObject();
             obj.put("comments",comments);
-            obj.put("sonComments",bsCommentsService.getCommentsByFatherId(comments.getCommentsId()));
+            obj.put("sonComments",bsCommentsService.getCommentsByFatherId(comments.getCommentsId(),page));
             result.add(obj);
         }
 

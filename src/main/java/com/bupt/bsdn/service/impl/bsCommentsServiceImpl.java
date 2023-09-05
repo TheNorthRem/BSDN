@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bupt.bsdn.entity.bsComments;
 import com.bupt.bsdn.mapper.bsCommentsMapper;
 import com.bupt.bsdn.service.bsCommentsService;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,8 @@ public class bsCommentsServiceImpl extends ServiceImpl<bsCommentsMapper, bsComme
     }
 
     @Override
-    public Page<bsComments> getCommentsByFatherId(Integer fatherId) {
-        Page<bsComments> page =new Page<>(1,5);
+    public Page<bsComments> getCommentsByFatherId(Integer fatherId,Integer pageSize) {
+        Page<bsComments> page =new Page<>(1,pageSize);
         QueryWrapper<bsComments> wrapper=new QueryWrapper<>();
         wrapper.ge("fatherCommentId",fatherId);
         Page<bsComments> bsCommentsPage=bsCommentsMapper.selectPage(page,wrapper);
