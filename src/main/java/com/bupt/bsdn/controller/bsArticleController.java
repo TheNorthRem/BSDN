@@ -2,10 +2,12 @@ package com.bupt.bsdn.controller;
 
 
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.service.bsArticleService;
 import com.bupt.bsdn.util.Result;
+import com.bupt.bsdn.util.Utils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -59,7 +61,7 @@ public class bsArticleController {
         String title = article.getString("title");
         String content = article.getString("content");
         Integer uploaderId = article.getInteger("id");
-        String category=article.getString("tag");
+        String category = article.getString("tag");
 
         if (uploaderId == null) {
             return Result.error("id is null!");
@@ -130,5 +132,15 @@ public class bsArticleController {
     @Operation(summary = "获取热门文章")
     public JSONObject getTopArticle() {
         return Result.ok(bsArticleService.getTopArticle());
+    }
+
+    @GetMapping("/getByCategory")
+    @Operation(summary = "根据分类获取文章")
+    @Parameters({@Parameter(name = "category", description = "文章类别"), @Parameter(name = "page", description = "第几页")})
+    public JSONObject getByCategory(@RequestParam(name = "category") String category, @RequestParam(name = "page") Integer page) {
+        QueryWrapper<bsArticle> bsArticleQueryWrapper = new QueryWrapper<>();
+        bsArticleQueryWrapper.eq("category", category);
+        Page<bsArticle> bsArticlePage = new Page<>(page, Long.parseLong(Utils.getParamSettings("PageSize")));
+        return Result.ok(bsArticleService.page(bsArticlePage, bsArticleQueryWrapper));
     }
 }
