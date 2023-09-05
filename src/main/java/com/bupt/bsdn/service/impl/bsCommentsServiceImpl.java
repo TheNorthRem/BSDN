@@ -1,6 +1,8 @@
 package com.bupt.bsdn.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bupt.bsdn.entity.bsComments;
 import com.bupt.bsdn.mapper.bsCommentsMapper;
@@ -25,7 +27,11 @@ public class bsCommentsServiceImpl extends ServiceImpl<bsCommentsMapper, bsComme
     }
 
     @Override
-    public List<bsComments> getCommentsByFatherId(Integer fatherArticleId) {
-        return bsCommentsMapper.getSonCommentsById(fatherArticleId);
+    public Page<bsComments> getCommentsByFatherId(Integer fatherId) {
+        Page<bsComments> page =new Page<>(1,5);
+        QueryWrapper<bsComments> wrapper=new QueryWrapper<>();
+        wrapper.ge("fatherCommentId",fatherId);
+        Page<bsComments> bsCommentsPage=bsCommentsMapper.selectPage(page,wrapper);
+        return bsCommentsPage;
     }
 }
