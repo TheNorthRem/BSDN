@@ -74,6 +74,9 @@ public class bsArticleController {
         bs_article.setTitle(title);
         bs_article.setContent(content);
         bs_article.setCategory("孙吧风味");
+        String brief=content.replaceAll("<.+?>","");
+        bs_article.setBrief(brief);
+
         if (bsArticleService.save(bs_article)) {
             log.info(bs_article.getArticleId() + "上传成功-----" + bs_article.getUploadTime());
             return Result.ok("success");
@@ -109,17 +112,8 @@ public class bsArticleController {
     @GetMapping("/search")
     @Operation(summary = "搜索文章(模糊查询+时间戳倒叙)")
     @Parameter(name = "content", description = "搜索内容")
-    public JSONObject search(@RequestParam(name = "content") String content) {
-        List<bsArticle> search = bsArticleService.search(content);
-
-        for(bsArticle bsArticle:search){
-            String str = bsArticle.getContent();
-            str = str.replaceAll("<.+?>", "");
-            if(str.length()>50){
-                str=str.substring(0,50);
-            }
-            bsArticle.setContent(str);
-        }
+    public JSONObject search(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page) {
+        Page<bsArticle> search = bsArticleService.search(content, page);
         return Result.ok(search);
     }
 
@@ -127,18 +121,8 @@ public class bsArticleController {
     @Operation(summary = "搜索文章(模糊查询+时间戳倒叙),只要标题或内容模糊查询匹配即可,该接口自带分页功能")
     @Parameters({@Parameter(name = "content", description = "搜索内容"), @Parameter(name = "page", description = "第几页")})
     public JSONObject searchContent(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page) {
-        List<bsArticle> search = bsArticleService.searchContent(content,new Page<>());
-
-        for(bsArticle bsArticle:search){
-            String str = bsArticle.getContent();
-            str = str.replaceAll("<.+?>", "");
-            if(str.length()>50){
-                str=str.substring(0,50);
-            }
-            bsArticle.setContent(str);
-        }
-
-        return Result.ok(bsArticleService.searchContent(content, page));
+        Page<bsArticle> search = bsArticleService.searchContent(content,page);
+        return Result.ok(search);
     }
 
     @GetMapping("getTopArticles")

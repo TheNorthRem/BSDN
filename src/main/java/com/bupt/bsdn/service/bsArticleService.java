@@ -7,7 +7,7 @@ import com.bupt.bsdn.entity.bsArticle;
 import java.util.List;
 
 public interface bsArticleService extends IService<bsArticle> {
-    List<bsArticle> search(String content);
+    Page<bsArticle> search(String content,Integer page);
 
     Page<bsArticle> searchContent(String content, Integer page);
 

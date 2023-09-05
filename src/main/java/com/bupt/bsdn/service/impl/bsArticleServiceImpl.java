@@ -21,9 +21,9 @@ public class bsArticleServiceImpl extends ServiceImpl<bsArticleMapper, bsArticle
     }
 
     @Override
-    public List<bsArticle> search(String content) {
-
-        return bsArticleMapper.search(content);
+    public Page<bsArticle> search(String content, Integer page) {
+        Page<bsArticle> bsArticlePage = new Page<>(page, Long.parseLong(Utils.getParamSettings("PageSize")));
+        return bsArticleMapper.search(content, bsArticlePage);
 
 
     }
