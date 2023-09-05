@@ -62,10 +62,6 @@ public class BsdnApplicationTest {
 
     @Test
     void TestArticle() {
-        List<bsArticle> search = bsArticleMapper.search("33");
-        for(bsArticle bsArticle:search){
-            System.out.println(bsArticle);
-        }
     }
 
     @Test
@@ -103,7 +99,7 @@ public class BsdnApplicationTest {
 
             System.out.println("---->" );
 
-            Page<bsComments> page=bsCommentsService.getCommentsByFatherId(comment.getCommentsId());
+            Page<bsComments> page=bsCommentsService.getCommentsByFatherId(comment.getCommentsId(),1);
 
             System.out.println(Result.ok(page));
 
