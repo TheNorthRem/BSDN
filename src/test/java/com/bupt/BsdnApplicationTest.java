@@ -3,7 +3,6 @@ package com.bupt;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bupt.bsdn.BsdnApplication;
 import com.bupt.bsdn.entity.bsArticle;
-import com.bupt.bsdn.entity.bsComments;
 import com.bupt.bsdn.entity.bsMessage;
 import com.bupt.bsdn.mapper.bsArticleMapper;
 import com.bupt.bsdn.service.bsRedisCacheService;
@@ -14,7 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.bupt.bsdn.service.bsMessageService;
-import com.bupt.bsdn.service.bsCommentsService;
+
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,15 +24,12 @@ public class BsdnApplicationTest {
     private final bsRedisCacheService bsRedisCacheService;
     private final bsMessageService bsMessageService;
     private final bsArticleMapper bsArticleMapper;
-    
-    
-    private final bsCommentsService bsCommentsService;
+
     @Autowired
-    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper,bsMessageService bsMessageService,bsCommentsService bsCommentsService) {
+    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper,bsMessageService bsMessageService) {
         this.bsRedisCacheService = bsRedisCacheService;
         this.bsArticleMapper = bsArticleMapper;
         this.bsMessageService=bsMessageService;
-        this.bsCommentsService=bsCommentsService;
     }
 
 
@@ -42,15 +39,15 @@ public class BsdnApplicationTest {
     }
 
     @Test
-    void TestRedis() throws InterruptedException {
+    void TestRedis() {
         bsRedisCacheService.setToken("1", "1");
         bsRedisCacheService.setToken("2", "2");
         bsRedisCacheService.setToken("3", "3");
         bsRedisCacheService.deleteToken("3");
         System.out.println(bsRedisCacheService.getToken("3"));
-        Thread.sleep(5000);
+        //Thread.sleep(5000);
         System.out.println(bsRedisCacheService.getToken("1"));
-        Thread.sleep(6000);
+        //Thread.sleep(6000);
         System.out.println(bsRedisCacheService.getToken("1"));
     }
 
@@ -92,8 +89,8 @@ public class BsdnApplicationTest {
             System.out.println(m);
         }
     }
-    
-    
+
+
     @Test
     void testCommentsPage(){
         List<bsComments> comments = bsCommentsService.getCommentsByArticle(2);
