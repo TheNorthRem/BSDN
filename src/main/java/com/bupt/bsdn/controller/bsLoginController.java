@@ -88,7 +88,6 @@ public class bsLoginController {
         QueryWrapper<bsUser> bsUserQueryWrapper = new QueryWrapper<>();
         bsUserQueryWrapper.eq("userName", username);
         if (bsuserService.count(bsUserQueryWrapper) != 0) {
-            log.error("发现数据库出现重复数据！" + "userName:" + username);
             return Result.error("用户名已被注册！");
         }
 
