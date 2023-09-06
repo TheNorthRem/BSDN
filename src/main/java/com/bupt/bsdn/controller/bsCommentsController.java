@@ -59,7 +59,7 @@ public class bsCommentsController {
     @PostMapping("/uploadComment")
     @Operation(summary = "上传评论")
     @Parameters({@Parameter(name = "userId", description = "用户id"), @Parameter(name = "articleId", description = "文章Id"), @Parameter(name = "content", description = "文章内容"), @Parameter(name = "fatherCommentId", description = "父评论id(没有传null即可)")})
-    public JSONObject uploadComment(@RequestParam Integer userId, @RequestParam Integer articleId, @RequestParam(name = "content") String content, @RequestParam(name = "fatherCommentId") Integer fatherCommentId) {
+    public JSONObject uploadComment(@RequestParam(name = "userId") Integer userId, @RequestParam(name = "articleId") Integer articleId, @RequestParam(name = "content") String content, @RequestParam(name = "fatherCommentId") Integer fatherCommentId) {
         if (content.trim().isEmpty()) {
             return Result.error("评论为空");
         }
