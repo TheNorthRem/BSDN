@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import com.bupt.bsdn.service.bsUserService;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -25,10 +25,11 @@ import java.util.Date;
 @Tag(name = "文章")
 public class bsArticleController {
     private final bsArticleService bsArticleService;
-
+    private final bsUserService bsUserService;
     @Autowired
-    public bsArticleController(bsArticleService bsArticleService) {
+    public bsArticleController(bsArticleService bsArticleService,bsUserService bsUserService) {
         this.bsArticleService = bsArticleService;
+        this.bsUserService=bsUserService;
     }
 
     @GetMapping("/list")
@@ -113,7 +114,10 @@ public class bsArticleController {
         bsArticle byId = bsArticleService.getById(id);
         byId.setClickCount(byId.getClickCount()+1);
         bsArticleService.save(byId);
-        return Result.ok(byId);
+        JSONObject res=new JSONObject();
+        res.put("article",byId);
+        res.put("uploader",bsUserService.getById(byId.getUploaderId()));
+        return Result.ok(res);
     }
 
     @GetMapping("/search")
