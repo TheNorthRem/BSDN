@@ -73,13 +73,14 @@ public class bsArticleController {
 
 
         bs_article.setUploaderId(uploaderId);
-        bs_article.setTitle(title);
+
         bs_article.setContent(content);
         bs_article.setCategory(category);
         String brief = content.replaceAll("<.+?>", "");
         brief = brief.length() < 200 ? brief : brief.substring(0, 200);
+        title=title.replaceAll("<.+?>", "");
         bs_article.setBrief(brief);
-
+        bs_article.setTitle(title);
         if (bsArticleService.save(bs_article)) {
             log.info(bs_article.getArticleId() + "上传成功-----" + bs_article.getUploadTime());
             return Result.ok("success");
