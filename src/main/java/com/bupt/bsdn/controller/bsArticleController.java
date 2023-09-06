@@ -110,7 +110,10 @@ public class bsArticleController {
     @Operation(summary = "根据id查询")
     @Parameter(name = "id", description = "文章Id")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
-        return Result.ok(bsArticleService.getById(id));
+        bsArticle byId = bsArticleService.getById(id);
+        byId.setClickCount(byId.getClickCount()+1);
+        bsArticleService.save(byId);
+        return Result.ok(byId);
     }
 
     @GetMapping("/search")
@@ -144,4 +147,5 @@ public class bsArticleController {
         Page<bsArticle> bsArticlePage = new Page<>(page, Long.parseLong(Utils.getParamSettings("PageSize")));
         return Result.ok(bsArticleService.page(bsArticlePage, bsArticleQueryWrapper));
     }
+
 }
