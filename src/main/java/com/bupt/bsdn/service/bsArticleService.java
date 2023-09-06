@@ -13,4 +13,8 @@ public interface bsArticleService extends IService<bsArticle> {
 
     Page<bsArticle> searchByCategory(String category, Integer page);
     List<bsArticle> getTopArticle();
+
+    List<bsArticle> getArticlesByUserId(Integer userId);
+
+    List<bsArticle> getFavoriteArticles(Integer userId);
 }

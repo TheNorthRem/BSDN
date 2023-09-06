@@ -210,4 +210,21 @@ public class bsArticleController {
         bsUserFavoritesQueryWrapper.eq("articleId", articlesId);
         return bsUserFavoritesService.count(bsUserFavoritesQueryWrapper) != 0;
     }
+
+    @GetMapping("/getUserArticles")
+    @Operation(summary = "获取用户所有文章")
+    @Parameter(name = "userId",description = "用户主键")
+
+    public JSONObject getUserArticles(@RequestParam(value = "userId") Integer userId){
+        return Result.ok(bsArticleService.getArticlesByUserId(userId));
+    }
+
+    @GetMapping("/getUserFavoriteArticles")
+    @Operation(summary = "获取用户所有收藏文章")
+    @Parameter(name = "userId",description = "用户主键")
+
+    public JSONObject getUserFavoriteArticles(@RequestParam(value = "userId") Integer userId){
+        return Result.ok(bsArticleService.getFavoriteArticles(userId));
+    }
+
 }
