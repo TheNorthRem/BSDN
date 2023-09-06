@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/bsArticle")
@@ -167,8 +166,7 @@ public class bsArticleController {
         QueryWrapper<bsUserFavorites> bsUserFavoritesQueryWrapper = new QueryWrapper<>();
         bsUserFavoritesQueryWrapper.eq("userId", userId);
         bsUserFavoritesQueryWrapper.eq("articleId", articlesId);
-        List<bsUserFavorites> bsUserFavoritesList = bsUserFavoritesService.list(bsUserFavoritesQueryWrapper);
-        if (bsUserFavoritesList.isEmpty()) { //没有收藏则加入收藏列表
+        if (bsUserFavoritesService.count(bsUserFavoritesQueryWrapper) == 0) { //没有收藏则加入收藏列表
             bsUserFavorites bsUserFavorites = new bsUserFavorites();
             bsUserFavorites.setId(null);
             bsUserFavorites.setUserId(userId);
@@ -196,6 +194,6 @@ public class bsArticleController {
         QueryWrapper<bsUserFavorites> bsUserFavoritesQueryWrapper = new QueryWrapper<>();
         bsUserFavoritesQueryWrapper.eq("userId", userId);
         bsUserFavoritesQueryWrapper.eq("articleId", articlesId);
-        return !bsUserFavoritesService.list(bsUserFavoritesQueryWrapper).isEmpty();
+        return bsUserFavoritesService.count(bsUserFavoritesQueryWrapper) != 0;
     }
 }
