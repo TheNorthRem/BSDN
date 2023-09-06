@@ -1,6 +1,7 @@
 package com.bupt.bsdn.controller;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
 import com.bupt.bsdn.entity.bsUser;
@@ -37,12 +38,23 @@ public class bsLoginController {
         String username = data.getString("username");
         String password = data.getString("password");
 
-        bsUser user = bsuserService.getUserByUsername(username);
 
-        if (user == null) { //判断用户名是否存在于数据库中
+        //登录校验
+        QueryWrapper<bsUser> bsUserQueryWrapper = new QueryWrapper<>();
+        bsUserQueryWrapper.eq("userName", username);
+        long count = bsuserService.count(bsUserQueryWrapper);
+
+        if (count == 0) { //判断用户名是否存在于数据库中
             return Result.error("用户名不存在");
         }
 
+        if (count > 1) { //判断用户名是否出现重复
+            log.error("发现数据库出现重复数据！" + "userName:" + username);
+            return Result.error("用户名重复，请联系客服!");
+        }
+
+        //获取用户名
+        bsUser user = bsuserService.getUserByUsername(username);
         if (password.equals(user.getPassword())) { //判断密码是否正确
             JSONObject res = new JSONObject();
 
@@ -73,7 +85,10 @@ public class bsLoginController {
         }
 
         //用户名注册判重
-        if (bsuserService.getUserByUsername(username) != null) {
+        QueryWrapper<bsUser> bsUserQueryWrapper = new QueryWrapper<>();
+        bsUserQueryWrapper.eq("userName", username);
+        if (bsuserService.count(bsUserQueryWrapper) != 0) {
+            log.error("发现数据库出现重复数据！" + "userName:" + username);
             return Result.error("用户名已被注册！");
         }
 
