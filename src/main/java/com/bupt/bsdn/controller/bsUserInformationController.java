@@ -42,12 +42,6 @@ public class bsUserInformationController {
         return Result.ok(bsUserInformationService.updateById(bsUserInformation));
     }
 
-    @DeleteMapping("/delete")
-    @Operation(summary = "删除用户信息")
-    public JSONObject delete(@RequestParam(name = "id") Integer id) {
-        return Result.ok(bsUserInformationService.removeById(id));
-    }
-
     @GetMapping("/getById")
     @Operation(summary = "根据id获取用户信息")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
