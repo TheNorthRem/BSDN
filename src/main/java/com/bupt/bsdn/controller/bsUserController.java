@@ -82,28 +82,5 @@ public class bsUserController {
         return Result.ok(bsUserService.search(userName));
     }
 
-    @PostMapping("/uploadAvatar")
-    @Operation(summary = "上传头像")
-    public JSONObject uploadAvatar(@RequestParam(value = "image") MultipartFile file, @RequestParam(value = "id") Integer id) {
-        String name = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
-        bsUser user = bsUserService.getById(id);
-        name = id + name;
 
-        if (user == null) {
-            return Result.error("user is null");
-        }
-
-        File image = new File(Utils.getParamSettings("avatarPath") + name);
-        try {
-            file.transferTo(image);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-
-        user.setAvatar(name);
-
-        bsUserService.save(user);
-
-        return Result.ok("success");
-    }
 }

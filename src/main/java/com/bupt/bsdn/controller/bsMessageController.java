@@ -35,9 +35,21 @@ public class bsMessageController {
 
     @PostMapping("/add")
     @Operation(summary = "增加消息")
-    public JSONObject add(@RequestBody bsMessage bsMessage) {
-        bsMessage.setMessageId(null);
-        return Result.ok(bsMessageService.save(bsMessage));
+    public JSONObject add(@RequestBody JSONObject data) {
+
+        Integer userFromId = data.getInteger("userFromId");
+        Integer userToId = data.getInteger("userToId");
+        String content =data.getString("content");
+
+        if(content.length()==0){
+            return Result.error("消息为空");
+        }
+
+        bsMessage MES=new bsMessage();
+        MES.setUserFromId(userFromId);
+        MES.setContent(content);
+        MES.setUserToId(userToId);
+        return Result.ok(bsMessageService.save(MES));
     }
 
     @PostMapping("/edit")
@@ -73,7 +85,7 @@ public class bsMessageController {
         List<bsMessage> messages =new ArrayList<>();
         messages.addAll(bsMessageService.searchMessage(userFromId, userToId));
         messages.addAll(bsMessageService.searchMessage(userToId, userFromId));
-        messages.sort((m1,m2)->((m2.getTime().compareTo(m1.getTime()))));
+        messages.sort((m1,m2)->((m1.getTime().compareTo(m2.getTime()))));
 
         return Result.ok(messages);
     }

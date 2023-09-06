@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface bsUserInformationService extends IService<bsUserInformation> {
     List<bsUserInformation> search(Integer userId);
+
 }

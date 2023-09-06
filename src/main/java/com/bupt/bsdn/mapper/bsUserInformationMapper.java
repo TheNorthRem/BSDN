@@ -3,6 +3,7 @@ package com.bupt.bsdn.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bupt.bsdn.entity.bsUserInformation;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -26,4 +27,5 @@ public interface bsUserInformationMapper extends BaseMapper<bsUserInformation> {
             "order by bs_user.privilege "
     )
     List<bsUserInformation> search(Integer userId);
+
 }
