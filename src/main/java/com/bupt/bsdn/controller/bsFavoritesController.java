@@ -3,7 +3,9 @@ package com.bupt.bsdn.controller;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bupt.bsdn.entity.bsFavorites;
+import com.bupt.bsdn.entity.bsUserInformation;
 import com.bupt.bsdn.service.bsFavoritesService;
+import com.bupt.bsdn.service.bsUserInformationService;
 import com.bupt.bsdn.util.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,8 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/bsFavorites")
 @Slf4j
@@ -22,9 +22,12 @@ import java.util.List;
 public class bsFavoritesController {
     private final bsFavoritesService bsFavoritesService;
 
+    private final bsUserInformationService bsUserInformationService;
+
     @Autowired
-    public bsFavoritesController(bsFavoritesService bsFavoritesService) {
+    public bsFavoritesController(bsFavoritesService bsFavoritesService, bsUserInformationService bsUserInformationService) {
         this.bsFavoritesService = bsFavoritesService;
+        this.bsUserInformationService = bsUserInformationService;
     }
 
     @GetMapping("/followers")
@@ -53,8 +56,7 @@ public class bsFavoritesController {
         QueryWrapper<bsFavorites> queryWrapper = new QueryWrapper<>();//构造条件查询器
         queryWrapper.eq("userFromId", userId);
         queryWrapper.eq("userToId", followingId);
-        List<bsFavorites> bsFavoritesList = bsFavoritesService.list(queryWrapper);
-        if (!bsFavoritesList.isEmpty())
+        if (bsFavoritesService.count(queryWrapper) != 0)
             return Result.error("该用户已经在你的关注列表中!");
 
         //加入到关注列表
@@ -63,6 +65,12 @@ public class bsFavoritesController {
         bsFavorites.setUserFromId(userId);
         bsFavorites.setUserToId(followingId);
         bsFavoritesService.save(bsFavorites);
+
+        //成员被关注数+1
+        bsUserInformation bsUserInformation = bsUserInformationService.getById(followingId);
+        bsUserInformation.setFavoriteCount(bsUserInformation.getFavoriteCount() + 1);
+        bsUserInformationService.updateById(bsUserInformation);
+
         return Result.ok("添加成功!");
     }
 
@@ -73,8 +81,7 @@ public class bsFavoritesController {
         QueryWrapper<bsFavorites> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userFromId", userId);
         queryWrapper.eq("userToId", followingId);
-        List<bsFavorites> bsFavoritesList = bsFavoritesService.list(queryWrapper);
-        return !bsFavoritesList.isEmpty();
+        return bsFavoritesService.count(queryWrapper) != 0;
     }
 
     @DeleteMapping("/deleteFollowing")
@@ -88,8 +95,13 @@ public class bsFavoritesController {
         QueryWrapper<bsFavorites> queryWrapper = new QueryWrapper<>();//构造条件查询器
         queryWrapper.eq("userFromId", userId);
         queryWrapper.eq("UserToId", followingId);
-        boolean deleteResult = bsFavoritesService.remove(queryWrapper);
-        //根据返回值判断是否成功
-        return deleteResult ? Result.ok("删除成功!") : Result.error("删除失败，要删除的用户根本就没在关注列表中!");
+        if (bsFavoritesService.remove(queryWrapper)) { //根据返回值判断是否删除成功
+            //成员被关注数-1
+            bsUserInformation bsUserInformation = bsUserInformationService.getById(followingId);
+            bsUserInformation.setFavoriteCount(bsUserInformation.getFavoriteCount() - 1);
+            bsUserInformationService.updateById(bsUserInformation);
+            return Result.ok("删除成功!");
+        }
+        return Result.error("删除失败，要删除的用户根本就没在关注列表中!");
     }
 }
