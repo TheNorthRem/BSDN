@@ -3,21 +3,24 @@ package com.bupt.bsdn.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bupt.bsdn.entity.bsArticle;
+import com.bupt.bsdn.entity.bsUser;
 import com.bupt.bsdn.mapper.bsArticleMapper;
 import com.bupt.bsdn.service.bsArticleService;
+import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.bupt.bsdn.service.bsUserService;
 import java.util.List;
 
 @Service
 public class bsArticleServiceImpl extends ServiceImpl<bsArticleMapper, bsArticle> implements bsArticleService {
     private final bsArticleMapper bsArticleMapper;
-
+    private final bsUserService bsUserService;
     @Autowired
-    public bsArticleServiceImpl(bsArticleMapper bsArticleMapper) {
+    public bsArticleServiceImpl(bsArticleMapper bsArticleMapper , bsUserService bsUserService) {
         this.bsArticleMapper = bsArticleMapper;
+        this.bsUserService= bsUserService;
     }
 
     @Override
@@ -44,6 +47,15 @@ public class bsArticleServiceImpl extends ServiceImpl<bsArticleMapper, bsArticle
 
     @Override
     public List<bsArticle> getTopArticle() {
-        return bsArticleMapper.getTopContent();
+        List<bsArticle> topContent = bsArticleMapper.getTopContent();
+
+        for(bsArticle article:topContent){
+            bsUser byId = bsUserService.getById(article.getUploaderId());
+            article.setNickName(byId.getNickName());
+            byId.setAvatar(byId.getAvatar());
+
+        }
+
+        return topContent;
     }
 }
