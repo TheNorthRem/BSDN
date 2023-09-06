@@ -98,7 +98,6 @@ public class bsLoginController {
 
 
         //检查密码是否合规
-
         if (!Utils.check(username, password)) {
             return Result.error("用户名或密码不合要求！");
         }
