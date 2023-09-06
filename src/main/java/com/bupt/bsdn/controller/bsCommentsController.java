@@ -38,13 +38,6 @@ public class bsCommentsController {
 
     }
 
-    @PostMapping("/add")
-    @Operation(summary = "添加评论")
-    public JSONObject add(@RequestBody bsComments bsComments) {
-        bsComments.setCommentsId(null);
-        return Result.ok(bsCommentsService.save(bsComments));
-    }
-
     @PostMapping("/edit")
     @Operation(summary = "修改评论")
     public JSONObject edit(@RequestBody bsComments bsComments) {
@@ -65,32 +58,27 @@ public class bsCommentsController {
 
     @PostMapping("/uploadComment")
     @Operation(summary = "上传评论")
-    public JSONObject uploadComment(@RequestBody JSONObject data) {
-
-        Integer id = data.getInteger("id");
-        Integer article_id = data.getInteger("articleId");
-        String content = data.getString("content");
-        Integer father_comment_id = data.getInteger("fatherCommentId");
-
-        bsComments comments = new bsComments();
-
+    @Parameters({@Parameter(name = "userId", description = "用户id"), @Parameter(name = "articleId", description = "文章Id"), @Parameter(name = "content", description = "文章内容"), @Parameter(name = "fatherCommentId", description = "父评论id(没有传null即可)")})
+    public JSONObject uploadComment(@RequestParam Integer userId, @RequestParam Integer articleId, @RequestParam(name = "content") String content, @RequestParam(name = "fatherCommentId") Integer fatherCommentId) {
         if (content.trim().isEmpty()) {
-            return Result.error("fail");
+            return Result.error("评论为空");
         }
 
-        if (bsuserService.getById(id) == null || bsarticleService.getById(article_id) == null) {
-            Result.error("fail");
+        if (bsuserService.getById(userId) == null || bsarticleService.getById(articleId) == null) {
+            Result.error("没有对应的用户/文章");
         }
 
-        comments.setUserID(id);
-        comments.setContent(content);
-        comments.setArticleID(article_id);
+        bsComments bsComments = new bsComments();
+        bsComments.setUserID(userId);
+        bsComments.setContent(content);
+        bsComments.setArticleID(articleId);
 
-        if (father_comment_id != null) comments.setFatherCommentID(father_comment_id);
+        if (fatherCommentId != null)
+            bsComments.setFatherCommentID(fatherCommentId);
 
-        bsCommentsService.save(comments);
+        bsCommentsService.save(bsComments);
 
-        return Result.ok("success");
+        return Result.ok("添加评论成功");
     }
 
     @GetMapping("/getComments")
