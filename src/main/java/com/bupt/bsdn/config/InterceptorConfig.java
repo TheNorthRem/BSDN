@@ -1,5 +1,7 @@
 package com.bupt.bsdn.config;
 
+import com.bupt.bsdn.interceptor.bsLoginInterceptor;
+import com.bupt.bsdn.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -13,9 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        log.info("bsLoginInterceptor init");
-//        registry.addInterceptor(new bsLoginInterceptor()).
-//                addPathPatterns().excludePathPatterns("/", "/login", "/swagger-ui/**", "/v3/**", Utils.getParamSettings("logicIndexPath"));
-//        log.info("bsLoginInterceptor init success");
+        log.info("bsLoginInterceptor init");
+        registry.addInterceptor(new bsLoginInterceptor()).
+                addPathPatterns("/bsArticle/upload**").excludePathPatterns();
+        log.info("bsLoginInterceptor init success");
     }
 }
