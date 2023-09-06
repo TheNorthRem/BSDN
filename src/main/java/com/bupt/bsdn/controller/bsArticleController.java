@@ -196,6 +196,6 @@ public class bsArticleController {
         QueryWrapper<bsUserFavorites> bsUserFavoritesQueryWrapper = new QueryWrapper<>();
         bsUserFavoritesQueryWrapper.eq("userId", userId);
         bsUserFavoritesQueryWrapper.eq("articleId", articlesId);
-        return !bsUserFavoritesService.list().isEmpty();
+        return !bsUserFavoritesService.list(bsUserFavoritesQueryWrapper).isEmpty();
     }
 }

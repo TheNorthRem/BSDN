@@ -70,6 +70,25 @@ public class RedisConfig {
         //初始化参数和初始化工作
         redisTemplate.afterPropertiesSet();
         log.info("Redis init success");
+        log.info("""
+                                _._
+                           _.-``__ ''-._
+                      _.-``    `.  `_.  ''-._           Redis
+                  .-`` .-```.  ```\\/    _.,_ ''-._
+                 (    '      ,       .-`  | `,    )     Running in standalone mode
+                 |`-._`-...-` __...-.``-._|'` _.-'|
+                 |    `-._   `._    /     _.-'    |
+                  `-._    `-._  `-./  _.-'    _.-'
+                 |`-._`-._    `-.__.-'    _.-'_.-'|
+                 |    `-._`-._        _.-'_.-'    |           http://redis.io
+                  `-._    `-._`-.__.-'_.-'    _.-'
+                 |`-._`-._    `-.__.-'    _.-'_.-'|
+                 |    `-._`-._        _.-'_.-'    |
+                  `-._    `-._`-.__.-'_.-'    _.-'
+                      `-._    `-.__.-'    _.-'
+                          `-._        _.-'
+                              `-.__.-'
+                """);
         log.info("Redis information: \n" +
                 "host: " + Utils.getParamSettings("spring.data.redis.host") + "\n" +
                 "port: " + Utils.getParamSettings("spring.data.redis.port"));
