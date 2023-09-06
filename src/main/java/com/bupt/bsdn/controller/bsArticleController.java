@@ -8,6 +8,7 @@ import com.bupt.bsdn.entity.bsArticle;
 import com.bupt.bsdn.entity.bsUserFavorites;
 import com.bupt.bsdn.service.bsArticleService;
 import com.bupt.bsdn.service.bsUserFavoritesService;
+import com.bupt.bsdn.service.bsUserService;
 import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,10 +16,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.bupt.bsdn.service.bsUserService;
 
 import java.sql.Timestamp;
 import java.util.Date;
