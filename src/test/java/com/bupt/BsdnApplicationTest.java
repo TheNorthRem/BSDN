@@ -2,21 +2,17 @@ package com.bupt;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bupt.bsdn.BsdnApplication;
-import com.bupt.bsdn.entity.bsArticle;
-import com.bupt.bsdn.entity.bsMessage;
 import com.bupt.bsdn.mapper.bsArticleMapper;
+import com.bupt.bsdn.service.bsCommentsService;
+import com.bupt.bsdn.service.bsMessageService;
 import com.bupt.bsdn.service.bsRedisCacheService;
-import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.bupt.bsdn.service.bsMessageService;
-import com.bupt.bsdn.service.bsCommentsService;
-import java.util.ArrayList;
-import java.util.List;
-import com.bupt.bsdn.entity.bsComments;
+import com.bupt.bsdn.mapper.bsCommentsMapper;
+
 @SpringBootTest(classes = BsdnApplication.class)
 @Slf4j
 public class BsdnApplicationTest {
@@ -25,12 +21,16 @@ public class BsdnApplicationTest {
     private final bsArticleMapper bsArticleMapper;
 
     private final bsCommentsService bsCommentsService;
+
+    private final bsCommentsMapper bsCommentsMapper;
+
     @Autowired
-    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper,bsMessageService bsMessageService,bsCommentsService bsCommentsService) {
+    public BsdnApplicationTest(bsRedisCacheService bsRedisCacheService, bsArticleMapper bsArticleMapper, bsMessageService bsMessageService, bsCommentsService bsCommentsService, bsCommentsMapper bsCommentsMapper) {
         this.bsRedisCacheService = bsRedisCacheService;
         this.bsArticleMapper = bsArticleMapper;
-        this.bsMessageService=bsMessageService;
-        this.bsCommentsService=bsCommentsService;
+        this.bsMessageService = bsMessageService;
+        this.bsCommentsService = bsCommentsService;
+        this.bsCommentsMapper = bsCommentsMapper;
     }
 
 
@@ -60,5 +60,8 @@ public class BsdnApplicationTest {
         System.out.println(bsRedisCacheService.makeToken());
     }
 
-
+    @Test
+    void testComment() {
+        System.out.println(bsCommentsMapper.getArticleComments(1, new Page<>(1, 4)).getRecords());
+    }
 }

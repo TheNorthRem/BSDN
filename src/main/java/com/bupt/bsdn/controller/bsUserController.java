@@ -1,9 +1,12 @@
 package com.bupt.bsdn.controller;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bupt.bsdn.entity.bsUserInformation;
 import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsUser;
 import com.bupt.bsdn.service.bsUserService;
+import com.bupt.bsdn.service.bsUserInformationService;
 import com.bupt.bsdn.util.Utils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,9 +27,12 @@ import java.util.Objects;
 public class bsUserController {
     private final bsUserService bsUserService;
 
+    private final bsUserInformationService bsUserInformationService;
+
     @Autowired
-    public bsUserController(bsUserService bsUserService) {
+    public bsUserController(bsUserService bsUserService, bsUserInformationService bsUserInformationService) {
         this.bsUserService = bsUserService;
+        this.bsUserInformationService = bsUserInformationService;
     }
 
     @GetMapping("/list")
@@ -51,7 +57,16 @@ public class bsUserController {
     @DeleteMapping("/delete")
     @Operation(summary = "删除用户信息")
     public JSONObject delete(@RequestParam(name = "id") Integer id) {
-        return Result.ok(bsUserService.removeById(id));
+        QueryWrapper<bsUser> bsUserQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<bsUserInformation> bsUserInformationQueryWrapper = new QueryWrapper<>();
+        bsUserQueryWrapper.eq("user_id", id);
+        bsUserInformationQueryWrapper.eq("userId", id);
+        if (!bsUserService.list(bsUserQueryWrapper).isEmpty() && !bsUserInformationService.list(bsUserInformationQueryWrapper).isEmpty()) {
+            bsUserService.remove(bsUserQueryWrapper);
+            bsUserInformationService.remove(bsUserInformationQueryWrapper);
+            return Result.ok("删除成功!");
+        }
+        return Result.error("删除失败!");
     }
 
     @GetMapping("/getById")
@@ -69,19 +84,19 @@ public class bsUserController {
 
     @PostMapping("/uploadAvatar")
     @Operation(summary = "上传头像")
-    public JSONObject uploadAvatar(@RequestParam(value = "image",required = true)MultipartFile file,@RequestParam(value = "id",required = true) Integer id){
-        String name= Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
-        bsUser user=bsUserService.getById(id);
-        name=id+name;
+    public JSONObject uploadAvatar(@RequestParam(value = "image") MultipartFile file, @RequestParam(value = "id") Integer id) {
+        String name = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
+        bsUser user = bsUserService.getById(id);
+        name = id + name;
 
-        if(user==null){
-            return  Result.error("user is null");
+        if (user == null) {
+            return Result.error("user is null");
         }
 
-        File image=new File(Utils.getParamSettings("avatarPath")+name);
-        try{
+        File image = new File(Utils.getParamSettings("avatarPath") + name);
+        try {
             file.transferTo(image);
-        }catch (IOException e){
+        } catch (IOException e) {
             log.error(e.getMessage());
         }
 
@@ -91,6 +106,4 @@ public class bsUserController {
 
         return Result.ok("success");
     }
-
-
 }

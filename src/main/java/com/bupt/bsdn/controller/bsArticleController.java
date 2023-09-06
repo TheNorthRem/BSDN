@@ -5,7 +5,10 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bupt.bsdn.entity.bsArticle;
+import com.bupt.bsdn.entity.bsUserFavorites;
 import com.bupt.bsdn.service.bsArticleService;
+import com.bupt.bsdn.service.bsUserFavoritesService;
+import com.bupt.bsdn.service.bsUserService;
 import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,9 +18,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.bupt.bsdn.service.bsUserService;
+
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/bsArticle")
@@ -26,10 +30,14 @@ import java.util.Date;
 public class bsArticleController {
     private final bsArticleService bsArticleService;
     private final bsUserService bsUserService;
+
+    private final bsUserFavoritesService bsUserFavoritesService;
+
     @Autowired
-    public bsArticleController(bsArticleService bsArticleService,bsUserService bsUserService) {
+    public bsArticleController(bsArticleService bsArticleService, bsUserService bsUserService, bsUserFavoritesService bsUserFavoritesService) {
         this.bsArticleService = bsArticleService;
-        this.bsUserService=bsUserService;
+        this.bsUserService = bsUserService;
+        this.bsUserFavoritesService = bsUserFavoritesService;
     }
 
     @GetMapping("/list")
@@ -79,7 +87,7 @@ public class bsArticleController {
         bs_article.setCategory(category);
         String brief = content.replaceAll("<.+?>", "");
         brief = brief.length() < 200 ? brief : brief.substring(0, 200);
-        title=title.replaceAll("<.+?>", "");
+        title = title.replaceAll("<.+?>", "");
         bs_article.setBrief(brief);
         bs_article.setTitle(title);
         if (bsArticleService.save(bs_article)) {
@@ -112,11 +120,11 @@ public class bsArticleController {
     @Parameter(name = "id", description = "文章Id")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
         bsArticle byId = bsArticleService.getById(id);
-        byId.setClickCount(byId.getClickCount()+1);
-        bsArticleService.save(byId);
-        JSONObject res=new JSONObject();
-        res.put("article",byId);
-        res.put("uploader",bsUserService.getById(byId.getUploaderId()));
+        byId.setClickCount(byId.getClickCount() + 1);
+        bsArticleService.updateById(byId);
+        JSONObject res = new JSONObject();
+        res.put("article", byId);
+        res.put("uploader", bsUserService.getById(byId.getUploaderId()));
         return Result.ok(res);
     }
 
@@ -152,4 +160,42 @@ public class bsArticleController {
         return Result.ok(bsArticleService.page(bsArticlePage, bsArticleQueryWrapper));
     }
 
+    @PostMapping("/addFavorites")
+    @Operation(summary = "收藏文章")
+    @Parameters({@Parameter(name = "userId", description = "用户id"), @Parameter(name = "articlesId", description = "文章id")})
+    public JSONObject addFavorites(@RequestParam(name = "userId") Integer userId, @RequestParam(name = "articlesId") Integer articlesId) {
+        QueryWrapper<bsUserFavorites> bsUserFavoritesQueryWrapper = new QueryWrapper<>();
+        bsUserFavoritesQueryWrapper.eq("userId", userId);
+        bsUserFavoritesQueryWrapper.eq("articleId", articlesId);
+        List<bsUserFavorites> bsUserFavoritesList = bsUserFavoritesService.list(bsUserFavoritesQueryWrapper);
+        if (bsUserFavoritesList.isEmpty()) { //没有收藏则加入收藏列表
+            bsUserFavorites bsUserFavorites = new bsUserFavorites();
+            bsUserFavorites.setId(null);
+            bsUserFavorites.setUserId(userId);
+            bsUserFavorites.setArticleId(articlesId);
+            bsUserFavoritesService.save(bsUserFavorites);
+            return Result.ok("收藏成功!");
+        }
+        return Result.error("文章已经在该用户的收藏列表中!");
+    }
+
+    @DeleteMapping("/deleteFavorites")
+    @Operation(summary = "取消收藏文章")
+    @Parameters({@Parameter(name = "userId", description = "用户id"), @Parameter(name = "articlesId", description = "文章id")})
+    public JSONObject deleteFavorites(@RequestParam(name = "userId") Integer userId, @RequestParam(name = "articlesId") Integer articlesId) {
+        QueryWrapper<bsUserFavorites> bsUserFavoritesQueryWrapper = new QueryWrapper<>();
+        bsUserFavoritesQueryWrapper.eq("userId", userId);
+        bsUserFavoritesQueryWrapper.eq("articleId", articlesId);
+        return bsUserFavoritesService.remove(bsUserFavoritesQueryWrapper) ? Result.ok("取消收藏!") : Result.error("取消收藏失败!");
+    }
+
+    @GetMapping("/hasFavorites")
+    @Operation(summary = "查看是否收藏该文章")
+    @Parameters({@Parameter(name = "userId", description = "用户id"), @Parameter(name = "articlesId", description = "文章id")})
+    public Boolean hasFavorites(@RequestParam(name = "userId") Integer userId, @RequestParam(name = "articlesId") Integer articlesId) {
+        QueryWrapper<bsUserFavorites> bsUserFavoritesQueryWrapper = new QueryWrapper<>();
+        bsUserFavoritesQueryWrapper.eq("userId", userId);
+        bsUserFavoritesQueryWrapper.eq("articleId", articlesId);
+        return !bsUserFavoritesService.list(bsUserFavoritesQueryWrapper).isEmpty();
+    }
 }
