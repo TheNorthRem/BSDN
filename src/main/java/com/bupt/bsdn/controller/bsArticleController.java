@@ -123,7 +123,7 @@ public class bsArticleController {
         bsArticleService.updateById(byId);
         JSONObject res = new JSONObject();
         res.put("article", byId);
-        res.put("uploader", bsUserService.getById(byId.getUploaderId()));
+        res.put("userId", bsUserService.getById(byId.getUploaderId()));
         return Result.ok(res);
     }
 
