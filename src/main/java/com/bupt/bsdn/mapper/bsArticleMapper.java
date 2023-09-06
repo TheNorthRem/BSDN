@@ -51,12 +51,12 @@ public interface bsArticleMapper extends BaseMapper<bsArticle> {
             "order by bs_article.clickCount desc ")
     Page<bsArticle> searchContent(String content, Page<bsArticle> page);
 
-    @Select("select * from bs_article order by clickCount desc limit 5")
+    @Select("select * from bs_article order by clickCount desc limit 10")
     List<bsArticle> getTopContent();
 
     @Select("select bs_article.article_id as articleId," +
             " bs_article.uploaderId as uploaderId," +
-            "bs_article.brief as brief," +
+            " bs_article.brief as brief," +
             " bs_article.title as title ," +
             " bs_article.clickCount as clickCount, " +
             " bs_article.favoriteCount as favoriteCount, " +
