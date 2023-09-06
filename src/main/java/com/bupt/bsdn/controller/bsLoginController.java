@@ -102,6 +102,15 @@ public class bsLoginController {
             return Result.error("用户名或密码不合要求！");
         }
 
+        //检测QQ号规范
+        if (QQ.length() < 5 || QQ.length() > 13)
+            return Result.error("QQ号长度不符合规范!");
+
+        for (int i = 0; i < QQ.length(); i++) {
+            if (QQ.charAt(i) < '0' || QQ.charAt(i) > '9')
+                return Result.error("QQ号不符合规范!");
+        }
+
         //用户名注册判重
         QueryWrapper<bsUser> bsUserQueryWrapper = new QueryWrapper<>();
         bsUserQueryWrapper.eq("userName", username);
