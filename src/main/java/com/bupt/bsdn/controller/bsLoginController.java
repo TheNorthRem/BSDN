@@ -2,9 +2,12 @@ package com.bupt.bsdn.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bupt.bsdn.entity.bsUser;
+import com.bupt.bsdn.entity.bsUserInformation;
+import com.bupt.bsdn.service.bsRedisCacheService;
+import com.bupt.bsdn.service.bsUserService;
 import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.util.Utils;
-import com.bupt.bsdn.entity.bsUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -12,8 +15,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.bupt.bsdn.service.bsUserService;
-import com.bupt.bsdn.service.bsRedisCacheService;
+import com.bupt.bsdn.service.bsUserInformationService;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/login")
@@ -24,10 +30,13 @@ public class bsLoginController {
     private final bsUserService bsuserService;
     private final bsRedisCacheService bsredisCacheService;
 
+    private final bsUserInformationService bsUserInformationService;
+
     @Autowired
-    public bsLoginController(bsUserService bsuserService, bsRedisCacheService bsredisCacheService) {
+    public bsLoginController(bsUserService bsuserService, bsRedisCacheService bsredisCacheService, bsUserInformationService bsUserInformationService) {
         this.bsuserService = bsuserService;
         this.bsredisCacheService = bsredisCacheService;
+        this.bsUserInformationService = bsUserInformationService;
     }
 
     @PostMapping
@@ -72,11 +81,21 @@ public class bsLoginController {
     }
 
     @PostMapping("/register")
-    @Operation(summary = "注册, 需要传递 username,password")
+    @Operation(summary = "注册, 需要传递 username,password, QQ, birthday(Date), intro")
     public JSONObject register(@RequestBody JSONObject data) {
         //从前台数据中获取参数
         String username = data.getString("username");
         String password = data.getString("password");
+        String QQ = data.getString("QQ");
+        Date birthday;
+        try {
+            birthday = new SimpleDateFormat("yyyy-MM-dd").parse(data.getString("birthday"));
+        } catch (ParseException parseException) {
+            log.warn("日期规范不符:" + data.getString("birthday"));
+            return Result.error("日期规范不符:" + data.getString("birthday"));
+        }
+        String intro = data.getString("intro");
+
 
         //检查密码是否合规
 
@@ -95,12 +114,38 @@ public class bsLoginController {
 
         user.setUserName(username);
         user.setPassword(password);
+        //注册的时候默认nickname == username
+        user.setNickName(username);
         user.setPrivilege(0);
 
-        //将用户存入后端数据库中
-        boolean save = bsuserService.save(user);
+        //将用户存入bs_user表中
+        if (!bsuserService.save(user)) {
+            log.error("bs_user表插入失败!");
+            return Result.error("注册失败，请联系客服");
+        }
 
-        return Result.ok(save);
+        //获取id
+        Integer userId;
+        try {
+            userId = bsuserService.list(bsUserQueryWrapper).get(0).getUserId();
+        } catch (IndexOutOfBoundsException exception) {
+            log.error("bs_user表出现错误!");
+            return Result.error("后台出现错误，请联系客服!");
+        }
+
+        //同步bs_userInformation表
+        bsUserInformation bsUserInformation = new bsUserInformation();
+        bsUserInformation.setInformationId(null);
+        bsUserInformation.setUserId(userId);
+        bsUserInformation.setQQ(QQ);
+        bsUserInformation.setBirthday(birthday);
+        bsUserInformation.setIntro(intro);
+        bsUserInformation.setArticleCount(0);
+        bsUserInformation.setFavoriteCount(0);
+        bsUserInformation.setClickCounts(0);
+        bsUserInformationService.save(bsUserInformation);
+
+        return Result.ok("注册成功!");
     }
 
     @DeleteMapping("/logOut")
