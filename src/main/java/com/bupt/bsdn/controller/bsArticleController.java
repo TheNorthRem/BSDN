@@ -171,6 +171,12 @@ public class bsArticleController {
             bsUserFavorites.setId(null);
             bsUserFavorites.setUserId(userId);
             bsUserFavorites.setArticleId(articlesId);
+
+            //文章收藏数量+1
+            bsArticle bsArticle = bsArticleService.getById(articlesId);
+            bsArticle.setFavoriteCount(bsArticle.getFavoriteCount() + 1);
+            bsArticleService.updateById(bsArticle);
+
             bsUserFavoritesService.save(bsUserFavorites);
             return Result.ok("收藏成功!");
         }
@@ -184,7 +190,15 @@ public class bsArticleController {
         QueryWrapper<bsUserFavorites> bsUserFavoritesQueryWrapper = new QueryWrapper<>();
         bsUserFavoritesQueryWrapper.eq("userId", userId);
         bsUserFavoritesQueryWrapper.eq("articleId", articlesId);
-        return bsUserFavoritesService.remove(bsUserFavoritesQueryWrapper) ? Result.ok("取消收藏!") : Result.error("取消收藏失败!");
+
+        if (bsUserFavoritesService.remove(bsUserFavoritesQueryWrapper)) {
+            //文章收藏数量-1
+            bsArticle bsArticle = bsArticleService.getById(articlesId);
+            bsArticle.setFavoriteCount(bsArticle.getFavoriteCount() - 1);
+            bsArticleService.updateById(bsArticle);
+            Result.ok("取消收藏!");
+        }
+        return Result.error("取消收藏失败!");
     }
 
     @GetMapping("/hasFavorites")
