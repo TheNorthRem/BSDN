@@ -113,7 +113,7 @@ public class bsArticleController {
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
         bsArticle byId = bsArticleService.getById(id);
         byId.setClickCount(byId.getClickCount()+1);
-        bsArticleService.save(byId);
+        bsArticleService.updateById(byId);
         JSONObject res=new JSONObject();
         res.put("article",byId);
         res.put("uploader",bsUserService.getById(byId.getUploaderId()));
