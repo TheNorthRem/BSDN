@@ -89,7 +89,7 @@ public class bsLoginController {
         return Result.ok(save);
     }
 
-    @PostMapping("/logOut")
+    @DeleteMapping("/logOut")
     @Operation(summary = "登出")
     @Parameters({@Parameter(name = "userId", description = "用户id"), @Parameter(name = "token", description = "token")})
     public JSONObject logOut(@RequestParam(name = "userId") Integer userId, @RequestParam(name = "token") String token) {
