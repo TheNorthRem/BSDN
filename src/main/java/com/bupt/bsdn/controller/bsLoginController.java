@@ -166,4 +166,13 @@ public class bsLoginController {
         bsredisCacheService.deleteToken(String.valueOf(userId));
         return Result.ok("登出成功!");
     }
+
+    @GetMapping("/getToken")
+    @Operation(summary = "获取token")
+    @Parameter(name = "id", description = "用户id")
+    public JSONObject getToken(@RequestParam(name = "id") Integer id) {
+        if (bsredisCacheService.hasToken(String.valueOf(id)))
+            return Result.ok(bsredisCacheService.getToken(String.valueOf(id)));
+        return Result.error("无token或token过期");
+    }
 }
