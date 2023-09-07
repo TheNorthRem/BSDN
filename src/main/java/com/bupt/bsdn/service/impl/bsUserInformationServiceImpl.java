@@ -22,4 +22,6 @@ public class bsUserInformationServiceImpl extends ServiceImpl<bsUserInformationM
     public List<bsUserInformation> search(Integer userId) {
         return bsUserInformationMapper.search(userId);
     }
+
+
 }
