@@ -16,7 +16,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         log.info("bsLoginInterceptor init");
         registry.addInterceptor(new bsLoginInterceptor()).
-                addPathPatterns("/bsArticle/upload**").excludePathPatterns();
+                addPathPatterns("/bsArticle/upload**","/bsArticle/searchContent**").excludePathPatterns();
         log.info("bsLoginInterceptor init success");
     }
 }
