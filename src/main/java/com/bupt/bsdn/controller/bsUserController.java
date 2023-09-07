@@ -72,7 +72,10 @@ public class bsUserController {
     @GetMapping("/getById")
     @Operation(summary = "根据ID查询")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
-        return Result.ok(bsUserService.getDetailById(id));
+        bsUser detailById = bsUserService.getDetailById(id);
+        if(detailById!=null)
+            return Result.ok(detailById);
+        return Result.error("用户不存在");
     }
 
     @GetMapping("/search")

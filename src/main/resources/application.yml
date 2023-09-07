@@ -24,6 +24,11 @@ spring:
 server: # 端口设置
   port: 8081
 
+# 日志持久化路径,只有部署的时候需要
+#logging:
+#  file:
+#    path: ""
+
 expirationTime: 1000  # redis缓存过期时间(秒)
 imagePath: "/home/liyehui/Programing/BSDN/image/" # 存储图片路径
 videoPath: "D://JUNGLE//JavaEE//" # 存储视频路径

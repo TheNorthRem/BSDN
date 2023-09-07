@@ -70,7 +70,8 @@ public class RedisConfig {
         //初始化参数和初始化工作
         redisTemplate.afterPropertiesSet();
         log.info("Redis init success");
-        log.info("""
+        System.out.println("""
+        \u001B[31m
                                 _._
                            _.-``__ ''-._
                       _.-``    `.  `_.  ''-._           Redis
@@ -87,7 +88,7 @@ public class RedisConfig {
                   `-._    `-._`-.__.-'_.-'    _.-'
                       `-._    `-.__.-'    _.-'
                           `-._        _.-'
-                              `-.__.-'
+                              `-.__.-'\u001B[0m
                 """);
         log.info("Redis information: \n" +
                 "host: " + Utils.getParamSettings("spring.data.redis.host") + "\n" +

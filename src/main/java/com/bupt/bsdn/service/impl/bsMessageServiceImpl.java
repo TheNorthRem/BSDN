@@ -8,6 +8,7 @@ import com.bupt.bsdn.service.bsMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -21,7 +22,12 @@ public class bsMessageServiceImpl extends ServiceImpl<bsMessageMapper, bsMessage
 
     @Override
     public List<bsUser> searchSendUser(Integer userId) {
-        return bsMessageMapper.searchSendUser(userId);
+        List<bsUser> bsUsers = bsMessageMapper.searchSendUser(userId);
+        bsUsers.addAll(bsMessageMapper.searchReceiveUser(userId));
+        HashSet<bsUser> Set=new HashSet<>(bsUsers);
+        bsUsers.clear();
+        bsUsers.addAll(Set);
+        return bsUsers;
     }
 
     @Override
