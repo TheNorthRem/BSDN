@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.bupt.bsdn.service.bsRedisCacheService;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -32,11 +33,14 @@ public class bsArticleController {
 
     private final bsUserFavoritesService bsUserFavoritesService;
 
+    private final bsRedisCacheService bsRedisCacheService;
+
     @Autowired
-    public bsArticleController(bsArticleService bsArticleService, bsUserService bsUserService, bsUserFavoritesService bsUserFavoritesService) {
+    public bsArticleController(bsArticleService bsArticleService, bsUserService bsUserService, bsUserFavoritesService bsUserFavoritesService, bsRedisCacheService bsRedisCacheService) {
         this.bsArticleService = bsArticleService;
         this.bsUserService = bsUserService;
         this.bsUserFavoritesService = bsUserFavoritesService;
+        this.bsRedisCacheService = bsRedisCacheService;
     }
 
     @GetMapping("/list")
@@ -138,8 +142,11 @@ public class bsArticleController {
     @GetMapping("/searchContent")
     @Operation(summary = "搜索文章(模糊查询+收藏量倒序),只要标题或内容模糊查询匹配即可,该接口自带分页功能")
     @Parameters({@Parameter(name = "content", description = "搜索内容"), @Parameter(name = "page", description = "第几页")})
-    public JSONObject searchContent(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page) {
+    public JSONObject searchContent(@RequestParam(name = "content") String content, @RequestParam(name = "page") Integer page,@RequestParam(name = "userId") Integer userId, @RequestParam(name = "token") String token) {
         Page<bsArticle> search = bsArticleService.searchContent(content, page);
+        if (userId == null || bsRedisCacheService.getToken(String.valueOf(userId)) == null || !bsRedisCacheService.getToken(String.valueOf(userId)).equals(token)) {
+            return Result.error("搜索失败，请先登录");
+        }
         return Result.ok(search);
     }
 

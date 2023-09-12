@@ -1,9 +1,9 @@
 spring:
   datasource: #mysql 配置
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://bj-cynosdbmysql-grp-p55yr6pq.sql.tencentcdb.com:29754/test?useSSL=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    username: syc
-    password: syc123456!
+    url: jdbc:mysql://{}?useSSL=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai #数据库URL
+    username: username #用户名
+    password: password #密码
   data: # redis配置
     redis:
       database: 0
@@ -25,14 +25,14 @@ server: # 端口设置
   port: 8081
 
 # 日志持久化路径,只有部署的时候需要
-#logging:
-#  file:
-#    path: ""
+logging:
+  file:
+    path: "/home/ubuntu"
 
 expirationTime: 1000  # redis缓存过期时间(秒)
-imagePath: "/home/liyehui/Programing/BSDN/image/" # 存储图片路径
-videoPath: "D://JUNGLE//JavaEE//" # 存储视频路径
+imagePath: "/home/ubuntu/BSDN/image/" # 存储图片路径
+videoPath: "/home/ubuntu/BSDN/video/" # 存储视频路径
 tokenLength: 10 #token长度
-logicIndexPath: "/image/index.html" #登录页面
-BaseUrl: http://localhost:8081
+logicIndexPath: "URL" #登录页面
+BaseUrl: URL # 基本URL
 PageSize: 5 # 每一页显示的数据量
