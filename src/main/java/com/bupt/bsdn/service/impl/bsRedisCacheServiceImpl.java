@@ -18,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class bsRedisCacheServiceImpl implements bsRedisCacheService {
     private final RedisTemplate<String, String> redisTemplate;
 
+    private final static String BSDN_PREFIX = "BSDN:";
+
 
     @Autowired
     public bsRedisCacheServiceImpl(RedisTemplate<String, String> redisTemplate) {
@@ -26,22 +28,22 @@ public class bsRedisCacheServiceImpl implements bsRedisCacheService {
 
     @Override
     public Boolean hasToken(String userId) {
-        return redisTemplate.hasKey(userId);
+        return redisTemplate.hasKey(BSDN_PREFIX+userId);
     }
 
     @Override
     public Boolean deleteToken(String key) {
-        return redisTemplate.delete(key);
+        return redisTemplate.delete(BSDN_PREFIX+key);
     }
 
     @Override
     public void setToken(String userId, String token) {
-        redisTemplate.opsForValue().set(userId, token, Long.parseLong(Utils.getParamSettings("expirationTime")), TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(BSDN_PREFIX+userId, token, Long.parseLong(Utils.getParamSettings("expirationTime")), TimeUnit.SECONDS);
     }
 
     @Override
     public String getToken(String userId) {
-        return redisTemplate.opsForValue().get(userId);
+        return redisTemplate.opsForValue().get(BSDN_PREFIX+userId);
     }
 
     @Override
