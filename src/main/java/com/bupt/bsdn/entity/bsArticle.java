@@ -1,6 +1,5 @@
 package com.bupt.bsdn.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,9 +15,9 @@ import java.time.LocalDateTime;
 @TableName("bs_article")
 @Schema(name = "文章")
 public class bsArticle {
-    @TableId(type = IdType.AUTO)
+    @TableId()
     @Schema(description = "主键")
-    private Integer articleId;
+    private String articleId;
 
     @TableField("uploaderId")
     @Schema(description = "上传者的ID")
