@@ -2,23 +2,18 @@ package com.bupt.bsdn.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.bupt.bsdn.entity.bsUserInformation;
-import com.bupt.bsdn.util.Result;
 import com.bupt.bsdn.entity.bsUser;
-import com.bupt.bsdn.service.bsUserService;
+import com.bupt.bsdn.entity.bsUserInformation;
 import com.bupt.bsdn.service.bsUserInformationService;
-import com.bupt.bsdn.util.Utils;
+import com.bupt.bsdn.service.bsUserService;
+import com.bupt.bsdn.service.bsUserRecommendResultsService;
+import com.bupt.bsdn.util.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/bsUser")
@@ -29,10 +24,13 @@ public class bsUserController {
 
     private final bsUserInformationService bsUserInformationService;
 
+    private final bsUserRecommendResultsService bsUserRecommendResultsService;
+
     @Autowired
-    public bsUserController(bsUserService bsUserService, bsUserInformationService bsUserInformationService) {
+    public bsUserController(bsUserService bsUserService, bsUserInformationService bsUserInformationService, bsUserRecommendResultsService bsUserRecommendResultsService) {
         this.bsUserService = bsUserService;
         this.bsUserInformationService = bsUserInformationService;
+        this.bsUserRecommendResultsService = bsUserRecommendResultsService;
     }
 
     @GetMapping("/list")
@@ -73,7 +71,7 @@ public class bsUserController {
     @Operation(summary = "根据ID查询")
     public JSONObject getById(@RequestParam(name = "id") Integer id) {
         bsUser detailById = bsUserService.getDetailById(id);
-        if(detailById!=null)
+        if (detailById != null)
             return Result.ok(detailById);
         return Result.error("用户不存在");
     }
@@ -85,5 +83,10 @@ public class bsUserController {
         return Result.ok(bsUserService.search(userName));
     }
 
-
+    @GetMapping("/recommend")
+    @Operation(summary = "获取用户的推荐结果")
+    @Parameter(name = "userId", description = "用户id")
+    public JSONObject recommend(@RequestParam(name = "userId", defaultValue = "") Integer userId) {
+        return Result.ok(bsUserRecommendResultsService.recommendList(userId));
+    }
 }
