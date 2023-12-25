@@ -48,9 +48,9 @@ public class RedisConfig {
     @Bean("connectionFactory")
     public JedisConnectionFactory connectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName("127.0.0.1");
+        redisStandaloneConfiguration.setHostName("82.157.75.213");
         redisStandaloneConfiguration.setDatabase(0);
-        redisStandaloneConfiguration.setPassword(RedisPassword.of(""));
+        redisStandaloneConfiguration.setPassword(RedisPassword.of("yy123456!"));
         redisStandaloneConfiguration.setPort(6379);
         //获得默认的连接池构造器
         JedisClientConfiguration.JedisPoolingClientConfigurationBuilder jedisPoolingClientConfigurationBuilder =
