@@ -86,7 +86,14 @@ public class bsUserController {
     @GetMapping("/recommend")
     @Operation(summary = "获取用户的推荐结果")
     @Parameter(name = "userId", description = "用户id")
-    public JSONObject recommend(@RequestParam(name = "userId", defaultValue = "") Integer userId) {
+    public JSONObject recommend(@RequestParam(name = "userId") Integer userId) {
         return Result.ok(bsUserRecommendResultsService.recommendList(userId));
+    }
+
+    @GetMapping("/recommendVisualization")
+    @Operation(summary = "用户推荐结果可视化")
+    @Parameter(name = "userId", description = "用户id")
+    public JSONObject recommendVisualization(@RequestParam(name = "userId") Integer userId) {
+        return Result.ok(bsUserRecommendResultsService.recommendVisualization(userId));
     }
 }

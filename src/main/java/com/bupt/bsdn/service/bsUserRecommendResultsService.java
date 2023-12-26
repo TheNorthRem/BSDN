@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface bsUserRecommendResultsService extends IService<bsUserRecommendResults> {
     List<JSONObject> recommendList(Integer userId);
+
+    List<JSONObject> recommendVisualization(Integer userId);
 }

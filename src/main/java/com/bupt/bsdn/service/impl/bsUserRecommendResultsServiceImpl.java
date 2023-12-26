@@ -14,15 +14,25 @@ import com.bupt.bsdn.service.bsUserRecommendResultsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class bsUserRecommendResultsServiceImpl extends ServiceImpl<bsUserRecommendResultsMapper, bsUserRecommendResults> implements bsUserRecommendResultsService {
     private final bsArticleService bsArticleService;
 
     private final ArchiveBookService archiveBookService;
+
+    private static final Map<String, Integer> category;
+
+
+    static {
+        category = new HashMap<>();
+        category.put("前端", 0);
+        category.put("后端", 1);
+        category.put("数据库", 2);
+        category.put("生活", 3);
+        category.put("编程语言", 4);
+    }
 
     @Autowired
     public bsUserRecommendResultsServiceImpl(bsArticleService bsArticleService, ArchiveBookService archiveBookService) {
@@ -57,6 +67,47 @@ public class bsUserRecommendResultsServiceImpl extends ServiceImpl<bsUserRecomme
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("archiveBook", archiveBook);
             jsonObject.put("bsArticle", bsArticle);
+            ans.add(jsonObject);
+        }
+        return ans;
+    }
+
+    @Override
+    public List<JSONObject> recommendVisualization(Integer userId) {
+        QueryWrapper<bsUserRecommendResults> bsUserRecommendResultsQueryWrapper = new QueryWrapper<>();
+        bsUserRecommendResultsQueryWrapper.eq("user_id", userId);
+
+        bsUserRecommendResults bsUserRecommendResults = this.getOne(bsUserRecommendResultsQueryWrapper);
+        if (bsUserRecommendResults == null) {
+            return Collections.emptyList();
+        }
+
+        List<String> recommends = List.of(bsUserRecommendResults.getRecommendResults().split("-"));
+        ArrayList<bsArticle> bsArticles = new ArrayList<>();
+        for (String recommend : recommends) {
+            QueryWrapper<bsArticle> bsArticleQueryWrapper = new QueryWrapper<>();
+            bsArticleQueryWrapper.eq("article_id", recommend);
+            bsArticle bsArticle = bsArticleService.getOne(bsArticleQueryWrapper);
+
+            if (bsArticle == null) {
+                continue;
+            }
+            bsArticles.add(bsArticle);
+        }
+
+        int[] categoryCount = new int[category.size()];
+        int[] categoryClickCount = new int[category.size()];
+        for (bsArticle bsArticle : bsArticles) {
+            categoryCount[category.get(bsArticle.getCategory())]++;
+            categoryClickCount[category.get(bsArticle.getCategory())] += bsArticle.getClickCount();
+        }
+
+        ArrayList<JSONObject> ans = new ArrayList<>();
+        for (String cate : category.keySet()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("category", cate);
+            jsonObject.put("article_count", categoryCount[category.get(cate)]);
+            jsonObject.put("clickCount", categoryClickCount[category.get(cate)]);
             ans.add(jsonObject);
         }
         return ans;
