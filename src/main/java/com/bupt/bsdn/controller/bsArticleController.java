@@ -22,7 +22,7 @@ import com.bupt.bsdn.service.bsRedisCacheService;
 
 import java.sql.Timestamp;
 import java.util.Date;
-
+import com.bupt.bsdn.service.bsHbaseService;
 @RestController
 @RequestMapping("/bsArticle")
 @Slf4j
@@ -35,12 +35,14 @@ public class bsArticleController {
 
     private final bsRedisCacheService bsRedisCacheService;
 
+    private final bsHbaseService bshbaseService;
     @Autowired
-    public bsArticleController(bsArticleService bsArticleService, bsUserService bsUserService, bsUserFavoritesService bsUserFavoritesService, bsRedisCacheService bsRedisCacheService) {
+    public bsArticleController(bsArticleService bsArticleService, bsUserService bsUserService, bsUserFavoritesService bsUserFavoritesService, bsRedisCacheService bsRedisCacheService,bsHbaseService bshbaseService) {
         this.bsArticleService = bsArticleService;
         this.bsUserService = bsUserService;
         this.bsUserFavoritesService = bsUserFavoritesService;
         this.bsRedisCacheService = bsRedisCacheService;
+        this.bshbaseService=bshbaseService;
     }
 
     @GetMapping("/list")
@@ -120,14 +122,15 @@ public class bsArticleController {
 
     @GetMapping("/getById")
     @Operation(summary = "根据id查询")
-    @Parameter(name = "id", description = "文章Id")
-    public JSONObject getById(@RequestParam(name = "id") Integer id) {
+    @Parameters({@Parameter(name = "id", description = "文章Id"),@Parameter(name="userId",description = "用户主键")})
+    public JSONObject getById(@RequestParam(name = "id") String id,@RequestParam(name="userId") String userId) {
         bsArticle byId = bsArticleService.getById(id);
         byId.setClickCount(byId.getClickCount() + 1);
         bsArticleService.updateById(byId);
         JSONObject res = new JSONObject();
         res.put("article", byId);
         res.put("userId", bsUserService.getById(byId.getUploaderId()));
+        bshbaseService.addCount(userId,id);
         return Result.ok(res);
     }
 
